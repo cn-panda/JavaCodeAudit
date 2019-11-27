@@ -37,7 +37,7 @@ myeclipse 配置 Tomcat 教程：
 
 ### 1、包的命名规范
 
-![1.png](https://www.cnpanda.net/usr/uploads/2019/11/3036697678.png "1.png")
+![1.png](https://www.cnpanda.net/usr/uploads/2019/11/3036697678.png)
 
 如上图所示，在 Java 中，会有各种各样的包，大致规则如下：
 
