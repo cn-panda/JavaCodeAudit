@@ -124,9 +124,9 @@ Servlet 生命周期可被定义为从创建直到毁灭的整个过程。以下
 `service() `方法是执行实际任务的主要方法，Servlet 容器（即 Web 服务器）调用 `service() `方法来处理来自客户端（浏览器）的请求，并把格式化的响应写回给客户端。每次服务器接收到一个 Servlet 请求时，服务器会产生一个新的线程并调用服务。`service() `方法检查 HTTP 请求类型（GET、POST、PUT、DELETE 等），并在适当的时候调用 doGet、doPost、doPut，doDelete 等方法。
 
 ```java
-public void service(ServletRequest request, 
-                    ServletResponse response) 
+public void service(ServletRequest request, ServletResponse response) 
       throws ServletException, IOException{
+      ...
 }
 ```
 以上代码，即为一个`service()`方法的特征
