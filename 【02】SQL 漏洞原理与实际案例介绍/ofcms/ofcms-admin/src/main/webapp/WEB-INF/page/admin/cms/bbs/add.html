@@ -1,0 +1,30 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"cms/bbs"
+		},
+		"queryform":{
+	          "form_id":"query_form",	
+	          "sqlid":"cms.bbs.save",
+	          "ver_type":"msg",
+	          "fields":[          {"name":"site_id","type":"hidden","value":"${session.site.site_id}"},
+								  {"name":"title","type":"text","label":"留言标题","verify":"required","placeholder":"请输入留言标题"},
+								  {"name":"mobile","type":"text","label":"手机号","div_width":"183","verify":"required","placeholder":"请输入手机号",
+								  "right_list":[ {"name":"email","type":"text","label":"邮箱","div_width":"183","verify":"required","placeholder":"请输入邮箱"}]},
+								  {"name":"qq","type":"text","label":"qq号","div_width":"183","verify":"required","placeholder":"请输入qq号"，
+								  "right_list":[ {"name":"is_check","type":"text","label":"审核","div_width":"183","verify":"required" }]},
+								  {"name":"content","type":"textarea","label":"留言内容","verify":"required","placeholder":"请输入留言内容"},
+								  {"name":"rev_content","type":"textarea","label":"回复内容","verify":"required","placeholder":"请输入回复内容"}
+	],
+	       "tab_buttons":[
+		    				{"button_id":"s1","button_name":"新增","event":"add","icon":"&#xe654;"},
+		    				{"button_id":"s2","button_name":"关闭","event":"close","icon":"&#x1006;"}
+			    		]
+			  }
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_update.html">
+ 

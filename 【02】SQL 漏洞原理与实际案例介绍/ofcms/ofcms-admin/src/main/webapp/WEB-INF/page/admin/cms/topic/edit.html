@@ -1,0 +1,33 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"cms/topic",
+		"function_name":"edit",
+		"load_sqlid":"cms.topic.detail"
+		},
+		"queryform":{
+	          "form_id":"edit_form",	
+	          "sqlid":"cms.topic.update",
+	          "ver_type":"msg",
+	          "fields":[
+							 	{"name":"topic_id","type":"hidden"},
+								{"name":"topic_name","type":"text","label":"专题名称","verify":"required","div_width":"183","placeholder":"请输入专题名称",
+								"right_list":[{"name":"topic_template","type":"text","label":"专题模板","div_width":"183","placeholder":"请输入专题模板"}]},
+								{"name":"is_show","type":"checkbox","label":"是否显示","div_width":"183","checkbox_text":"显示|不显","checkbox_value":"1|0","value":"1","checked":"true",
+								"right_list":[ {"name":"sort","type":"text","label":"排序","div_width":"183","verify":"number"}]},
+								{"name":"topic_image","type":"file","label":"专题图标","id":"topic_image","div_width":"183","file_size":"1024","div_width":"150","title":"图片上传"},
+								{"name":"topic_content_image","type":"file","label":"专题内容图","id":"topic_content_image","div_width":"183","file_size":"1024","div_width":"150","title":"图片上传"},
+								{"name":"description","type":"textarea","label":"专题描述","width":"500","placeholder":"请输入专题描述"}
+					   ],
+	       "tab_buttons":[
+		    				{"button_id":"s1","button_name":"保存","event":"add","icon":"&#xe610;" },
+		    				{"button_id":"s2","button_name":"关闭","event":"close","icon":"&#x1006;"}
+			    		]
+			  }
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_update.html">
+ 

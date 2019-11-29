@@ -1,0 +1,79 @@
+<#include "admin/template/page/head_lib.html">
+<body>
+	<div class="layui-fluid">
+		<div class="layui-row layui-col-space15">
+			<div class="layui-col-md12">
+				<form class="layui-form" id="edit_form" isLoad="1" loadUrl="weixin/config/detail.json" >
+				<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief" >
+					<ul class="layui-tab-title">
+						<li class="layui-this">网站设置</li>
+						<li>邮箱设置</li>
+						<li>短信设置</li>
+					</ul>
+					<div class="layui-tab-content" style="width: 700px; " >
+						<div class="layui-tab-item layui-show">
+							<div class="layui-form-item">
+								<label class="layui-form-label">APP_ID</label>
+								<div class="layui-input-block">
+									<input type="text" name="wx_app_id" required  lay-verify="required" placeholder="请输入APP_ID" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">APP_SECRET</label>
+								<div class="layui-input-block">
+									<input type="text" name="wx_app_secret" required  lay-verify="required" placeholder="请输入APP_SECRET" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">APP_TOKEN</label>
+								<div class="layui-input-block">
+									<input type="text" name="wx_app_token" required  lay-verify="required" placeholder="请输入APP_TOKEN" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">微信访问</label>
+								<div class="layui-input-block">
+									<input type="text" name="weixin_url"  disabled autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">是否加密</label>
+								<div class="layui-input-block">
+									<input type="radio" name="encryptMessage" value="ture" title="是">
+									<input type="radio" name="encryptMessage" value="false" title="否" checked>
+								</div>
+							</div>
+							<div class="layui-form-item layui-form-text">
+								<label class="layui-form-label">密钥</label>
+								<div class="layui-input-block">
+									<textarea name="encodingAesKey" placeholder="请输入密钥" class="layui-textarea"></textarea>
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<div class="layui-input-block" style="text-align: center">
+									<button class="layui-btn" lay-submit="" lay-filter="edit" url="weixin/config/update.json">保存</button>
+								</div>
+							</div>
+						</div>
+						<div class="layui-tab-item"></div>
+						<div class="layui-tab-item"></div>
+					</div>
+
+				</div>
+
+			</div>
+
+			</form>
+			</div>
+		</div>
+	</div>
+	
+<script>
+layui.use([ 'layer' ,'element'], function(){
+    var element = layui.element;
+});
+</script>
+
+
+</body>
+</html>

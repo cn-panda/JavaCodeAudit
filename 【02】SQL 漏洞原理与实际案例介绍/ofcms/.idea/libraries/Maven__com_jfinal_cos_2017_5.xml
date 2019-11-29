@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.jfinal:cos:2017.5">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../maven/repository/com/jfinal/cos/2017.5/cos-2017.5.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../../maven/repository/com/jfinal/cos/2017.5/cos-2017.5-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../maven/repository/com/jfinal/cos/2017.5/cos-2017.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

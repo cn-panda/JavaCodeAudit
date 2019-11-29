@@ -1,0 +1,81 @@
+<#include "admin/template/page/head_lib.html">
+<body>
+	<div>
+		<div class="layui-fluid">
+			<div class="layui-row layui-col-space1">
+				<div class="layui-col-md12">
+					<blockquote class="layui-elem-quote  " style="padding: 0.5px  5px ">
+						<div class="layui-form-query">
+							<form class="layui-form" id="query_form">
+								<div class="layui-form-item">
+									<div class="layui-inline">
+										<label class="layui-form-mid">用户名称：</label>
+										<div class="layui-input-inline" style="width: 100px;">
+											<input type="tel" name="user_name" autocomplete="off"
+												class="layui-input" />
+										</div>
+									</div>
+									<div class="layui-inline">
+										<label class="layui-form-mid">操作时间：</label>
+										<div class="layui-input-inline" >
+											<input type="text" name="oper_date" autocomplete="off"
+												class="layui-input sykDate" datetype="date" />
+										</div>
+									</div>
+									<div class="layui-inline">
+										<div class="layui-input-inline">
+											<button class="layui-btn" type="button" function="query">
+												<i class="layui-icon">&#xe615;</i>查询
+											</button>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</blockquote>
+				</div>
+				<div class="layui-col-md12">
+					<div class="layui-row grid-demo">
+						<div class="layui-col-md12">
+							<div class="layui-btn-container">
+								<button class="layui-btn  layui-btn-sm layui-btn-danger"
+									function="submit" url="comn/service/del.json?sqlid=system.log.delete" isMutiDml="1" isConfirm="1"
+									confirmMsg="是否确定删除选中的数据？" inputs="logid:" delkey="logid">
+									<i class="layui-icon ">&#xe640;</i>批量删除
+								</button>
+								<button class="layui-btn layui-btn-sm" function="refresh">
+									<i class="layui-icon">&#x1002;</i>刷新
+								</button>
+							</div>
+							<table id="adminDatagrid" lay-filter="adminDatagrid"
+								class="adminDatagrid" isLoad="1" url="comn/service/query.json?sqlid=system.log.query"
+								isPage="1" sortType="1" defaultForm="query_form"
+								height="full-130"></table>
+							<div class="adminDatagridCols">
+								<p type="numbers" title="#" />
+								<p checkbox="true" />
+								<p field="logid" title="编号" width="80" sort="true" />
+								<p field="user_name" title="用户名称" width="120" sort="true" />
+								<p field="function_name" title="功能" width="180" />
+								<p field="oper_desc" title="描述" width="180" sort="true" />
+								<p field="oper_date" title="操作日期" width="120" />
+								<p field="oper_time" title="操作时间" width="160" />
+								<p field="status" title="状态" width="80" templet="#stateTpl" />
+								<p field="remark" title="备注" width="120"  />
+								<p fixed="right" align="center" toolbar="#barDemo" title="操作"
+									width="100" />
+							</div>
+							<script type="text/html" id="stateTpl">
+								<input type="checkbox" name="state" lay-skin="switch" disabled lay-text="正常|删除" {{ d.status == 1 ? 'checked' : '' }}>
+							</script>
+							<script type="text/html" id="barDemo">
+  								<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="submit" url="comn/service/del.json?sqlid=system.log.delete" isConfirm="1" confirmMsg="是否确定删除当前记录？" inputs="logid:">删除</a>
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

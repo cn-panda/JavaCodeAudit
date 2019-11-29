@@ -1,0 +1,187 @@
+ <#include "admin/template/page/head_lib.html">
+<script type="text/javascript"
+	src="${webroot}/static/plugins/echarts/echarts.min.js"></script>
+	<style>
+	.layui-col-space15 {
+    margin: 0px;
+}
+	</style>
+<body>
+	<div class="layui-fluid">
+		<div class="layui-row layui-col-space15">
+			<div class="layui-col-sm6 layui-col-md3">
+				<div class="layui-card">
+					<div class="layui-card-header">
+						今日访问 <span class="layui-badge layui-bg-blue layuiadmin-badge">日</span>
+					</div>
+					<div class="layui-card-body layuiadmin-card-list">
+						<p class="layuiadmin-big-font">${data.day_access_count!''}</p>
+						<p>
+							累计访问 <span class="layuiadmin-span-color">${data.total_access_count!''} <i
+								class="layui-inline layui-icon layui-icon-flag">&#xe66c;</i></span>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="layui-col-sm6 layui-col-md3">
+				<div class="layui-card">
+					<div class="layui-card-header">
+						今日发布 <span class="layui-badge layui-bg-cyan layuiadmin-badge">日</span>
+					</div>
+					<div class="layui-card-body layuiadmin-card-list">
+						<p class="layuiadmin-big-font">${data.day_content_count!''}</p>
+						<p>
+							累计发布 <span class="layuiadmin-span-color">${data.total_content_count!''}条 <i
+								class="layui-inline layui-icon layui-icon-flag">&#xe66c;</i></span>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="layui-col-sm6 layui-col-md3">
+				<div class="layui-card">
+					<div class="layui-card-header">
+						今日留言 <span class="layui-badge layui-bg-green layuiadmin-badge">日</span>
+					</div>
+					<div class="layui-card-body layuiadmin-card-list">
+						<p class="layuiadmin-big-font">${data.day_bbs_count!''}</p>
+						<p>
+							累计留言 <span class="layuiadmin-span-color">${data.total_bbs_count!''}条 <i
+								class="layui-inline layui-icon layui-icon-flag">&#xe66c;</i></span>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="layui-col-sm6 layui-col-md3">
+				<div class="layui-card">
+					<div class="layui-card-header">
+						今日评论 <span class="layui-badge layui-bg-orange layuiadmin-badge">日</span>
+					</div>
+					<div class="layui-card-body layuiadmin-card-list">
+						<p class="layuiadmin-big-font">${data.day_comment_count!''}</p>
+						<p>
+							累计评论 <span class="layuiadmin-span-color">${data.total_comment_count!''}条 <i
+								class="layui-inline layui-icon layui-icon-flag">&#xe770;</i></span>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="layui-col-md9">
+				<div class="layui-card" style="clear: both;">
+					<div class="layui-card-header">数据统计</div>
+					<div class="layui-card-body">
+						<div class="layui-carousel layadmin-carousel layadmin-news"
+							data-autoplay="true" lay-arrow="none">
+							<div carousel-item >
+								<div  style="background-color: #ffffff">
+									 <div id="continuous" style="width: 800px;height:250px;"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="layui-col-sm12 layui-col-md3">
+				<div class="layui-card">
+					<div class="layui-card-header">
+						系统信息
+					</div>
+					<div class="layui-card-body layuiadmin-card-list">
+			 <table class="layui-table layuiadmin-page-table"  >
+				 <colgroup>
+					 <col width="100">
+					 <col>
+				 </colgroup>
+                  <tbody>
+                    <tr>
+                      <td><span class="second">主机名</span></td>
+                      <td><span>${data.host_name}</span></td>
+                    </tr>
+					<tr>
+						<td>IP本地</td>
+						<td><span>${data.local_ip}</span></td>
+					</tr>
+                    <tr>
+                      <td><span class="third">系统名称</span></td>
+                      <td>${data.os_name}</td>
+                    </tr>
+                    <tr>
+                      <td>系统构架</td>
+                      <td><span>${data.os_arch}</span></td>
+                    </tr>
+                    <tr>
+                      <td>系统版本</td>
+                      <td><span>${data.os_version}</span></td>
+                    </tr>
+
+					<tr>
+						<td><span class="first">JAVA版本</span></td>
+						<td><span>${data.java_version}</span></td>
+					</tr>
+                  </tbody>
+                </table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		layui
+				.use(
+						[ 'layer', 'form', 'element', 'carousel',
+								"admin.tab" ],
+						function() {
+							var layer = layui.layer, carousel = layui.carousel, form = layui.form, element = layui.element, tab = layui['admin.tab'];
+							carousel.render({
+								elem : '.layadmin-news',
+								interval : 1800,
+								anim : 'fade',
+								autoplay : false,
+								arrow : 'none',
+								height : '260px',
+								width : '100%'
+							});
+						});
+		var access = '${data.access}';
+		access = JSON.parse(access);
+		myChart = echarts.init(document.getElementById('continuous'), 'mint');
+		option = {
+			    title: {
+			        text: '最近7天访问量'
+			    },
+			    tooltip: {
+			        trigger: 'axis'
+			    },
+			    legend: {
+			        data:[ '访问量']
+			    },
+			    grid: {
+			        left: '3%',
+			        right: '4%',
+			        bottom: '3%',
+			        containLabel: true
+			    },
+			    xAxis: {
+			        type: 'category',
+			        boundaryGap: false,
+			        data: access.date
+			    },
+			    yAxis: {
+			        type: 'value'
+			    },
+			    series: [
+
+			        {
+			            name:'当日访问量',
+			            type:'line',
+			            stack: '总量',
+			            data:access.data
+			        }
+
+			    ]
+			};
+		// 使用刚指定的配置项和数据显示图表。
+		myChart.setOption(option);
+	</script>
+
+</body>
+</html>

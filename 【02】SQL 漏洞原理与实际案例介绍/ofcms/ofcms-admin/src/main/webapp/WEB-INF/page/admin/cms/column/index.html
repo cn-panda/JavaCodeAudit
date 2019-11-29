@@ -1,0 +1,113 @@
+<#include "admin/template/page/head_lib.html">
+    <body>
+    <div>
+        <div class="layui-fluid">
+            <div class="layui-row layui-col-space1">
+                <div class="layui-col-md12">
+                </div>
+                <div class="layui-col-md12">
+                    <div class="layui-row grid-demo">
+                        <div class="layui-col-md12">
+                            <div class="layui-btn-container">
+                                <button class="add layui-btn layui-btn-sm"
+                                        topUrl="f.html?p=cms/column/add.html" topWidth="680px"
+                                        isMaximize="0" topHeight="450px" topTitle="新增用户">
+                                    <i class="layui-icon">&#xe654;</i>新增
+                                </button>
+                                <button class="layui-btn layui-btn-sm" id="expand">全部展开</button>
+                                <button class="layui-btn layui-btn-sm" id="collapse">全部收起</button>
+                            </div>
+                            <div id="adminDatagrid"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function edit(columnId) {
+            var _this = $(this);
+            var _url = "f.html?p=cms/column/edit.html&column_id=" + columnId;
+            var _title = "编辑栏目";
+            var _width = "680px";
+            var _height = "450px";
+            adminCommon.open(_title, _width, _height, _url, function (result) {
+                location.reload('f.html?p=cms/column/index.html');
+            });
+
+        }
+        function add(columnId) {
+            var _this = $(this);
+            var _url = "f.html?p=cms/column/parent.html&up_column_id=" + columnId ;
+            var _title = "新增子栏目";
+            var _width = "680px";
+            var _height = "450px";
+            adminCommon.open(_title, _width, _height, _url, function (result) {
+                location.reload('f.html?p=cms/column/index.html');
+            })
+        }
+        function del(columnId) {
+            var _this = $(this);
+            adminCommon.confirm("提示", "是否确定删除当前记录？", function(index)
+            {
+                layer.close(index);
+                utile.ajaxSubmit({"url": webrootAdmin + "/cms/column/del.json","data":{"column_id":columnId}}, function (result) {
+                    location.reload('f.html?p=cms/column/index.html');
+                });
+            });
+        }
+        $(".add").on("click",	function() {
+            var _this =  $(this);
+            var _url = _this.attr("topUrl");
+            if ($.isEmpty(_url)) {
+                adminCommon.warnMsg("url地址为空！");
+                return false;
+            }
+            var _title = _this.attr("topTitle");
+            var _width = _this.attr("topWidth");
+            var _height = _this.attr("topHeight");
+            var isMaximize = _this.attr("isMaximize");
+            adminCommon.open(_title, _width, _height, _url,function (result) {
+                location.reload('f.html?p=cms/column/index.html');
+            });
+            return false;
+        })
+
+        layui.use(['form', 'tree', 'layer'], function () {
+            var layer = layui.layer, form = layui.form, $ = layui.jquery;
+            var layout = [
+                {name: '栏目名称', treeNodes: true, headerClass: 'value_col', colClass: 'value_col', style: 'width: 80%'},
+                {
+                    name: '操作',
+                    headerClass: 'value_col',
+                    colClass: 'value_col',
+                    style: 'width: 20%',
+                    render: function (row) {
+                        return '<a class="layui-btn layui-btn-xs"  onclick="add(' + row.id + ')"  lay-event="top" topUrl="f.html?p=system/user/edit.html" topWidth="680px" topHeight=450px" topTitle="新增子栏目" inputs="user_id:">新增子栏目</a>'
+                            + '<a class="layui-btn layui-btn-xs" onclick="edit(' + row.id + ')" lay-event="top" topUrl="f.html?p=system/user/edit.html" topWidth="680px" topHeight=450px" topTitle="编辑用户" inputs="user_id:">编辑</a>'
+                            + '<a class="layui-btn layui-btn-danger layui-btn-xs"  onclick="del(' + row.id + ')"  lay-event="submit" url="system/user/del.html" isConfirm="1" confirmMsg="是否确定删除当前记录？" inputs="user_id:">删除</a>';
+                    }
+                },
+            ];
+            var tree ;
+            utile.ajaxSubmit({"url": webrootAdmin + "/cms/column/menu.json"}, function (result) {
+                tree = layui.treeGird({
+                    elem: '#adminDatagrid', //传入元素选择器
+                    spreadable: true, //设置是否全展开，默认不展开
+                    checkbox: false,
+                    nodes:  result.data,
+                    layout: layout
+                });
+                form.render();
+                $('#collapse').on('click', function () {
+                    layui.collapse(tree);
+                });
+                $('#expand').on('click', function () {
+                    layui.expand(tree);
+                });
+            })
+        });
+    </script>
+    </body>
+    </html>

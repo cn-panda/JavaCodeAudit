@@ -1,0 +1,38 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"cms/column",
+		"function_name":"edit",
+		"load_sqlid":"cms.column.detail"
+		},
+		"queryform":{
+	          "form_id":"edit_form",	
+	          "sqlid":"cms.column.update",
+	          "ver_type":"msg",
+	          "fields":[
+							 	{"name":"column_id","type":"hidden","value":"${result.column_id}"},
+								{"name":"site_id","type":"hidden","value":"${session.site.site_id}"},
+								{"name":"column_name","type":"text","label":"栏目名称","div_width":"180","verify":"required","placeholder":"请输入栏目名称",
+								"right_list":[{"name":"up_column_id","type":"text","label":"上级栏目","div_width":"180","disabled":"true"}]},
+								{"name":"column_english","type":"text","label":"栏目英文","div_width":"180","verify":"required","placeholder":"请输入栏目英文",
+								"right_list":[{"name":"form_id","type":"select","div_width":"180","label":"栏目模型","dict":"form_data","verify":"required","placeholder":"请选择模型"}]},
+								{"name":"column_image","type":"file","label":"栏目图","div_width":"180","file_size":"5120","div_width":"150","title":"图片上传"},
+								{"name":"template_path","type":"text","label":"栏目模板", "placeholder":"默认根目录"},
+								{"name":"column_content_page","type":"text","label":"内容模板", "placeholder":"默认根目录"},
+								{"name":"is_show","type":"checkbox","label":"是否显示","div_width":"180","checkbox_text":"显示|不显","checkbox_value":"1|0","value":"1","checked":"true",
+								"right_list":[{"name":"sort","type":"text","label":"排序","div_width":"100","verify":"number"}]},
+	                            {"name":"is_open","type":"checkbox","label":"是否单页","div_width":"180","checkbox_text":"是|否","checkbox_value":"1|0","value":"1","checked":"true"},
+								{"name":"column_desc","type":"textarea","label":"栏目描述","width":"500","placeholder":"请输入栏目描述"}
+					   ],
+	       "tab_buttons":[
+		    				{"button_id":"s1","button_name":"保存","event":"add","icon":"&#xe610;" },
+		    				{"button_id":"s2","button_name":"关闭","event":"close","icon":"&#x1006;"}
+			    		]
+			  }
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_update.html">
+ 

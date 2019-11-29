@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ofcms-template-blog:war">
+    <output-path>$PROJECT_DIR$/ofcms-template-blog/target</output-path>
+    <root id="archive" name="ofcms-front.war">
+      <element id="artifact" artifact-name="ofcms-template-blog:war exploded" />
+    </root>
+  </artifact>
+</component>

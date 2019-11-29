@@ -1,0 +1,21 @@
+.product{
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+}
+.product .product-left{
+    width: 200px;
+    float: left;
+}
+.product .product-left ul {
+    font-size: 15px;
+    color: #3F3F3F;
+    padding: 10px;
+    border: 1px solid #f8f8f8;
+ }
+.product .product-left ul  li{
+    line-height: 30px;
+}
+.product .product-right{
+    float: left;
+}

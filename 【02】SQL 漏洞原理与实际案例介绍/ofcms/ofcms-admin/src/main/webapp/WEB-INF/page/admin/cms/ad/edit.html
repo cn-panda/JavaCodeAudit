@@ -1,0 +1,33 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"cms/ad",
+		"function_name":"edit",
+		"load_sqlid":"cms.ad.detail"
+		},
+		"queryform":{
+	          "form_id":"edit_form",	
+	          "sqlid":"cms.ad.update",
+	          "ver_type":"msg",
+	          "fields":[
+							 	{"name":"ad_id","type":"hidden"},
+								{"name":"ad_name","type":"text","label":"广告名称","div_width":"180","verify":"required","placeholder":"请输入广告名称",
+								"right_list":[{"name":"ad_edition","type":"text","label":"广告版位","div_width":"180","verify":"required","placeholder":"请输入广告版位"}]},
+								{"name":"ad_jump_url","type":"text","label":"跳转地址","verify":"required","placeholder":"请输入跳转地址"},
+								{"name":"ad_image_url","type":"file","label":"广告图片","file_size":"10024","div_width":"150","title":"图片上传"},
+								{"name":"status","type":"checkbox","label":"是否启用", "div_width":"180","checkbox_text":"启用|停用","checkbox_value":"1|2","value":"1","checked":"true",
+								"right_list":[{"name":"sort_order","type":"text","label":"排序","div_width":"100","verify":"number"}]},
+								{"name":"remark","type":"textarea","label":"备注","width":"500","placeholder":"请输入备注"}
+					   ],
+	       "tab_buttons":[
+		    				{"button_id":"s1","button_name":"保存","event":"add","icon":"&#xe610;" },
+		    				{"button_id":"s2","button_name":"关闭","event":"close","icon":"&#x1006;"}
+			    		]
+			  }
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_update.html">
+ 

@@ -1,0 +1,57 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"cms/ad"
+		},
+		"queryform":{
+	          "form_id":"query_form",	
+	          "sqlid":"cms.ad.query",
+	          "fields":[
+						 {"name":"site_id","type":"hidden","value":"${session.site.site_id}"},
+						 {"name":"ad_edition","type":"text","label":"广告版位","div_width":"200","placeholder":"请输入广告版位"}
+						], 
+			   "tab_buttons":[
+			  					 {"button_id":"s1","type":"submit","button_name":"查询" } 
+			  				 ]
+			  },
+		"queryresult":{ 
+	            "table_id":"adminDatagrid", 
+	            "is_load":"true", 
+	            "is_page":"true",
+	            "width":"680px",
+	            "height":"500px",
+	            "inputs":"ad_id",
+	            "delkey":"ad_id",
+	            "del_sqlid":"cms.ad.delete",
+	            "add_url":"cms/ad/add.html",
+	            "edit_url":"cms/ad/edit.html",
+	            "columnlist":[
+					           	{"title":"#","field":"","sort":"","style":"","type":"numbers","fixed":"left"},
+					           	{"title":"","field":"","sort":"","style":"","checkbox":"true","fixed":"left"},
+							 	{"title":"广告编号","field":"ad_id","width":"120" },
+							 	{"title":"广告名称","field":"ad_name","width":"120" },
+							 	{"title":"广告版位","field":"ad_edition","width":"100" },
+							 	{"title":"广告图片","field":"ad_image_url","width":"140" ,"templet":"<div><img src='${webroot}{{d.ad_image_url}}' width='350px' /></div>"},
+							 	{"title":"跳转链接地址","field":"ad_jump_url","width":"120" },
+							 	{"title":"显示顺序","field":"sort_order","width":"100" },
+							 	{"title":"是否启用","field":"status","width":"100" ,"dict":"is_show" },
+							 	{"title":"备注","field":"remark","width":"160"},
+								{"title":"操作","width":"210","align":"center","fixed":"right","toolbar":"#barTools"}
+							],
+			  "tab_buttons":[
+			    				{"button_id":"b1","button_name":"增加","event":"add","title":"增加","icon":"&#xe654;"},
+			    				{"button_id":"b2","button_name":"批量删除","event":"bathdel","icon":"&#xe640;"},
+			    				{"button_id":"b4","button_name":"刷新","event":"refresh","url":"#","icon":"&#x1002;"}
+			    			],      
+			    "tools_buttons":[
+			    				{"tool_button_id":"t1","button_name":"查看","event":"detail","title":"查看","icon":"&#xe615;"},
+			    				{"tool_button_id":"t2","button_name":"编辑","event":"edit","title":"编辑","icon":"&#xe642;"},
+			    				{"tool_button_id":"t3","button_name":"删除","event":"del","icon":"&#xe640;"}
+			    			]          
+        	 } 
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_query.html">

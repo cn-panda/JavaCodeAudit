@@ -1,0 +1,30 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"system/param"
+		},
+		"queryform":{
+	          "form_id":"query_form",	
+	          "sqlid":"system.param.save",
+			  "action":"system/param/add.json",
+	          "ver_type":"msg",
+	          "fields":[
+						  {"name":"param_name","type":"text","label":"参数名称","verify":"required","div_width":"400","placeholder":"请输入参数名称"}, 
+						  {"name":"param_value","type":"text","label":"参数值","verify":"required","div_width":"400","placeholder":"请输入参数值"}, 
+						  {"name":"param_desc","type":"text","label":"参数说明","verify":"required","div_width":"400","placeholder":"请输入参数说明"}, 
+						  {"name":"param_group","type":"text","label":"参数分组","div_width":"400","placeholder":"请输入参数分组"}, 
+						  {"name":"is_show","type":"checkbox","label":"是否显示","checked":"true","checkbox_text":"显示|不显","value":"1","":""},
+						  {"name":"remark","type":"textarea","label":"备注","div_width":"400","width":"400px","placeholder":"请输入备注"} 
+					   ],
+	       "tab_buttons":[
+		    				{"button_id":"s1","button_name":"新增","event":"add"  },
+		    				{"button_id":"s2","button_name":"关闭","event":"close" }
+			    		]
+			  }
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_update.html">
+ 

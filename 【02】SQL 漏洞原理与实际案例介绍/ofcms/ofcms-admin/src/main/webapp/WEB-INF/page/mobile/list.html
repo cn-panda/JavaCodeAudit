@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>列表信息</title>
+</head>
+<body>
+<div class="of-content">
+    <div class="of-crad">
+        <@of.content_list site_id ="1" column_id = '12,13'>
+        <div class="of-crad-content" style="width: 900px">
+            <div class="layui-tab layui-tab-brief">
+            </div>
+            <#list content_list as data >
+                <div class="content" style="margin-bottom: 5px;height: 200px; background-color: #f5f5f5;border: 1px solid #e7e7e7">
+                    <a href="${webroot}/page.html?p=/news/detail&id=${data.content_id}">
+                        <div class="content-reight" style="height: 200px;    float: left; background-color: #f5f5f5;border: 1px solid #e7e7e7"><img src="${session.site.access_protocol}://${session.site.access_path}${data.thumbnail}" style="width:200px;height: 180px; padding: 10px;"></div>
+                        <div class="content-left" style="float: left; width: 570px;font-size: 14px;line-height: 30px;margin-left: 10px">
+                            <span class="content-title" style="font-size:18px;font-weight: 300 ">  <br>&nbsp;&nbsp;&nbsp;&nbsp;${data.title_name}</span>
+                            <div class="content-body" style="height: 128px;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;color: #aaaaaa"> &nbsp;&nbsp;&nbsp;&nbsp;${data.content}</div>
+                        </div>
+                    </a>
+                </div>
+            </#list>
+            <@of.page />
+        </div>
+    </@of.content_list>
+</div>
+</div>
+</body>
+</html>

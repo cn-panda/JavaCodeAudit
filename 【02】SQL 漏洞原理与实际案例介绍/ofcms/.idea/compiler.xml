@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ofcms-admin" />
+        <module name="ofcms-core" />
+        <module name="ofcms-front" />
+        <module name="ofcms-model" />
+        <module name="ofcms-template-blog" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="1.8">
+      <module name="ofcms" target="1.7" />
+      <module name="ofcms-admin" target="1.8" />
+      <module name="ofcms-core" target="1.7" />
+      <module name="ofcms-front" target="1.7" />
+      <module name="ofcms-model" target="1.7" />
+      <module name="ofcms-template-blog" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

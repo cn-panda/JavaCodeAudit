@@ -1,0 +1,64 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"menu_id":"M001",
+		"page_name":"菜单",
+		"module_name":"system/menu",
+		"bread_name":"增加菜单",
+		"page_color":"box-primary" 
+		},
+		"queryform":{
+	          "form_id":"query_form",	
+	          "sqlid":"system.menu.save",
+	          "ver_type":"msg",
+	          "fields":[
+						 {"name":"type","type":"radio","label":"菜单类型","radio":[{"value":"1","title":"菜单","checked":"checked"},{"value":"2","title":"按钮"},{"value":"2","title":"其它"}]},
+						 {"name":"parent_id","type":"hidden", "id":"penter_menu","value":"0"},
+						 {"name":"name","type":"text","label":"菜单名称","verify":"required","div_width":"183","placeholder":"请输入菜单名称","right_list":[
+						  {"name":"parent_name","type":"text","label":"上级菜单","div_width":"183","placeholder":"请输入上级菜单","id":"menu"}
+						 ]},
+						 {"name":"url","type":"text","label":"跳转地址","div_width":"183","verify":"required","placeholder":"请输入跳转地址","right_list":[
+						  {"name":"order_num","type":"text","label":"排序","verify":"number","div_width":"183","placeholder":"请输入排序" }
+						 ]},
+						 {"name":"perms","type":"text","label":"权限标识","div_width":"183","verify":"required","placeholder":"请输入权限标识","right_list":[
+						  {"name":"icon","type":"text","label":"图标","div_width":"183","placeholder":"请输入图标","id":"menu"}
+						 ]},
+						  {"name":"status","type":"checkbox","label":"状态","checkbox_text":"显示|不显","checked":"checked","value":"1"},
+						 {"name":"remark","type":"textarea","label":"备注","div_width":"500","height":"80","width":"400","placeholder":"请输入描述"}
+					   ],
+	       "tab_buttons":[
+		    				{"button_id":"s1","button_name":"新增","event":"add"  },
+		    				{"button_id":"s2","button_name":"关闭","event":"close" }
+			    		]
+			  }
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_update.html">
+ <script type="text/javascript">
+	var ztree={};
+	$("#menu").click(function(){
+	var  that = this;
+		 top.layer.open({
+			type: 2,
+			offset: 'auto',
+			skin: 'layui-layer-molv',
+			title: "选择菜单",
+			area: ['300px', '450px'],
+			shade: 0,
+			shadeClose: false,
+			content: "f.html?p=system/menu/tree.html",
+			btn: ['确定', '取消'],
+			btn1: function (index,layero) {
+                var iframeWin = layero.find('iframe')[0]; 
+				var node = iframeWin.contentWindow.ztree.getSelectedNodes();
+				var parentId = node[0].menu_id;
+				var parentName = node[0].name;
+				that.value=parentName;
+				$("#penter_menu").val(parentId);
+			    top.layer.close(index); 
+            }
+		});
+	})
+	</script>

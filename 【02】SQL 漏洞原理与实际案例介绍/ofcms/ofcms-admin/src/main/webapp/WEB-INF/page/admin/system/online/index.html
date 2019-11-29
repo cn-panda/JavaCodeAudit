@@ -1,0 +1,47 @@
+<#include "admin/template/page/head_lib.html">
+<body>
+	<div>
+		<div class="layui-fluid">
+			<div class="layui-row layui-col-space1">
+				<div class="layui-col-md12">
+					<div class="layui-row grid-demo">
+						<div class="layui-col-md12">
+							<div class="layui-btn-container">
+								<button class="layui-btn  layui-btn-sm layui-btn-danger"
+									function="submit" url="system/user/forceLogout.json" isMutiDml="1" isConfirm="1"
+									confirmMsg="是否确定踢出当前用户吗？" inputs="id:">
+									<i class="layui-icon ">&#xe640;</i>批量踢出
+								</button>
+								<button class="layui-btn layui-btn-sm" function="refresh">
+									<i class="layui-icon">&#x1002;</i>刷新
+								</button>
+							</div>
+							<table id="adminDatagrid" lay-filter="adminDatagrid"
+								class="adminDatagrid" isLoad="1" url="system/user/getOnlineUserList.json"
+								isPage="1" sortType="1" defaultForm="query_form"
+								height="full-130"></table>
+							<div class="adminDatagridCols">
+								<p type="numbers" title="#" />
+								<p checkbox="true" />
+								<p field="userName" title="名称" width="80" sort="true" />
+								<p field="loginName" title="登录名" width="120" sort="true" />
+								<p field="host" title="登录地址" width="120" sort="true" />
+								<p field="userEmail" title="邮箱" width="180" />
+								<p field="userMobile" title="手机号" width="140" />
+								<p field="userSex" title="性别" width="80" dict="sex" />
+								<p field="startTimestamp" title="登录时间" width="110" />
+								<p field="lastAccessTime" title="最后时间" width="110" />
+								<p fixed="right" align="center" toolbar="#barDemo" title="操作"
+									width="180" />
+							</div>
+							<script type="text/html" id="barDemo">
+  								<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="submit" url="system/user/forceLogout.json" isConfirm="1" confirmMsg="是否确定踢出当前用户吗？" inputs="id:">踢出</a>
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

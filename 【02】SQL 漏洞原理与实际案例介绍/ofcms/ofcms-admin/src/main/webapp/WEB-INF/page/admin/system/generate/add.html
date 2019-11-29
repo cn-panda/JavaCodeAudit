@@ -1,0 +1,24 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"page_name":"文章管理",
+		"module_name":"info/article" 
+		},
+		"queryform":{
+	          "form_id":"query_form",	
+	          "action":"system/generate/create.json",
+	          "ver_type":"msg",
+	          "fields":[
+						 {"name":"sql","type":"textarea","label":"创建表","div_width":"","verify":"required","height":"160px","width":"500px","placeholder":"请输入创建sql"}
+					   ],
+	       "tab_buttons":[
+		    				{"button_id":"s1","button_name":"新增","event":"add"  },
+		    				{"button_id":"s2","button_name":"关闭","event":"close" }
+			    		]
+			  }
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_update.html">
+ 

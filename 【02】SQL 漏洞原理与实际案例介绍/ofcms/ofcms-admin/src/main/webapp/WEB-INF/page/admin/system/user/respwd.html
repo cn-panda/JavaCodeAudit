@@ -1,0 +1,30 @@
+ <#include "admin/template/page/head_lib.html">
+<body>
+	<div class="layui-fluid">
+
+	<form class="layui-form" id="edit_form" >
+	<input type="hidden" name="user_id" value="${session.ofcms_user.user_id}"/>
+	  <div class="layui-form-item">
+	     <label class="layui-form-label">新密码</label>
+	    <div class="layui-input-inline">
+	      <input type="password" name="newpassword" placeholder="请输入新密码" required="" lay-verType="tips" lay-verify="required"  autocomplete="off" class="layui-input"/>
+	    </div>
+	  </div>
+	  
+	  <div class="layui-form-item">
+	     <label class="layui-form-label">新密码</label>
+	    <div class="layui-input-inline">
+	      <input type="password" name="password" placeholder="请输入新密码"required="" lay-verType="tips" lay-verify="required"  autocomplete="off" class="layui-input"/>
+	    </div>
+	  </div>
+	  <hr/>
+	  <div class="layui-form-item" style="text-align: center;">
+     	 <button class="layui-btn" lay-submit="" lay-filter="edit" url="system/user/respwd.json"><i class="layui-icon">&#xe642;</i>修改密码</button>
+     	 <button type="button" class="layui-btn layui-btn-primary" function="close">关闭</button>
+    </div>
+  </div>
+</form>
+
+	</div>
+</body>
+</html>

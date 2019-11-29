@@ -1,0 +1,30 @@
+ <#include "admin/template/page/head_lib.html">
+ <link rel="stylesheet" href="${webroot}/static/plugins/ztree/css/metroStyle/metroStyle.css">
+ <script src="${webroot}/static/plugins/ztree/js/jquery.ztree.all.min.js"></script>
+<body>
+	<!-- 选择菜单 -->
+	<div id="menuLayer"  >
+		<ul id="menuTree" class="ztree"></ul>
+	</div>
+	<script type="text/javascript">
+	var setting = {
+			data: {
+				simpleData: {
+					enable: true,
+					idKey: "menu_id",
+					pIdKey: "parent_id",
+					rootPId: -1
+				},
+				key: {
+					url:"nourl"
+				}
+			} 
+		};
+	//加载菜单树
+	var ztree ;
+	$.get(webrootAdmin +"/system/menu/tree.json?sqlid=weixin.menu.query", function(data){
+		ztree = $.fn.zTree.init($("#menuTree"), setting,data.data);
+	})
+	</script>
+</body>
+</html>

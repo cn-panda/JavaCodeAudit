@@ -1,0 +1,115 @@
+<#-- 表单组件处理  count 控制自每行显示三列-->
+<#list queryform.fields as item>
+		<#if item.type=="hidden">
+			<input type="hidden" <#if item.id?exists> id='${item.id}' </#if> name='${(item.name)!""}' value='${(item.value)!""}' />
+		<#elseif item.type=="file" >
+			 <div class="layui-form-item">
+				    <label class="layui-form-label">${item.label}</label>
+				    <div class="layui-input-inline">
+		   				<input type="text" id="${item.id!'filePath'}" name="${(item.name)!''}" autocomplete="off" disabled="disabled" class="${item.class!'layui-input'}"/>
+				    </div>
+				    <div class="layui-input-inline">
+				 		<button type="button"  class="layui-btn" function="upload" fileElem="#${item.id!'filePath'}" fileAccept="file" fileExts="" fileSize="${item.file_size!'5012'}" inputs="${item.inputs!'type:test'}">${time.title!'上传'}</button>
+				    </div>
+			 </div>
+		<#else>
+			<div class="layui-form-item <#if item.type == 'textarea' || item.type == 'edit'> layui-form-text </#if>" <#if item.type == 'radio' || item.type == 'checkbox'> pane="" </#if>  >
+			       <#if item.right_list??>
+				     	<div class="layui-inline">
+						      <label class="layui-form-label">${item.label}</label>
+						      <div class="layui-input-inline" style="width:${item.div_width!' 500'}px;">
+						         <@loadfields item /> 
+						      </div>
+						    </div>
+				       <#list item.right_list as ritem>
+					        <div class="layui-inline">
+						      <label class="layui-form-label">${ritem.label}</label>
+						      <div class="layui-input-inline" style="width:${ritem.div_width!' 500'}px;">
+						         <@loadfields ritem /> 
+						      </div>
+						    </div>
+				      </#list>
+				   <#else>
+				 	   <label class="layui-form-label  ">${item.label}</label>
+				       <div class="layui-input-block" style="width:${item.div_width!' 500'}px;">
+				      		<@loadfields item /> 
+				       </div>
+				   </#if>
+			</div>
+		</#if>
+</#list>
+ 
+ <#--开始处理页面输入项组件-->
+<#macro loadfields item>
+	<#if item.type=="text">
+	
+	<input type="text" <#if item.id?exists> id='${item.id}' </#if> 	name='${(item.name)!""}' value='${(item.value)!""}'
+		<#if item.verify?exists>  required="" lay-verType="${queryform.ver_type!'msg'}" lay-verify="${item.verify}"  </#if> 
+	    <#if item.placeholder?exists> placeholder="${item.placeholder}"  </#if>
+	    <#if item.disabled?exists>  disabled="disabled"  </#if>
+	   autocomplete="off" 	class="${item.class!'layui-input'}"
+	 />
+    <#elseif item.type=="select" >
+    	<select class="${item.class!'sykSelect'}"  name="${item.name}" 
+    	<#if item.dict?exists> dict_type="${item.dict_type!''}" dict="${item.dict}" addNull="1" </#if>
+    	<#if item.id?exists>  lay-filter="${item.id}"  childrenSelectId="${item.id}" </#if>
+    	<#if item.select_name?exists>  select_name="${item.select_name}"   </#if>
+    	<#if item.verify?exists>  required="" lay-verType="${queryform.ver_type!'msg'}" lay-verify="${item.verify}"  </#if> 
+        <#if item.disabled?exists>  disabled="disabled"  </#if>
+    	>
+    		<#if item.dict == "">
+	    		<#list item.option as options>
+			    	<option value="${options.value}">${options.label}</option>
+	    		</#list>
+    		</#if>
+		</select>
+		
+    <#elseif item.type=="mutipleselect" >
+    
+    <#elseif item.type=="moneyarea" >
+    
+    <#elseif item.type=="selectmore" >
+    <#elseif item.type=="radio" >
+    	<#if item.radio?? >
+    		<#list item.radio as radio>
+    		 	<input type="radio"  
+    		 	  <#if item.disabled?exists>  disabled="disabled"  </#if>
+		name='${(item.name)!""}' value='${(radio.value)!""}' title="${radio.title}"
+			<#if radio.checked?exists>checked="checked" </#if> 
+			 >
+    		</#list>
+    	</#if>
+	<#elseif item.type=="datetime" >
+	<#elseif item.type=="date" >
+	<input type="text" name='${(item.name)!""}'  datetype="${item.datetype!'date'}"  
+         <#if item.verify?exists>  required="" lay-verType="${queryform.ver_type}!'msg'" lay-verify="${item.verify}"   </#if> 
+    	   <#if item.disabled?exists>  disabled="disabled"  </#if>
+    	 placeholder="${item.placeholder}" autocomplete="off" class="layui-input ${item.class!'sykDate'}">
+	<#elseif item.type=="password" >
+	<input type="password" <#if item.id?exists> id='${item.id}' </#if> 	name='${(item.name)!""}' value='${(item.value)!""}'
+		<#if item.verify?exists>  required="" lay-verType="${queryform.ver_type!'msg'}" lay-verify="${item.verify}"  </#if> 
+	    <#if item.placeholder?exists> placeholder="${item.placeholder}"  </#if>
+	   autocomplete="off" 	class="${item.class!'layui-input'}"
+	 />
+	
+	<#elseif item.type=="money" >
+	<#elseif item.type=="checkbox" >
+		<input type="checkbox" <#if item.id?exists> id='${item.id}' </#if> 
+		  <#if item.disabled?exists>  disabled="disabled"  </#if>
+		name='${(item.name)!""}'  lay-filter='${(item.name)!""}' checkbox_value='${(item.checkbox_value)!""}'  lay-skin="switch"  <#if item.checked?exists> checked="" </#if> 
+		<#if item.verify?exists>  required="" lay-verType="${queryform.ver_type!'msg'}" lay-verify="${item.verify}"   </#if> 
+		lay-text="${item.checkbox_text!'正常|停止'}" lay-filter='${(item.lay_filter)!""}' value='${(item.value)!""}' >
+	<#elseif item.type=="textarea" >
+		<textarea <#if item.id?exists> id='${item.id}' </#if> 
+		  <#if item.disabled?exists>  disabled="disabled"  </#if>
+		 name='${(item.name)!""}'
+		   style="height:${item.height!'100px'};width:${item.width!'400px'}"
+		 placeholder="${item.placeholder}"  class="${item.class!'layui-textarea'}"
+		<#if item.verify?exists>  required="" lay-verType="${queryform.ver_type!'msg'}" lay-verify="${item.verify}"  </#if> 
+		height="${item.height!'80'}" width="${item.width!'400'}">${(item.value)!""}</textarea>
+	<#elseif item.type=="edit" >
+	 <textarea id="${(item.id)!'description'}" name="${(item.name)!'description'}" style="display: none" placeholder="${item.placeholder}" class="layui-textarea sykLayedit" height="${item.height!'80'}" width="${item.width!'400'}"></textarea>
+    <#else>
+    
+    </#if>
+</#macro>

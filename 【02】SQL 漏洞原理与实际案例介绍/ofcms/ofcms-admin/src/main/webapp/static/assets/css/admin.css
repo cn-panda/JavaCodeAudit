@@ -1,0 +1,360 @@
+/*公共样式*/
+.childrenBody {
+	margin: 10px 10px 0;
+}
+
+.menu-tree-this {
+	color: #009688;
+}
+
+fieldset {
+	min-width: 100px;
+}
+
+.layui-fluid {
+	position: relative;
+	margin: 0 auto;
+	padding: 13px;
+}
+
+.layui-table-view {
+	position: relative;
+	margin: 5px 0 0 0;
+	overflow: hidden;
+}
+
+.layui-form-query {
+	padding: 10px 10px 0px 10px
+}
+
+.fsDatagrid {
+	display: none;
+}
+
+.fsDatagridCols {
+	display: none;
+}
+
+.fsLayedit {
+	display: none;
+}
+
+.fsAdd {
+	display: none;
+}
+
+.fsEdit {
+	display: none;
+}
+
+.admin-main-tab {
+	height: 35px;
+	margin: 0;
+}
+
+.admin-main-tab .layui-tab-title {
+	z-index: 999;
+	top: 0;
+	height: 40px;
+}
+
+.admin-main-tab .layui-tab-title cite {
+	font-style: normal;
+}
+
+.admin-main-tab .layui-tab-item {
+	position: absolute;
+	top: 41px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 0;
+	margin: 0;
+	-webkit-overflow-scrolling: touch;
+	overflow: auto;
+}
+
+.admin-main-tab .layui-tab-content {
+	height: 100%;
+	padding: 0;
+}
+
+.admin-main-tab .layui-tab-content iframe {
+	width: 100%;
+	height: 100%;
+	border: none;
+	min-width: 320px;
+	position: absolute;
+}
+
+.pace .pace-progress {
+	background: #1E92FB; /*进度条颜色*/
+	height: 3px;
+}
+
+.pace .pace-progress-inner {
+	box-shadow: 0 0 10px #1E92FB, 0 0 5px #1E92FB; /*阴影颜色*/
+}
+
+.pace .pace-activity {
+	border-top-color: #1E92FB; /*上边框颜色*/
+	border-left-color: #1E92FB; /*左边框颜色*/
+}
+
+.admin-top-menu {
+	left: 230px;
+}
+
+@media screen and (max-width: 750px) {
+	.logo {
+		padding: 0;
+	}
+	.component,.site-mobile .site-tree-mobile {
+		display: none !important;
+	}
+	.layui-layout-admin .layui-main {
+		margin-right: 0;
+	}
+	.layui-layout-admin .layui-side {
+		left: -260px;
+	}
+	.layui-layout-admin .admin-top-menu {
+		left: 0px;
+	}
+	.site-mobile .layui-side {
+		left: 0;
+		z-index: 9999;
+	}
+	.site-tree-mobile {
+		display: block !important;
+		position: fixed;
+		z-index: 100000;
+		bottom: 15px;
+		left: 15px;
+		width: 50px;
+		height: 50px;
+		line-height: 50px;
+		border-radius: 2px;
+		text-align: center;
+		background-color: rgba(0, 0, 0, .7);
+		color: #fff;
+	}
+	.site-mobile .site-mobile-shade {
+		content: '';
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background-color: rgba(0, 0, 0, .8);
+		z-index: 999;
+	}
+	/*layui-body*/
+	.panel {
+		width: 50%;
+	}
+	.layui-body,.layui-layout-admin .layui-footer {
+		left: 0;
+	}
+}
+
+.sykSwitchMenu {
+	position: absolute;
+	left: 200px;
+	width: 20px;
+	height: 20px;
+	margin: 15px 15px 0 0;
+	font-size: 17px;
+	text-align: center;
+	padding: 5px 5px;
+	color: #fff;
+	background-color: #489689;
+}
+
+.showMenu.layui-layout-admin .layui-side {
+	left: -200px;
+}
+
+.showMenu .layui-body,.showMenu .layui-footer {
+	left: 0;
+}
+
+
+.layadmin-carousel {
+	/* height: 85px!important; */
+	background-color: #fff;
+}
+.layadmin-carousel .layui-carousel-ind {
+	position: absolute;
+	top: -41px;
+	text-align: right;
+}
+.layadmin-carousel .layui-carousel-ind li {
+	background-color: #e2e2e2;
+}
+
+.layadmin-shortcut li {
+	text-align: center;
+}
+.layadmin-carousel .layui-carousel-ind ul {
+	background: 0 0;
+}
+.layui-card:last-child {
+    margin-bottom: 0;
+}
+.layui-card-header {
+    height: 42px;
+    line-height: 42px;
+    padding: 0 15px;
+    border-bottom: 1px solid #eeeeee;
+    color: #333;
+    border-radius: 2px 2px 0 0;
+    font-size: 14px;
+    background-color: #f6f6f6;
+}
+.layui-card-body {
+    padding: 10px 15px;
+    line-height: 24px;
+}
+.layui-card {
+    margin-bottom: 15px;
+    border-radius: 2px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
+    border: 1px #eeeeee solid;
+}
+
+.layadmin-carousel .layui-carousel-ind ul {
+	background: 0 0;
+}
+
+.layui-card-body {
+	padding: 10px 15px;
+	line-height: 24px;
+}
+.layui-card:last-child {
+	margin-bottom: 0;
+}
+.layui-card-header {
+	position: relative;
+}
+.layui-card-header {
+	position: relative;
+	height: 42px;
+	line-height: 42px;
+	padding: 0 15px;
+	border-bottom: 1px solid #eeeeee;
+	color: #333;
+	border-radius: 2px 2px 0 0;
+	font-size: 14px;
+	background-color: #F8F8F8;
+}
+
+.layui-card {
+	margin-bottom: 15px;
+	border-radius: 2px;
+	background-color: #fff;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
+	border: 1px #eeeeee solid;
+}
+
+
+.layadmin-carousel .layui-carousel-ind li.layui-this {
+	background-color: #999;
+}
+
+.layadmin-news a {
+	display: block;
+	line-height: 60px;
+	text-align: center;
+}
+
+.layui-card-header .layui-a-tips {
+	position: absolute;
+	right: 15px;
+	color: #01AAED;
+}
+.layuiadmin-card-list p.layuiadmin-big-font {
+	font-size: 36px;
+	color: #666;
+	line-height: 36px;
+	padding: 5px 0 10px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	word-break: break-all;
+	white-space: nowrap;
+}
+.layuiadmin-badge {
+	top: 50%;
+	margin-top: -9px;
+	color: #01AAED;
+}
+.layuiadmin-badge, .layuiadmin-btn-group, .layuiadmin-span-color {
+	position: absolute;
+	right: 15px;
+}
+.layuiadmin-span-color {
+	font-size: 14px;
+}
+
+/* 屏幕 */
+.admin-header-lock {
+	width: 320px;
+	height: 170px;
+	padding: 20px;
+	position: relative;
+	text-align: center;
+}
+.admin-header-lock-img {
+	width: 70px;
+	height: 70px;
+	margin: 0 auto;margin-bottom: 20px;
+}
+.admin-header-lock-name {
+	color: #009688;
+	margin: 8px 0 15px 0;
+}
+.input_btn {
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+#lock-box p {
+	color: #499788;
+}
+.admin-header-lock-input {
+	width: 170px;
+	color: #fff;
+	background-color: #009688;
+	float: left;
+	margin: 0 10px 0 40px;
+	border: none;
+}
+#unlock {
+	float: left;
+}
+.admin-header-lock-img .layui-nav-img {
+	width: 70px;
+	height: 70px;
+	margin-right: 10px;
+	border-radius: 50%;
+}
+
+
+.admin-header-lock :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	color: #fff; opacity:1;
+}
+
+.admin-header-lock ::-moz-placeholder { /* Mozilla Firefox 19+ */
+	color: #fff;opacity:1;
+}
+
+.admin-header-lock input:-ms-input-placeholder{
+	color: #fff;opacity:1;
+}
+
+.admin-header-lock input::-webkit-input-placeholder{
+	color: #fff;opacity:1;
+}
+.layui-form-switch em {
+	width: 27px!important;
+}

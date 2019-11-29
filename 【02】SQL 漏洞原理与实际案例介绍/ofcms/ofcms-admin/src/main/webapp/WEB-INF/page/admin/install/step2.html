@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>${system.system_name!'OFCMS'}内容管理系统</title>
+	<link rel="icon" type="image/png"
+		  href="${webroot}/static/assets/image/favicon.png">
+	<link rel="stylesheet"
+		  href="${webroot}/static/plugins/layui/css/layui.css">
+	<link rel="stylesheet" type="text/css"
+		  href="${webroot}/static/assets/css/admin.css"/>
+
+</head>
+<body class="layui-layout-body">
+<div class="layui-fluid">
+	<div class="layui-row"  >
+		<div class="layui-card" style="width: 1000px;margin: 0 auto;font-size: 17px;">
+			<div class="layui-card-header"><span>OFCMS-安装向导</span>  <span style="width:70%;font-size: 17px;display: inline-block;text-align: center"><b>第二步：配置数据库</b></span></div>
+			<div class="layui-card-body" style="line-height: 33px;padding: 30px">
+				<form action="${webroot}/install/step2.html" class="layui-form" method="POST" style="margin-left: 200px">
+						<div class="layui-form-item">
+							<label class="layui-form-label">数据库名</label>
+							<div class="layui-input-inline">
+								<input type="text" name="db_name" required value="${db_name!'ofcms'}" lay-verify="required" placeholder="请输入数据库名" autocomplete="off" class="layui-input">
+							</div>
+							<div class="layui-form-mid layui-word-aux">默认ofcms</div>
+						</div>
+
+						<div class="layui-form-item">
+							<label class="layui-form-label">用户名</label>
+							<div class="layui-input-inline">
+								<input type="text" name="db_user" required value="${db_user!'root'}"   lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+							</div>
+							<div class="layui-form-mid layui-word-aux">MySQL登录用户</div>
+						</div>
+
+						<div class="layui-form-item">
+							<label class="layui-form-label">密码</label>
+							<div class="layui-input-inline">
+								<input type="password" name="db_password" required value="${db_password!''}"   lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+							</div>
+							<div class="layui-form-mid layui-word-aux">MySQL登录密码</div>
+						</div>
+
+						<div class="layui-form-item">
+							<label class="layui-form-label">主机</label>
+							<div class="layui-input-inline">
+								<input type="text" name="db_host" required value="localhost" lay-verify="required" placeholder="请输入数据库主机" autocomplete="off" class="layui-input">
+							</div>
+							<div class="layui-form-mid layui-word-aux">默认localhost</div>
+						</div>
+
+						<div class="layui-form-item">
+							<label class="layui-form-label">端口号</label>
+							<div class="layui-input-inline">
+								<input type="text" name="db_host_port" required  value="3306" lay-verify="required" placeholder="请输入端口号" autocomplete="off" class="layui-input">
+							</div>
+							<div class="layui-form-mid layui-word-aux">默认是3306</div>
+						</div>
+
+						<div class="layui-form-item">
+							<label class="col-sm-offset-1 col-sm-11" style="color: red">
+								${ret_msg!'处理过程需要30秒请耐心等待!'}
+							</label>
+						</div>
+						<br />
+					<div class="layui-form-item">
+						<div class="layui-input-block" >
+							<a href="${webroot}/install/index.html" class="btn btn-default">
+								<button type="button" class="layui-btn layui-btn-primary"><b>上一步</b></button> </a>
+							<button class="layui-btn" lay-submit >下一步</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="${webroot}/static/plugins/layui/layui.js"></script>
+<script>
+    layui.use([  'layer', 'form', 'element'  ],function() {
+        var layer = layui.layer,
+            form = layui.form,
+            element = layui.element ;
+    });
+</script>
+</body>
+</html>

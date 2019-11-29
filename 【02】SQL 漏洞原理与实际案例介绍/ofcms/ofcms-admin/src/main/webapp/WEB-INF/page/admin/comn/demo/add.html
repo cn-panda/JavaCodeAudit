@@ -1,0 +1,36 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"menu_id":"M001",
+		"page_name":"菜单",
+		"module_name":"system/menu",
+		"bread_name":"增加菜单",
+		"page_color":"box-primary" 
+		},
+		"queryform":{
+	          "form_id":"query_form",	
+	          "sqlid":"system.role.save",
+	          "ver_type":"msg",
+	          "form_box":"layui-form-pane",
+	          "fields":[
+						 {"name":"role_name","type":"text","label":"角色名称","verify":"required","placeholder":"请输入角色名称"},
+						 {"name":"role_type","type":"radio","label":"角色类型","verify":"required","placeholder":"请输入角色类型","radio":[{"value":"1","title":"系统","checked":"checked"},{"value":"2","title":"用户"}]},
+						 {"name":"status","type":"checkbox","label":"邮箱","checkbox_text":"允许|禁止","value":"1"},
+						 {"name":"email","type":"select","label":"城市选择","div_width":"200","dict":"city","placeholder":"请输入邮箱","class","sykSelect"},
+						 {"name":"datea","type":"date","label":"开始时间","div_width":"150","id":"date",
+						 	"right_list":[ {"name":"dateb","type":"date","label":"结束时间","div_width":"150","id":"datetime"}]},
+						 {"name":"filePath","type":"file","label":"文件上传","file_size":"1024","div_width":"150","title":"图片上传"},
+						 {"name":"trancode","type":"select","label":"交易代码","div_width":"200","option":[{ "label":"选择一","value":"1"},{ "label":"选择二","value":"2"},{ "label":"选择三","value":"3"}]},
+						 {"name":"role_desc","type":"edit","label":"备注","div_width":"","height":"80","width":"600","placeholder":"请输入描述"}
+					   ],
+	       "tab_buttons":[
+		    				{"button_id":"s1","button_name":"新增","event":"add"  },
+		    				{"button_id":"s2","button_name":"关闭","event":"close" }
+			    		]
+			  }
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_update.html">
+ 

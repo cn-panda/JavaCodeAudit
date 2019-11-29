@@ -1,0 +1,62 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"system/task"
+		},
+		"queryform":{
+	          "form_id":"query_form",	
+	          "sqlid":"system.task.query",
+	          "fields":[
+						 {"name":"job_id","type":"text","label":"任务编号","div_width":"200","placeholder":"请输入任务编号"} 
+						 {"name":"bean_name","type":"text","label":"任务名称","div_width":"200","placeholder":"请输入任务名称"} 
+						], 
+			   "tab_buttons":[
+			  					 {"button_id":"s1","type":"submit","button_name":"查询" } 
+			  				 ]
+			  },
+		"queryresult":{ 
+	            "table_id":"adminDatagrid", 
+	            "is_load":"true", 
+	            "is_page":"true",
+	            "width":"480px",
+	            "height":"450px",
+	            "inputs":"bean_name",
+	            "delkey":"bean_name",
+	            "del_sqlid":"system.task.status",
+	            "add_url":"system/task/add.html",
+	            "edit_url":"system/task/edit.html",
+	            "columnlist":[
+					           	{"title":"#","field":"","sort":"","style":"","type":"numbers","fixed":"left"},
+					           	{"title":"","field":"","sort":"","style":"","checkbox":"true","fixed":"left"},
+							 	{"title":"编号","field":"job_id","width":"100" },
+							 	{"title":"任务名称","field":"bean_name","width":"160" },
+							 	{"title":"任务描述","field":"job_desc","width":"160" },
+							 	{"title":"表达式","field":"cron_expression","width":"160" },
+							 	{"title":"状态","field":"status","width":"100" ,"dict":"job_status" },
+								{"title":"备注","field":"remark","width":"160" },
+								{"title":"时间","field":"create_time","width":"160" },
+								{"title":"任务路径","field":"class_path","width":"160" },
+								{"title":"操作","width":"340","align":"center","fixed":"right","toolbar":"#barTools"}
+							],
+			  "tab_buttons":[
+			    				{"button_id":"b1","button_name":"增加","event":"add","title":"增加","icon":"&#xe654;"},
+			    				{"button_id":"b2","button_name":"启动全部","event":"submit","url":"system/task/startJobs.json","icon":"&#xe654;"},
+			    				{"button_id":"b2","button_name":"暂停全部","event":"submit","url":"system/task/shutdownJobs.json","icon":"&#xe654;"},
+			    				{"button_id":"b4","button_name":"刷新","event":"refresh","url":"#","icon":"&#x1002;"}
+			    			],      
+			    "tools_buttons":[
+			    				{"tool_button_id":"t2","button_name":"执行","type":"button","url":"system/task/runJob.json","event":"submit"},
+			    				{"tool_button_id":"t2","button_name":"启动","type":"button","url":"system/task/startJob.json","event":"submit"},
+			    				{"tool_button_id":"t3","button_name":"停止","type":"button","url":"system/task/shutdownJob.json","event":"submit"},
+			    				{"tool_button_id":"t2","button_name":"暂停","type":"button","url":"system/task/pauseJob.json","event":"submit"},
+			    				{"tool_button_id":"t2","button_name":"恢复","type":"button","url":"system/task/resumeJob.json","event":"submit"},
+			    				{"tool_button_id":"t2","button_name":"编辑","event":"edit","title":"编辑"},
+			    				{"tool_button_id":"t3","button_name":"删除","event":"del","url":"system/task/deleteJob.json"}
+			    			]          
+        	 } 
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_query.html">

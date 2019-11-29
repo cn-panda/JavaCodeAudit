@@ -1,0 +1,37 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"cms/site",
+		"function_name":"edit",
+		"load_sqlid":"cms.site.detail"
+		},
+		"queryform":{
+	          "form_id":"edit_form",
+	          "action":"cms/site/update.json",
+	          "ver_type":"msg",
+	          "fields":[
+							  {"name":"site_id","type":"hidden"},
+							  {"name":"site_name","type":"text","label":"站点名称","div_width":"183","verify":"required","placeholder":"请输入站点名称",
+							  "right_list":[{"name":"site_path","type":"text","label":"站点简称","div_width":"183","verify":"required","placeholder":"请输入站点简称"}]},
+							  {"name":"keywords","type":"text","label":"关键字","placeholder":"请输入关键字"},
+							  {"name":"access_path","type":"text","label":"访问地址","placeholder":"请输入访问地址"},
+							  {"name":"access_protocol","type":"select","label":"访问协议","dict_type":"dict","dict":"access_protocol","div_width":"183","verify":"required" ,
+							  "right_list":[{"name":"domain_name","type":"text","label":"域名","div_width":"183","verify":"required","placeholder":"请输入域名"}]},
+	                          {"name":"template_name","type":"text","label":"模板名称","div_width":"183","verify":"required","placeholder":"请输入模板名称",
+	                          "right_list":[{"name":"template_path","type":"text","label":"模板路径","div_width":"183","verify":"required","placeholder":"请输入模板路径"}]},
+							  {"name":"is_master","type":"checkbox","label":"是否主站","id":"is_master","verify":"required","div_width":"180","checkbox_text":"是|否","checkbox_value":"1|0","value":"1","checked":"true",
+							  "right_list":[{"name":"sort","type":"text","label":"排序","div_width":"100","verify":"number","placeholder":"请输入排序"}]},
+							  {"name":"remark","type":"textarea","label":"备注","width":"500","placeholder":"请输入备注"}
+					   ],
+	       "tab_buttons":[
+		    				{"button_id":"s1","button_name":"保存","event":"add","icon":"&#xe610;" },
+		    				{"button_id":"s2","button_name":"关闭","event":"close","icon":"&#x1006;"}
+			    		]
+			  }
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_update.html">
+ 

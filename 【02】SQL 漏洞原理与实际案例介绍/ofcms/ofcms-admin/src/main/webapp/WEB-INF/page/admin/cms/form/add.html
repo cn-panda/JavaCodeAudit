@@ -1,0 +1,28 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"cms/form"
+		},
+		"queryform":{
+	          "form_id":"query_form",	
+	          "sqlid":"cms.form.save",
+	          "ver_type":"msg",
+	          "fields":[		  {"name":"site_id","type":"hidden","value":"${session.site.site_id}"},
+								  {"name":"form_name","type":"text","label":"表单名称","verify":"required","placeholder":"请输入表单名称"},
+								  {"name":"form_desc","type":"text","label":"表单描述","verify":"required","placeholder":"请输入表单描述"}, 
+								  {"name":"form_params","type":"text","label":"表单参数","div_width":"180","placeholder":"请输入表单参数",
+								  "right_list":[{"name":"status","type":"checkbox","label":"是否启用","div_width":"180","checkbox_text":"启用|禁止","checkbox_value":"1|2","value":"1","checked":"true"}]},
+								  {"name":"remark","type":"textarea","label":"备注","width":"500","verify":"required","placeholder":"请输入备注"}
+						],
+	       "tab_buttons":[
+		    				{"button_id":"s1","button_name":"新增","event":"add","icon":"&#xe654;"},
+		    				{"button_id":"s2","button_name":"关闭","event":"close","icon":"&#x1006;"}
+			    		]
+			  }
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_update.html">
+ 

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>${columns.title!'详情'}</title>
+    <meta name="description" content="${columns.description!'java 版CMS系统'}">
+    <meta name="keywords" content="${columns.keywords!'ofcms'}">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet" href="${reroot}/static/plugins/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="${reroot}/static/assets/css/index.css" media="all">
+    <link rel="stylesheet" href="${reroot}/static/assets/css/product.css" media="all">
+    <script src="${reroot}/static/plugins/layui/layui.js"></script>
+</head>
+<body>
+<div class="of-heand layui-bg-cyan">
+    <div class="layui-container layui-bg-cyan "  >
+        <div class="of-login">
+            OFCMS
+        </div>
+        <ul class="layui-nav layui-bg-cyan of-nav" lay-filter="">
+            <@of.column site_id=site.site_id >
+            <li class="layui-nav-item <#if  columns.column_english == null> layui-this</#if>"><a href="${session.site.access_protocol}://${session.site.access_path}">首页</a>
+                <#list column as data >
+            <li class="layui-nav-item <#if data.column_english == columns.column_english> layui-this</#if>">
+                <@of.column site_id=site.site_id parent_id=data.column_id >
+                <a href="<#if column?? && (column?size>0)  > javascript:;<#else>${data.column_english}.html</#if>">${data.column_name}</a>
+                <#if column?? && (column?size>0)  >
+                    <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                        <#list column as child >
+                            <dd  class=" <#if child.column_english == columns.column_english> layui-this</#if>" ><a href="${child.column_english}.html">${child.column_name}</a></dd>
+                        </#list >
+                    </dl>
+                </#if>
+            </@of.column>
+            </li>
+            </#list>
+        </@of.column>
+        </ul>
+    </div>
+</div>
+<div class="of-banner">
+    <div class="layui-carousel" id="test">
+        <div carousel-item="">
+            <img src="${reroot}/static/assets/image/product.jpg"  >
+        </div>
+    </div>
+</div>
+    <div class="of-content">
+        <div class="of-crad" style="height: 300px;width: 900px;margin: 0 auto;">
+            <div class="content-txt">${columns.column_content}</div>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+<script>
+    layui.use(['carousel','element'], function () {
+        var carousel = layui.carousel;
+        var element = layui.element;
+        //图片轮播
+        carousel.render({
+            elem: '#test'
+            , width: '100%' //设置容器宽度
+            , arrow: 'always' //始终显示箭头
+            , height: '250px'
+            , autoplay:true
+            , full:false
+            , interval: 3000
+        });
+
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<#assign queryresult=pannelConfig.queryresult>
+<div class="layui-col-md12">
+	<div class="layui-row grid-demo">
+		<div class="layui-col-md12">
+			<div class="layui-btn-container">
+				<#if queryresult.tab_buttons ??>
+					<#list queryresult.tab_buttons  as button>
+					<#if button.event == 'a'>
+					<a class="layui-btn  layui-btn-sm layui-btn-danger" href="${button.url}">${button.button_name!'按钮'}</a>
+					<#else>
+					<button 
+						<#if button.event == 'add' >
+						class="${button.class!'layui-btn layui-btn-sm'}"
+							function="top" isMaximize="0"
+							<#if queryresult.add_inputs??>inputs="${queryresult.add_inputs!''}"</#if>
+							topUrl="f.html?p=${queryresult.add_url!''}"  <#if button.width??> topWidth="${button.width}" <#else> topWidth="${queryresult.width!'680px'}" </#if> <#if button.height??> topHeight="${button.height}" <#else> topHeight="${queryresult.height!'400px'}" </#if> topTitle="${button.title!'新增'}"
+						<#elseif button.event == 'refresh' >
+						class="${button.class!'layui-btn layui-btn-sm'}"
+							function="refresh" 
+						<#elseif button.event == 'warm' >
+						class="${button.class!'layui-btn layui-btn-sm layui-btn-warm'}"
+						<#elseif button.event == 'bathdel' >
+						class="${button.class!'layui-btn  layui-btn-sm layui-btn-danger'}"
+							layui-btn  layui-btn-sm layui-btn-danger
+							function="submit"
+							<#if button.url?? || button.sqlid??> url="${button.url!'comn/service/del.json'}?sqlid=${button.sqlid!''}"  <#else> url="${queryresult.del_url!'comn/service/del.json'}?sqlid=${queryresult.del_sqlid!''}"  </#if>
+							isMutiDml="1"	isConfirm="1" confirmMsg="${button.msg!'是否确定删除选中的数据？'}" inputs="${queryresult.inputs!''}" delkey="${queryresult.delkey!''}"
+						<#elseif button.event == 'submit' >
+							function="submit" 
+							class="${button.class!'layui-btn layui-btn-sm'}" <#if button.url??> url="${button.url}"</#if> lay-event="${button.event!'test'}"  inputs="${queryresult.inputs!''}"
+						<#else>
+						class="${button.class!'layui-btn layui-btn-sm'}"
+						function="top" isMaximize="0"
+							topUrl="f.html?p=${button.url!''}"  topWidth="${queryresult.width!'680px'}" topHeight="${queryresult.height!'400px'}" topTitle="${button.title!''}"
+						</#if>
+						>
+						<#if button.icon??>
+							<i class="layui-icon">${button.icon}</i>
+						</#if>
+						${button.button_name!'按钮'}
+					 </button>
+					</#if>
+					</#list>
+				</#if>
+			</div>
+			<table id="${queryresult.table_id!'adminDatagrid'}" lay-filter="${queryresult.table_id!'adminDatagrid'}"
+				class="${queryresult.table_id!'adminDatagrid'}" isLoad="1"
+				url="${pannelConfig.queryform.action!'comn/service/query.json'}?sqlid=${pannelConfig.queryform.sqlid!''}" isPage="1"
+				sortType="1" defaultForm="query_form" height="full-130"></table>
+			<div class="${queryresult.table_id!'adminDatagrid'}Cols">
+			  <#list queryresult.columnlist as column >
+				  	<p  <#if column.field ?? > field="${column.field}" </#if>  
+				  		<#if column.title ?? >  title="${column.title}"</#if>  
+				  		 <#if column.checkbox ?? > checkbox="${column.checkbox}"   </#if>
+				  		 <#if column.type ?? > type="${column.type}"           </#if>
+				  		 <#if column.sort ?? > sort="${column.sort}"           </#if>
+				  		 <#if column.width ?? > width="${column.width}"         </#if>
+				  		 <#if column.templet ?? > templet="${column.templet}"     </#if>
+				  		 <#if column.fixed ?? > fixed="${column.fixed}"         </#if>
+				  		 <#if column.align ?? > align="${column.align}"         </#if>
+				  		 <#if column.dict ?? > dict="${column.dict}"         </#if>
+				         <#if column.dict_type ?? > dict_type="${column.dict_type}"         </#if>
+				  		 <#if column.toolbar ?? > toolbar="${column.toolbar}"     </#if>
+				  		 />
+				</#list>
+			</div>
+			<script type="text/html" id="stateTpl">
+				<input type="checkbox" name="status" lay-skin="switch" disabled lay-text="开启|关闭" {{ d.status == 1 ? 'checked' : '' }}>
+			</script>
+			<#if queryresult.tools_buttons ??>
+			<script type="text/html" id="barTools">
+				<#list queryresult.tools_buttons  as tools>
+					<a
+					<#if tools.event == 'detail' >
+						class="${tools.class!'layui-btn layui-btn-primary layui-btn-xs'}" 
+						lay-event="top" topMode="readonly" topUrl="<#if queryresult.edit_action??>${queryresult.edit_action}<#else>f.html?p=${queryresult.edit_url!''}</#if>"  topWidth="${queryresult.width!'680px'}" topHeight="${queryresult.height!'400px'}" topTitle="${tools.title!'查看'}" inputs="${queryresult.inputs!''}"
+					<#elseif tools.event == 'edit' >
+						class="${tools.class!'layui-btn layui-btn-xs'}" 
+						lay-event="top"  topUrl="<#if tools.url??>${tools.url}<#elseif queryresult.edit_action??>${queryresult.edit_action}<#else>f.html?p=${queryresult.edit_url!''}</#if>"  topWidth="${queryresult.width!'680px'}" topHeight="${queryresult.height!'400px'}" topTitle="${tools.title!'编辑'}" inputs="${queryresult.inputs!''}"
+					<#elseif tools.event == 'del' >
+						class="${tools.class!'layui-btn layui-btn-danger layui-btn-xs'}"
+						lay-event="submit"  <#if tools.url?? || tools.sqlid??> url="${tools.url!'comn/service/del.json'}?sqlid=${tools.sqlid!''}"  <#else> url="${queryresult.del_url!'comn/service/del.json'}?sqlid=${queryresult.del_sqlid!''}"  </#if> isConfirm="1" confirmMsg="${tools.msg!'是否确定删除当前记录？'}" inputs="${queryresult.inputs!''}"
+					<#elseif tools.type == 'button' >
+						class="${tools.class!'layui-btn layui-btn-xs'}" <#if tools.url??> url="${tools.url}"</#if> lay-event="${tools.event!'test'}"  inputs="${queryresult.inputs!''}"
+					<#else>
+						class="${tools.class!'layui-btn layui-btn-xs'}" 
+						lay-event="top"  topUrl="<#if tools.action??> ${tools.action}<#else>f.html?p=${tools.url!''}<#if tools.params??>&${tools.params}</#if></#if>"  <#if tools.topMode??> topMode="readonly"</#if>  topWidth="${tools.width!'680px'}" topHeight="${tools.height!'400px'}"   inputs="${queryresult.inputs!''}" topTitle="${tools.title!'编辑'}" inputs="${queryresult.inputs!''}"
+					</#if>
+					> ${tools.button_name!''}</a>
+				</#list>
+			</script>
+			</#if>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,37 @@
+<#assign tags="#">
+<${tags}--配置页面面板属性-->
+<${tags}assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"${module_name}/${fuction_name}"
+		},
+		"queryform":{
+	          "form_id":"query_form",	
+	          "sqlid":"${module_name}.${fuction_name}.save",
+	          "ver_type":"msg",
+	          "fields":[
+						<#list column_list as column>
+							<#if  column.column_name != table_key>
+								 <#if (!column_has_next)>
+								  {"name":"${column.column_name}","type":"text","label":"${column.column_comment!'字段'}","verify":"required","placeholder":"请输入${column.column_comment!'信息'}"} 
+								 <#elseif column.data_type == 'date'>
+									{"name":"${column.column_name}","type":"date","label":"${column.column_comment!'字段'}","verify":"required","datetype":"date","placeholder":"请输入${column.column_comment!'信息'}"}, 
+								 <#elseif  column.data_type =='datetime'>
+									{"name":"${column.column_name}","type":"date","label":"${column.column_comment!'字段'}","verify":"required","datetype":"datetime","placeholder":"请输入${column.column_comment!'信息'}"}, 
+								 <#else>
+								  {"name":"${column.column_name}","type":"text","label":"${column.column_comment!'字段'}","verify":"required","placeholder":"请输入${column.column_comment!'信息'}"}, 
+							  	</#if>
+						  	</#if>
+						</#list>	
+					   ],
+	       "tab_buttons":[
+		    				{"button_id":"s1","button_name":"新增","event":"add","icon":"&#xe654;"},
+		    				{"button_id":"s2","button_name":"关闭","event":"close","icon":"&#x1006;"}
+			    		]
+			  }
+}
+</${tags}assign>
+<${tags}--为table 转换需要的qryresult-->
+<${tags}assign pannelConfig=pannel_config?eval>
+<${tags}include "admin/template/page/comn_update.html">
+ 

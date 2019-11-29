@@ -1,0 +1,65 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"weixin/menu"
+		},
+		"queryform":{
+	          "form_id":"query_form",	
+	          "sqlid":"weixin.menu.query",
+	          "switch_filter":"is_status",
+	          "fields":[
+						 {"name":"menu_id","type":"text","label":"菜单编号","div_width":"200","placeholder":"请输入菜单编号"},
+						 {"name":"name","type":"text","label":"菜单名称","div_width":"200","placeholder":"请输入菜单名称"} 
+						], 
+			   "tab_buttons":[
+			  					 {"button_id":"s1","type":"submit","button_name":"查询" } 
+			  				 ]
+			  },
+		"queryresult":{ 
+	            "table_id":"adminDatagrid", 
+	            "is_load":"true", 
+	            "is_page":"true",
+	            "width":"680px",
+	            "height":"500px",
+	            "inputs":"menu_id",
+	            "delkey":"menu_id",
+	            "del_sqlid":"weixin.menu.status",
+	            "add_url":"weixin/menu/add.html",
+	            "edit_url":"weixin/menu/edit.html",
+	            "columnlist":[
+					           		{"title":"#","field":"","sort":"","style":"","type":"numbers","fixed":"left"},
+					           		{"title":"","field":"","sort":"","style":"","checkbox":"true","fixed":"left"},
+								 	{"title":"菜单编号","field":"menu_id","width":"100" },
+								 	{"title":"上级菜单","field":"parent_name","width":"100" },
+								 	{"title":"菜单名称","field":"name","width":"160" },
+								 	{"title":"菜单类型","field":"type","width":"100" },
+								 	{"title":"菜单地址","field":"url","width":"200" },
+								 	{"title":"关键编号","field":"menu_key","width":"160" },
+								 	{"title":"图片ID","field":"media_id","width":"160" },
+								 	{"title":"状态","field":"status","width":"160" ,"templet":"#isShowTpl"},
+								 	{"title":"创建时间","field":"created","width":"160" },
+								 	{"title":"修改时间","field":"updated","width":"160" },
+								{"title":"操作","width":"180","align":"center","fixed":"right","toolbar":"#barTools"}
+							],
+			  "tab_buttons":[
+			    				{"button_id":"b1","button_name":"增加","event":"add","title":"增加","icon":"&#xe654;"},
+			    				{"button_id":"b2","button_name":"批量删除","event":"bathdel","icon":"&#xe640;"},
+			    				{"button_id":"b4","button_name":"刷新","event":"refresh","url":"#","icon":"&#x1002;"}
+			    				{"button_id":"b4","button_name":"同步微信","event":"submit","url":"weixin/menu/createMenuService.json","icon":"&#x1002;"}
+			    				{"button_id":"b4","button_name":"提示:一级菜单最多3 个、二级菜单最多5个","event":"warm","url":"#","icon":"&#xe645;"}
+			    			],      
+			    "tools_buttons":[
+			    				{"tool_button_id":"t1","button_name":"查看","event":"detail","title":"查看"},
+			    				{"tool_button_id":"t2","button_name":"编辑","event":"edit","title":"编辑"},
+			    				{"tool_button_id":"t3","button_name":"删除","event":"del"}
+			    			]          
+        	 } 
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_query.html">
+<script type="text/html" id="isShowTpl">
+	<input type="checkbox" name="status" lay-skin="switch"  value="{{d.menu_id}}" sqlid="weixin.menu.status_show"   lay-text="正常|禁止" lay-filter="is_status"  {{ d.status == 1 ? 'checked' : '' }}>
+ </script>

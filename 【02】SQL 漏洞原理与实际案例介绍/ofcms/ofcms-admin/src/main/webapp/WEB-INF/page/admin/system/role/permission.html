@@ -1,0 +1,57 @@
+ <#include "admin/template/page/head_lib.html">
+ <link rel="stylesheet" href="${webroot}/static/plugins/ztree/css/metroStyle/metroStyle.css">
+ <script src="${webroot}/static/plugins/ztree/js/jquery.ztree.all.min.js"></script>
+<body>
+	<div class="layui-fluid">
+		<!-- 选择菜单 -->
+		<div id="menuLayer"  >
+			<ul id="menuTree" class="ztree"></ul>
+		</div>
+		<hr />
+			<div class="layui-form-item" style="text-align: center;">
+				<button class="layui-btn" id="menu" >
+					<i class="layui-icon">&#xe642;</i>保存
+				</button>
+				<button type="button" class="layui-btn layui-btn-primary"
+					function="close">关闭</button>
+			</div>
+	</div>
+	<script type="text/javascript">
+	var setting = {
+			check : {
+				enable : true,
+				autoCheckTrigger : true
+			},
+			data : {
+				simpleData : {
+					enable : true,
+					idKey: "menu_id",
+					pIdKey: "parent_id" 
+				}
+			} 
+		};
+	 
+	var zNodes = ${ztree};
+	//加载菜单树
+	var ztree = $.fn.zTree.init($("#menuTree"), setting,zNodes);
+	$("#menu").click(function(){
+		var nodes = ztree.getCheckedNodes(true);
+		var nodejson = new Array();
+		for (i = 0; i < nodes.length; i++) {
+			nodejson.push(nodes[i].menu_id);
+		}
+		var data = {
+				'role_id': '${roleid}','nodes':nodejson
+		}
+		utile.ajaxSubmit({"url":webrootAdmin+"/system/role/setPermission.json",data:data}, function(data) {
+			if (data.code == '200') {
+				var index = parent.layer.getFrameIndex(window.name);
+				parent.layer.close(index);
+			} else {
+				tools.alertError(data.msg);
+			}
+		})
+	})
+	</script>
+</body>
+</html>

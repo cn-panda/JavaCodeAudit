@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: eclipse:jdtcore:3.1.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../maven/repository/eclipse/jdtcore/3.1.0/jdtcore-3.1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../../maven/repository/eclipse/jdtcore/3.1.0/jdtcore-3.1.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../maven/repository/eclipse/jdtcore/3.1.0/jdtcore-3.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

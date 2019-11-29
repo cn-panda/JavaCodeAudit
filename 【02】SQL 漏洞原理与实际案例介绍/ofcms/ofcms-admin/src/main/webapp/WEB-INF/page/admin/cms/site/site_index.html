@@ -1,0 +1,133 @@
+<#include "admin/template/page/head_lib.html">
+<body>
+	<div class="layui-fluid">
+		<div class="layui-row layui-col-space15">
+			<div class="layui-col-md12">
+				<form class="layui-form" id="edit_form" isLoad="1" loadUrl="system/detail.json" >
+				<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief" >
+					<ul class="layui-tab-title">
+						<li class="layui-this">后台设置</li>
+						<li>前台设置</li>
+						<li>邮箱设置</li>
+					</ul>
+					<div class="layui-tab-content" style="width: 700px; " >
+						<div class="layui-tab-item layui-show">
+							<div class="layui-form-item">
+								<label class="layui-form-label">系统名称</label>
+								<div class="layui-input-block">
+									<input type="text" name="system_name" required  lay-verify="required" placeholder="请输入系统名称" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">系统版本</label>
+								<div class="layui-input-block">
+									<input type="text" name="version" required  lay-verify="required" placeholder="请输入系统版本" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">系统版权</label>
+								<div class="layui-input-block">
+									<input type="text" name="copyright" required  lay-verify="required" placeholder="请输入系统版权" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">首页模板</label>
+								<div class="layui-input-block">
+									<select   dict="index"   class="sykSelect"  name = "index" addNull="1">
+									</select>
+								</div>
+							</div>
+
+							<div class="layui-form-item">
+								<div class="layui-input-block" style="text-align: center">
+									<button class="layui-btn" lay-submit="" lay-filter="edit" url="system/update.json">保存</button>
+								</div>
+							</div>
+						</div>
+						<div class="layui-tab-item">
+							<div class="layui-form-item">
+								<label class="layui-form-label">备案号</label>
+								<div class="layui-input-block">
+									<input type="text" name="icp"    autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">电话</label>
+								<div class="layui-input-block">
+									<input type="text" name="tel"    autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">传真</label>
+								<div class="layui-input-block">
+									<input type="text" name="fax"    autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">地址</label>
+								<div class="layui-input-block">
+									<input type="text" name="address"    autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">版权</label>
+								<div class="layui-input-block">
+									<input type="text" name="front_copyright"    autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<div class="layui-input-block" style="text-align: center">
+									<button class="layui-btn" lay-submit="" lay-filter="edit" url="system/update.json">保存</button>
+								</div>
+							</div>
+						</div>
+						<div class="layui-tab-item">
+								<div class="layui-form-item">
+									<label class="layui-form-label">邮箱服务器</label>
+									<div class="layui-input-block">
+										<input type="text" name="email_service"    autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">邮件端口</label>
+									<div class="layui-input-block">
+										<input type="text" name="email_port"    autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">邮件用户名</label>
+									<div class="layui-input-block">
+										<input type="text" name="email_username"    autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">邮件密码</label>
+									<div class="layui-input-block">
+										<input type="text" name="email_password"    autocomplete="off" class="layui-input">
+									</div>
+								</div>
+							<div class="layui-form-item">
+								<div class="layui-input-block" style="text-align: center">
+									<button class="layui-btn" lay-submit="" lay-filter="edit" url="system/update.json">保存</button>
+								</div>
+							</div>
+					</div>
+
+				</div>
+
+			</div>
+
+			</form>
+			</div>
+		</div>
+	</div>
+	
+<script>
+layui.use([ 'layer' ,'element'], function(){
+    var element = layui.element;
+});
+</script>
+
+
+</body>
+</html>

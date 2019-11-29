@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>内容详情信息</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+</head>
+<body>
+<div class="of-content" style="clear: both;margin-top: 60px">
+    <div class="of-crad" style="height: 300px;width: 900px;margin: 0 auto;">
+        <@of.content site_id=site.site_id content_id=params.content_id>
+        <h2 class="content-title"> ${content.title_name}</h2>
+        <div class="content-inf">发布时间：${content.create_time}&nbsp;&nbsp; 作者：${content.author}&nbsp;&nbsp;浏览次数：<span
+                id="views">${content.clicks}</span>
+        </div>
+        <div class="content-txt">${content.content}</div>
+    </@of.content>
+</div>
+</div>
+</body>
+</html>

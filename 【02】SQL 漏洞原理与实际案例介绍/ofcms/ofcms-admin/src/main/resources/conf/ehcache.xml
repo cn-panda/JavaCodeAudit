@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="ehcache.xsd"
+         updateCheck="true" monitoring="autodetect"
+         dynamicConfig="true">
+    <diskStore path="java.io.tmpdir"/>
+<!-- <diskStore path="c:/temp/ehcache"/> -->
+    <defaultCache
+           maxEntriesLocalHeap="10000"
+           eternal="false"
+           overflowToDisk="true"
+           timeToIdleSeconds="120"
+           timeToLiveSeconds="180">
+    </defaultCache>
+
+<cache name="system" maxElementsInMemory="500" maxElementsOnDisk="10000" eternal="true" overflowToDisk="true" diskSpoolBufferSizeMB="50" />
+<cache name="shiro-activeSessionCache" maxElementsInMemory="500" maxElementsOnDisk="10000000"  eternal="true"  overflowToDisk="true"  diskSpoolBufferSizeMB="50" />
+<cache name="jdbcRealm.authorizationCache" maxElementsInMemory="500" maxElementsOnDisk="10000000"  eternal="true" overflowToDisk="true" diskSpoolBufferSizeMB="50"/>
+</ehcache>

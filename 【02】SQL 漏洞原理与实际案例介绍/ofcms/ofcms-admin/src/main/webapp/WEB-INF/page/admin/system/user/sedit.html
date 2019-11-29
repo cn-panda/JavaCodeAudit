@@ -1,0 +1,38 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"menu_id":"M001",
+		"page_name":"菜单",
+		"module_name":"system/user",
+		"function_name":"edit",
+		"load_sqlid":"sqlid=system.role.detail",
+		"load_url":"system/user/detail.json"
+		},
+		"queryform":{
+	          "form_id":"edit_form",	
+		     <#-- "sqlid":"system.role.save", -->
+	          "action":"system/user/update.json",
+	          "ver_type":"msg",
+	          <#-- "form_box":"layui-form-pane", -->
+	          "fields":[
+						 {"name":"user_id","type":"hidden"},
+						 {"name":"user_name","type":"text","label":"用户名称","verify":"required","placeholder":"请输入用户名称"},
+						 {"name":"login_name","type":"text","label":"登录名称","div_width":"150","verify":"required","placeholder":"请输入登录名称","right_list":[
+							 {"name":"user_password","type":"password","label":"登录密码","div_width":"150","verify":"required" }]},
+						 {"name":"user_email","type":"text","label":"邮箱","div_width":"150","verify":"email","placeholder":"请输入邮箱","right_list":[
+							 {"name":"user_mobile","type":"text","label":"手机号","div_width":"150","verify":"mobile","placeholder":"请输入手机号"}]},
+						 {"name":"user_sex","type":"radio","label":"性别","div_width":"150","verify":"required","radio":[{"value":"1","title":"男","checked":"checked"},{"value":"2","title":"女"}],"right_list":[
+						 	{"name":"status","type":"checkbox","label":"状态","div_width":"150","checkbox_text":"允许|禁止","value":"1"}]},
+						 {"name":"role_desc","type":"textarea","label":"描述","div_width":"","height":"80","width":"600","placeholder":"请输入描述"}
+					   ],
+	       "tab_buttons":[
+		    				{"button_id":"s1","button_name":"保存","event":"add"  },
+		    				{"button_id":"s2","button_name":"关闭","event":"close" }
+			    		]
+			  }
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_update.html">
+ 

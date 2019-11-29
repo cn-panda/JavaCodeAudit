@@ -1,0 +1,24 @@
+<#assign queryform=pannelConfig.queryform>
+<div class="layui-col-md12">
+	<blockquote class="layui-elem-quote" style="padding: 0.5px  5px ">
+		<div class="layui-form-query">
+			<form class="layui-form" id="${queryform.form_id!'query_form'}" <#if queryform.switch_filter?? >switch-filter="${queryform.switch_filter!'switch_test'}" </#if>  <#if queryform.checkbox_filter?? > checkbox-filter="${queryform.checkbox_filter!'checkbox_test'} " </#if>> 
+				<div class="layui-form-item">
+					<#include "admin/template/component/comn_form.html">
+					<#if queryform.tab_buttons??>
+					<div class="layui-inline">
+							<div class="layui-input-inline">
+							<#list queryform.tab_buttons as button>
+					    		<button   class="${button.class!'layui-btn'}" type="button"  function="${button.function!'query'}" >
+							  		<i class="layui-icon">&#xe615;</i>
+							  	${button.button_name!'查询'}
+							  	</button>	
+							</#list>
+							 </div>
+					</div>
+				 	</#if>
+				</div>
+			</form>
+		</div>
+	</blockquote>
+</div>

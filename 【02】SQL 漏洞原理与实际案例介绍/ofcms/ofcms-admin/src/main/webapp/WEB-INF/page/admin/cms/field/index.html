@@ -1,0 +1,64 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"cms/field"
+		},
+		"queryform":{
+	          "form_id":"query_form",	
+	          "sqlid":"cms.field.query",
+	          "fields":[
+						 {"name":"form_id","type":"text","label":"表单编号","id":"formId","disabled":"readonly","div_width":"200","placeholder":"请输入表单编号"}
+						 {"name":"field_id","type":"text","label":"字段编号","div_width":"200","placeholder":"请输入字段编号"} 
+						], 
+			   "tab_buttons":[
+			  					 {"button_id":"s1","type":"submit","button_name":"查询" } 
+			  				 ]
+			  },
+		"queryresult":{ 
+	            "table_id":"adminDatagrid", 
+	            "is_load":"true", 
+	            "is_page":"true",
+	            "width":"680px",
+	            "height":"500px",
+	            "inputs":"field_id",
+	            "add_inputs":"form_id:#formId",
+	            "delkey":"field_id",
+	            "del_sqlid":"cms.field.status",
+	            "add_url":"cms/field/add.html",
+	            "edit_url":"cms/field/edit.html",
+	            "columnlist":[
+					           	{"title":"#","field":"","sort":"","style":"","type":"numbers","fixed":"left"},
+					           	{"title":"","field":"","sort":"","style":"","checkbox":"true","fixed":"left"},
+							 	{"title":"字段编号","field":"field_id","width":"100" },
+							 	{"title":"字段名称","field":"field_name","width":"120" },
+							 	{"title":"字段描述","field":"field_desc","width":"120" },
+							 	{"title":"字段类型","field":"field_type","width":"100","dict_type":"dict","dict":"field_type"},
+							 	{"title":"排序","field":"field_sort","width":"80" },
+	                            {"title":"默认文字","field":"field_default_value","width":"120" },
+							 	{"title":"正则表达","field":"field_regular","width":"100" },
+							 	{"title":"验证类型","field":"field_verification","width":"120" },
+							 	{"title":"是否禁用:","field":"is_disabled","width":"100","dict":"is_status" },
+							 	{"title":"是否必填","field":"is_required","width":"100","dict":"is_status" },
+							 	{"title":"是否打印","field":"is_print","width":"100" ,"dict":"is_status"},
+							 	{"title":"是否默认","field":"is_default","width":"100","dict":"is_status" },
+							 	{"title":"是否显示","field":"status","width":"100" , "dict_type":"dict","dict":"is_show"},
+							 	{"title":"备注","field":"remark","width":"160" },
+								{"title":"操作","width":"210","align":"center","fixed":"right","toolbar":"#barTools"}
+							],
+			  "tab_buttons":[
+			    				{"button_id":"b1","button_name":"增加","event":"add","title":"增加","icon":"&#xe654;"},
+			    				{"button_id":"b2","button_name":"批量删除","event":"bathdel","icon":"&#xe640;"},
+			    				{"button_id":"b4","button_name":"刷新","event":"refresh","url":"#","icon":"&#x1002;"}
+			    			],      
+			    "tools_buttons":[
+			    				{"tool_button_id":"t1","button_name":"查看","event":"detail","title":"查看","icon":"&#xe615;"},
+			    				{"tool_button_id":"t2","button_name":"编辑","event":"edit","title":"编辑","icon":"&#xe642;"},
+			    				{"tool_button_id":"t3","button_name":"删除","event":"del","icon":"&#xe640;"}
+			    			]          
+        	 } 
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_query.html">

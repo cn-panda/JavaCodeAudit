@@ -1,0 +1,41 @@
+ <#include "admin/template/page/head_lib.html">
+<body>
+	<div class="layui-fluid">
+	<form class="layui-form">
+	  <div class="layui-form-item">
+				<label class="layui-form-label">角色名称</label>
+				<div class="layui-input-block" style="width: 500px;">
+					<input type="text" name="role_name" required="" lay-verType="tips"
+						lay-verify="required" placeholder="请输入用户名称" autocomplete="off"
+						class="layui-input" />
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">角色类型</label>
+				<div class="layui-input-inline">
+					<input type="radio" name="role_type" value="2" title="系统"
+						checked="checked"> <input type="radio" name="role_type"
+						value="1" title="用户">
+				</div>
+				<label class="layui-form-label">状态</label>
+				<div class="layui-input-inline">
+					<input type="checkbox" name="status" lay-skin="switch"
+						lay-text="允许|禁止" value="1" checked>
+				</div>
+			</div>
+			<div class="layui-form-item layui-form-text">
+				<label class="layui-form-label">备注</label>
+				<div class="layui-input-block" style="width: 500px;">
+					<textarea name="role_desc" placeholder="请输入描述" class="layui-textarea"
+						height="80" width="400"></textarea>
+				</div>
+			</div>
+	  <hr/>
+	  <div class="layui-form-item" style="text-align: center;">
+	      <button class="layui-btn" lay-submit="" lay-filter="save" url="comn/service/add.json?sqlid=system.role.save">新增</button>
+	      <button type="button" class="layui-btn layui-btn-primary" function="close">关闭</button>
+	  </div>
+	</form>
+	</div>
+</body>
+</html>

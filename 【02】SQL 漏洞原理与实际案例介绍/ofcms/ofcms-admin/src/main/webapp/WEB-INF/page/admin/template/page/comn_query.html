@@ -1,0 +1,18 @@
+<#include "admin/template/page/head_lib.html">
+<body>
+	<div>
+		<div class="layui-fluid">
+			<div class="layui-row layui-col-space1">
+				<#-- 加载 table -->
+				<#include "admin/template/component/query_form.html">
+				<#-- 加载 table 判断是否需要控制按钮权限 页面配置page_config 下"button_permission":"true" -->
+				<#if pannelConfig.page_config.button_permission?? &&  pannelConfig.page_config.button_permission == 'true'>
+					<#include "admin/template/component/query_table_permission.html">
+				<#else>
+					<#include "admin/template/component/query_table.html">
+				</#if>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

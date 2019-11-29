@@ -1,0 +1,36 @@
+.page {
+    margin: 40px 0 20px;
+    text-align: center;
+    clear: both;
+}
+
+.page .prev-page {
+    background: url(../image/prev-page.png) center center no-repeat;
+}
+.page .next-page {
+    background: url(../image/next-page.png) center center no-repeat;
+}
+.page a {
+    min-width: 34px;
+    height: 34px;
+    display: inline-block;
+    border: 1px solid #d5d5d5;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    line-height: 34px;
+    text-align: center;
+    float: left;
+    text-indent: 0;
+    color: #666666;
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0 3px;
+}
+
+.page a.on {
+    border: 1px solid #ef3838;
+    background: #ef3838;
+    color: #fff;
+}

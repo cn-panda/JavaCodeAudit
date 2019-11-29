@@ -1,0 +1,36 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"cms/comment"
+		},
+		"queryform":{
+	          "form_id":"query_form",	
+	          "sqlid":"cms.comment.save",
+	          "ver_type":"msg",
+	          "fields":[
+								  {"name":"site_id","type":"text","label":"站点编号","verify":"required","placeholder":"请输入站点编号"}, 
+								  {"name":"content_code","type":"text","label":"内容编码","verify":"required","placeholder":"请输入内容编码"}, 
+								  {"name":"comment_type","type":"text","label":"评论类型","verify":"required","placeholder":"请输入评论类型"}, 
+								  {"name":"comment_title","type":"text","label":"评论标题","verify":"required","placeholder":"请输入评论标题"}, 
+								  {"name":"comment_url","type":"text","label":"评论图片","verify":"required","placeholder":"请输入评论图片"}, 
+								  {"name":"comment_content","type":"text","label":"评论内容","verify":"required","placeholder":"请输入评论内容"}, 
+								  {"name":"comment_name","type":"text","label":"评论人","verify":"required","placeholder":"请输入评论人"}, 
+									{"name":"comment_time","type":"date","label":"评论时间","verify":"required","datetype":"datetime","placeholder":"请输入评论时间"}, 
+								  {"name":"comment_ip","type":"text","label":"ip地址","verify":"required","placeholder":"请输入ip地址"}, 
+									{"name":"create_time","type":"date","label":"发布时间","verify":"required","datetype":"datetime","placeholder":"请输入发布时间"}, 
+								  {"name":"check_status","type":"text","label":"审核状态0、待审核  1、通过 2、未通过","verify":"required","placeholder":"请输入审核状态0、待审核  1、通过 2、未通过"}, 
+								  {"name":"status","type":"text","label":"状态:0、删除 1、正常 2、禁止","verify":"required","placeholder":"请输入状态:0、删除 1、正常 2、禁止"}, 
+								  {"name":"remark","type":"text","label":"备注","verify":"required","placeholder":"请输入备注"} 
+					   ],
+	       "tab_buttons":[
+		    				{"button_id":"s1","button_name":"新增","event":"add","icon":"&#xe654;"},
+		    				{"button_id":"s2","button_name":"关闭","event":"close","icon":"&#x1006;"}
+			    		]
+			  }
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_update.html">
+ 

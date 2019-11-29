@@ -1,0 +1,36 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"cms/field"
+		},
+		"queryform":{
+	          "form_id":"query_form",	
+	          "sqlid":"cms.field.save",
+	          "ver_type":"msg",
+	          "fields":[
+	                              {"name":"form_id","type":"hidden","value":"" },
+								  {"name":"field_name","type":"text","label":"字段名称","div_width":"183","verify":"required","placeholder":"请输入字段名称",
+								  "right_list":[{"name":"field_desc","type":"text","label":"字段描述","div_width":"183","verify":"required","placeholder":"请输入字段描述"}]},
+								  {"name":"field_default_value","type":"text","label":"默认内容","div_width":"183","placeholder":"请输入默认内容",
+								  "right_list":[ {"name":"field_type","type":"select","div_width":"183","label":"字段类型","verify":"required","dict_type":"dict","dict":"field_type"}]},
+								  {"name":"field_regular","type":"text","label":"正则表达","div_width":"183","placeholder":"请输入正则表达",
+								  "right_list":[ {"name":"field_verification","type":"text","label":"验证类型","div_width":"183","placeholder":"请输入验证类型"}]},
+								  {"name":"is_disabled","type":"checkbox","label":"是否禁用:","div_width":"180","checkbox_text":"是|否","checkbox_value":"1|0","value":"1",
+	                              "right_list":[{"name":"is_required","type":"checkbox","label":"是否必填","div_width":"180","checkbox_text":"是|否","checkbox_value":"1|0","value":"1"}]},
+								  {"name":"is_print","type":"checkbox","label":"是否打印","div_width":"180","checkbox_text":"是|否","checkbox_value":"1|0","value":"1",
+	  					          "right_list":[ {"name":"is_default","type":"checkbox","label":"是否默认","div_width":"180","checkbox_text":"是|否","checkbox_value":"1|0","value":"1"}]},
+								  {"name":"status","type":"checkbox","label":"是否显示","div_width":"180","checkbox_text":"显示|不显","checkbox_value":"1|2","value":"1","checked":"true",
+								  "right_list":[{"name":"field_sort","type":"text","label":"字段排序","div_width":"100","verify":"number" }]},
+								  {"name":"remark","type":"textarea","label":"备注","width":"500","placeholder":"请输入备注"}
+					   ],
+	       "tab_buttons":[
+		    				{"button_id":"s1","button_name":"新增","event":"add","icon":"&#xe654;"},
+		    				{"button_id":"s2","button_name":"关闭","event":"close","icon":"&#x1006;"}
+			    		]
+			  }
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_update.html">

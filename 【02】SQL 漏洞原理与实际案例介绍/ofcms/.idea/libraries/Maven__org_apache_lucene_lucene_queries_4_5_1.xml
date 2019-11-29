@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.apache.lucene:lucene-queries:4.5.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../maven/repository/org/apache/lucene/lucene-queries/4.5.1/lucene-queries-4.5.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../../maven/repository/org/apache/lucene/lucene-queries/4.5.1/lucene-queries-4.5.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../maven/repository/org/apache/lucene/lucene-queries/4.5.1/lucene-queries-4.5.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

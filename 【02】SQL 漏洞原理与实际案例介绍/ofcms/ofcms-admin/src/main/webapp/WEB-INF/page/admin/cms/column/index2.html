@@ -1,0 +1,62 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"cms/column"
+		},
+		"queryform":{
+	          "form_id":"query_form",	
+	          "sqlid":"cms.column.query",
+	          "fields":[
+						 {"name":"site_id","type":"hidden","value":"${session.site.site_id}"},
+						 {"name":"column_name","type":"text","label":"栏目名称","div_width":"200","placeholder":"请输入栏目名称"}
+						],
+			   "tab_buttons":[
+			  					 {"button_id":"s1","type":"submit","button_name":"查询" } 
+			  				 ]
+			  },
+		"queryresult":{ 
+	            "table_id":"adminDatagrid", 
+	            "is_load":"true", 
+	            "is_page":"true",
+	            "width":"680px",
+	            "height":"500px",
+	            "inputs":"column_id",
+	            "delkey":"column_id",
+	            "del_sqlid":"cms.column.delete",
+	            "add_url":"cms/column/add.html",
+	            "edit_url":"cms/column/edit.html",
+	            "columnlist":[
+					           	{"title":"#","field":"","sort":"","style":"","type":"numbers","fixed":"left"},
+					           	{"title":"","field":"","sort":"","style":"","checkbox":"true","fixed":"left"},
+							 	{"title":"栏目编号","field":"column_id","width":"100" },
+							 	{"title":"上级栏目","field":"up_column_id","width":"100" },
+							 	{"title":"栏目模型","field":"form_name","width":"120" },
+							 	{"title":"栏目名称","field":"column_name","width":"120" },
+							 	{"title":"栏目英文","field":"column_english","width":"120" },
+							 	{"title":"栏目描述","field":"column_desc","width":"160" },
+							 	{"title":"栏目图","field":"column_image","width":"160" },
+							 	{"title":"是否显示","field":"is_show","width":"100" },
+							 	{"title":"排序","field":"sort","width":"80" },
+							 	{"title":"创建时间","field":"create_time","width":"160" },
+							 	{"title":"修改时间","field":"upate_time","width":"160" },
+							 	{"title":"状态","field":"status","width":"100" },
+							 	{"title":"备注","field":"remark","width":"160" },
+								{"title":"操作","width":"210","align":"center","fixed":"right","toolbar":"#barTools"}
+							],
+			  "tab_buttons":[
+			    				{"button_id":"b1","button_name":"增加","event":"add","title":"增加","icon":"&#xe654;"},
+			    				{"button_id":"b2","button_name":"批量删除","event":"bathdel","icon":"&#xe640;"},
+			    				{"button_id":"b4","button_name":"刷新","event":"refresh","url":"#","icon":"&#x1002;"}
+			    			],      
+			    "tools_buttons":[
+			    				{"tool_button_id":"t1","button_name":"查看","event":"detail","title":"查看","icon":"&#xe615;"},
+			    				{"tool_button_id":"t2","button_name":"编辑","event":"edit","title":"编辑","icon":"&#xe642;"},
+			    				{"tool_button_id":"t3","button_name":"删除","event":"del","icon":"&#xe640;"}
+			    			]          
+        	 } 
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_query.html">

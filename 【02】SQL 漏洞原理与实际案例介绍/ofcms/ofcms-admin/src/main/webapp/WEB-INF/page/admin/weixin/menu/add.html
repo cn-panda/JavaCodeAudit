@@ -1,0 +1,55 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"weixin/menu"
+		},
+		"queryform":{
+	          "form_id":"query_form",	
+	          "sqlid":"weixin.menu.save",
+	          "ver_type":"msg",
+	          "fields":[
+								  {"name":"parent_id","type":"hidden","label":"上级菜单","id":"penter_menu","value":"0"}, 
+								  {"name":"parent_name","type":"text","label":"上级菜单","verify":"required","placeholder":"最高级输入0","id":"menu"}, 
+								  {"name":"name","type":"text","label":"菜单名称","verify":"required","placeholder":"请输入菜单名称"}, 
+								  {"name":"type","type":"select","label":"菜单类型","verify":"required","dict":"weixin_menu_type","placeholder":"请输入菜单类型"}, 
+								  {"name":"url","type":"text","label":"菜单地址","placeholder":"请输入菜单地址"}, 
+								  {"name":"menu_key","type":"text","label":"关键","placeholder":"请输入关键"}, 
+								  {"name":"media_id","type":"text","label":"图片ID","placeholder":"请输入图片ID"}
+					   ],
+	       "tab_buttons":[
+		    				{"button_id":"s1","button_name":"新增","event":"add"  },
+		    				{"button_id":"s2","button_name":"关闭","event":"close" }
+			    		]
+			  }
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_update.html">
+ <script type="text/javascript">
+	var ztree={};
+	$("#menu").click(function(){
+	var  that = this;
+		 top.layer.open({
+			type: 2,
+			offset: 'auto',
+			skin: 'layui-layer-molv',
+			title: "选择上级菜单",
+			area: ['300px', '450px'],
+			shade: 0,
+			shadeClose: false,
+			content: "f.html?p=weixin/menu/tree.html",
+			btn: ['确定', '取消'],
+			btn1: function (index,layero) {
+                var iframeWin = layero.find('iframe')[0]; 
+				var node = iframeWin.contentWindow.ztree.getSelectedNodes();
+				var parentId = node[0].menu_id;
+				var parentName = node[0].name;
+				that.value=parentName;
+				$("#penter_menu").val(parentId);
+			    top.layer.close(index); 
+            }
+		});
+	})
+	</script>

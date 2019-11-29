@@ -1,0 +1,30 @@
+<#include "admin/template/page/head_lib.html">
+<link rel="stylesheet" href="${webroot}/static/plugins/product/css/product.css">
+<body>
+	<div class="layui-fluid" >
+		<div class="layui-row">
+			<div class="layui-col-md12">
+				<div class="layui-card">
+					<div class="layui-card-header">发布内容<font>&gt;</font>选择栏目</div>
+					<div class="layui-card-body">
+						<div class="layui-btn-container">
+							<!--商品分类-->
+						    <div class="wareSort clearfix">
+								<ul id="sort1"></ul>
+								<ul id="sort2" style="display: none;"></ul>
+								<ul id="sort3" style="display: none;"></ul>
+							</div>
+							<div class="selectedSort"><b>您当前选择的栏目是：</b><i id="selectedSort"></i></div>
+							<div class="wareSortBtn">
+							    <a href="javascrip:;" id="releaseBtn" class="layui-btn  layui-btn-radius layui-btn-disabled" ><i class="layui-icon">&#xe609;</i>发布内容</a>
+<!-- 								<button type="button" value="下一步"  ></button> -->
+							</div>
+			            </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript" src="${webroot}/static/plugins/product/js/jquery.sort.js"></script>
+</body>
+</html>

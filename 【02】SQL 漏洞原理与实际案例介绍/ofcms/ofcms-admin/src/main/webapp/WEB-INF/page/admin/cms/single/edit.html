@@ -1,0 +1,75 @@
+<#include "admin/template/page/head_lib.html">
+	<script type="text/javascript" charset="utf-8" src="${webroot}/static/plugins/ueditor/ueditor.config.js"></script>
+	<script type="text/javascript" charset="utf-8" src="${webroot}/static/plugins/ueditor/ueditor.all.min.js"> </script>
+	<script type="text/javascript" charset="utf-8" src="${webroot}/static/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+	<body>
+	<div class="layui-fluid">
+		<form class="layui-form"  id="edit_form" >
+			<input type="hidden" name="column_id" value="${data.column_id}">
+			<div class="layui-form-item">
+				<label class="layui-form-label">单页名称</label>
+				<div class="layui-input-inline"  style="width: 183px;">
+					<input type="text" name="column_name"  value="${data.column_name}" required="" lay-verType="msg" lay-verify="required" placeholder="请输入单页名称"   class="layui-input"/>
+				</div>
+				<label class="layui-form-label">访问地址</label>
+				<div class="layui-input-inline" style="width: 183px;">
+					<input type="text" name="column_english"   value="${data.column_english}" required="" lay-verify="required"  lay-verType="msg" placeholder="请输入访问地址" class="layui-input" />
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">页面标题</label>
+				<div class="layui-input-inline" style="width: 183px;">
+					<input type="text" name="title"  value="${data.title}" placeholder="请输入页面标题"   class="layui-input"/>
+				</div>
+				<label class="layui-form-label">关键词</label>
+				<div class="layui-input-inline" style="width: 183px;">
+					<input type="text" name="keywords"  value="${data.keywords}"  placeholder="请输入关键词"  class="layui-input"/>
+				</div>
+			</div>
+			<div class="layui-form-item layui-form-text">
+				<label class="layui-form-label">描述文字</label>
+				<div class="layui-input-block" style="width: 488px;">
+					<input name="description" placeholder="请输入描述文字" value="${data.description}"  class="layui-input"  />
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">模板路径</label>
+				<div class="layui-input-inline" style="width: 286px;">
+					<input type="text" name="template_path" value="${data.template_path}"  placeholder="不输默认模板" class="layui-input"/>
+				</div>
+				<label class="layui-form-label">排序</label>
+				<div class="layui-input-inline" style="width: 80px;">
+					<input type="text" name="sort"  lay-verType="msg" value="${data.sort}" lay-verify="number"   class="layui-input"/>
+				</div>
+			</div>
+			<div class="layui-form-item layui-form-text">
+				<label class="layui-form-label">标题图片</label>
+				<div class="layui-input-inline" style="width: 200px;">
+					<input name="column_image"  id="column_image" value="${data.column_image}" autocomplete="off" disabled="disabled" class="layui-input"  />
+				</div>
+				<div class="layui-input-inline">
+					<button type="button"  class="layui-btn" function="upload" fileElem="#column_image" fileAccept="file" fileExts="" fileSize="5120" inputs="type:test">${time.title!'上传'}</button>
+				</div>
+			</div>
+			<div class="layui-form-item layui-form-text">
+				<label class="layui-form-label">内容</label>
+				<div class="layui-input-block" style="width: 500px;">
+					<!--<textarea  name="column_content" id="myEditor"></textarea>-->
+					<textarea style="width:100%;height:200px;" id="column_content" name="column_content">${data.column_content}</textarea>
+					<script type="text/javascript">
+                        var ue = UE.getEditor('column_content',{
+                            autoHeightEnabled: true
+                        });
+					</script>
+				</div>
+			</div>
+
+			<hr/>
+			<div class="layui-form-item" style="text-align: center;">
+				<button class="layui-btn" lay-submit="" lay-filter="save" url="comn/service/update.json?sqlid=cms.single.update">编辑</button>
+				<button type="button" class="layui-btn layui-btn-primary" function="close">关闭</button>
+			</div>
+		</form>
+	</div>
+	</body>
+	</html>

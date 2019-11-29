@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>${system.system_name!'OFCMS'}内容管理系统</title>
+	<link rel="icon" type="image/png"
+		  href="${webroot}/static/assets/image/favicon.png">
+	<link rel="stylesheet"
+		  href="${webroot}/static/plugins/layui/css/layui.css">
+	<link rel="stylesheet" type="text/css"
+		  href="${webroot}/static/assets/css/admin.css"/>
+
+</head>
+<body>
+<div class="layui-fluid">
+	<div class="layui-row"  >
+			<div class="layui-card" style="width: 1000px;margin: 0 auto;font-size: 17px;">
+				<div class="layui-card-header"><span>OFCMS-安装向导</span>  <span style="width:70%;font-size: 17px;display: inline-block;text-align: center"><b>第一步：软件说明</b></span></div>
+				<div class="layui-card-body" style="line-height: 33px;padding: 30px">
+					<h3><b>项目介绍:</b></h3>
+					java 版CMS系统、基于java技术研发的内容管理系统、功能：栏目模板自定义、内容模型自定义、多个站点管理、在线模板页面编辑等功能、代码完全开源、MIT授权协议。<br />
+					技术选型：jfinal mybatis mysql freemarker redis spring 等 layui zTree bootstrap 。<br />
+					特点：支持多站点、可以根据需求添加手机站、pc站。<br />
+					模板采用：freemarker 标签会在官网发布。<br />
+					项目地址：https://gitee.com/oufu/ofcms QQ 群: ①185948055.<br />
+					<h3><b>使用说明:</b></h3>
+					配置文件 resource/conf/admin.properties<br />
+					微信配置文件 resource/conf/weixin.properties<br />
+					shior 文件 resource/shior.ini<br />
+					缓存 resource/ehcache.xml<br />
+					后台账号 http://localhost:端口/项目/admin admin 密码 123456<br />
+					<br />
+					<span style="width:100%;display: inline-block;text-align: center"><a href="${webroot}/install/step2.html"  class="layui-btn   "> <b>下一步</b></a></span>
+				</div>
+			</div>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"cms/link",
+		"function_name":"edit",
+		"load_sqlid":"cms.link.detail"
+		},
+		"queryform":{
+	          "form_id":"edit_form",	
+	          "sqlid":"cms.link.update",
+	          "ver_type":"msg",
+	          "fields":[
+						{"name":"link_id","type":"hidden"},
+						{"name":"link_name","type":"text","label":"链接名称","verify":"required","placeholder":"请输入链接名称"},
+						{"name":"link_url","type":"text","label":"链接地址","verify":"required","placeholder":"请输入链接地址"},
+						{"name":"link_image","type":"file","label":"链接图标","file_size":"5012","div_width":"150","title":"图片上传"},
+						{"name":"is_show","type":"checkbox","label":"是否显示", "div_width":"180","checkbox_text":"显示|不显","checkbox_value":"1|0","value":"1","checked":"true",
+						"right_list":[{"name":"sort","type":"text","label":"排序","div_width":"100","verify":"number"}]},
+						{"name":"remark","type":"textarea","label":"备注","width":"500","placeholder":"请输入备注"}
+					   ],
+	       "tab_buttons":[
+		    				{"button_id":"s1","button_name":"保存","event":"add","icon":"&#xe610;" },
+		    				{"button_id":"s2","button_name":"关闭","event":"close","icon":"&#x1006;"}
+			    		]
+			  }
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_update.html">
+ 

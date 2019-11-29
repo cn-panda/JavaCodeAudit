@@ -1,0 +1,56 @@
+<#assign tags="#">
+<${tags}--配置页面面板属性-->
+<${tags}assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"${module_name}/${fuction_name}"
+		},
+		"queryform":{
+	          "form_id":"query_form",	
+	          "sqlid":"${module_name}.${fuction_name}.query",
+	          "fields":[
+						 {"name":"${table_key}","type":"text","label":"${table_key_comment!'字段'}","div_width":"200","placeholder":"请输入${table_key_comment!'信息'}"} 
+						], 
+			   "tab_buttons":[
+			  					 {"button_id":"s1","type":"submit","button_name":"查询" } 
+			  				 ]
+			  },
+		"queryresult":{ 
+	            "table_id":"adminDatagrid", 
+	            "is_load":"true", 
+	            "is_page":"true",
+	            "width":"680px",
+	            "height":"500px",
+	            "inputs":"${table_key}",
+	            "delkey":"${table_key}",
+	            "del_sqlid":"${module_name}.${fuction_name}.delete",
+	            "add_url":"${module_name}/${fuction_name}/add.html",
+	            "edit_url":"${module_name}/${fuction_name}/edit.html",
+	            "columnlist":[
+					           	{"title":"#","field":"","sort":"","style":"","type":"numbers","fixed":"left"},
+					           	{"title":"","field":"","sort":"","style":"","checkbox":"true","fixed":"left"},
+					       <#list column_list as column>
+							 <#if (!column_has_next)>
+							 	{"title":"${column.column_comment!'字段'}","field":"${column.column_name}","width":"160" },
+							 <#else>
+							 	{"title":"${column.column_comment!'字段'}","field":"${column.column_name}","width":"160" },
+						  	 </#if>
+						   </#list>	
+								{"title":"操作","width":"210","align":"center","fixed":"right","toolbar":"#barTools"}
+							],
+			  "tab_buttons":[
+			    				{"button_id":"b1","button_name":"增加","event":"add","title":"增加","icon":"&#xe654;"},
+			    				{"button_id":"b2","button_name":"批量删除","event":"bathdel","icon":"&#xe640;"},
+			    				{"button_id":"b4","button_name":"刷新","event":"refresh","url":"#","icon":"&#x1002;"}
+			    			],      
+			    "tools_buttons":[
+			    				{"tool_button_id":"t1","button_name":"查看","event":"detail","title":"查看","icon":"&#xe615;"},
+			    				{"tool_button_id":"t2","button_name":"编辑","event":"edit","title":"编辑","icon":"&#xe642;"},
+			    				{"tool_button_id":"t3","button_name":"删除","event":"del","icon":"&#xe640;"}
+			    			]          
+        	 } 
+}
+</${tags}assign>
+<${tags}--为table 转换需要的qryresult-->
+<${tags}assign pannelConfig=pannel_config?eval>
+<${tags}include "admin/template/page/comn_query.html">

@@ -1,0 +1,1024 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="员工工资表" pageWidth="1700" pageHeight="555" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="1700" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="d2739c68-729c-478c-98db-bb674ccc5375">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="Table Dataset 1" uuid="c4fc6db5-fe7e-4f44-af6e-95a34396e26e"/>
+	<parameter name="employee_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     ts.`id`,
+     ts.`post_salary`,
+     ts.`base_salary`,
+     ts.`perform_salary`,
+     ts.`employ_no`,
+     ts.`employee_name`,
+     ts.`center`,
+     ts.`department`,
+     ts.`salary_month`,
+     ts.`should_attendance`,
+     ts.`realy_attendance`,
+     ts.`salary_days`,
+     ts.`current_base_salary`,
+     ts.`kpi`,
+     ts.`current_perform_salary`,
+     ts.`temp_allowance`,
+     ts.`post_allowance`,
+     ts.`attendance_subsidy`,
+     ts.`piece_salary`,
+     ts.`certify_subsidy`,
+     ts.`other_subsidy`,
+     ts.`meal_subsidy`,
+     ts.`commission`,
+     ts.`year_end_perform`,
+     ts.`should_salary`,
+     ts.`social_insurance`,
+     ts.`housing_fund`,
+     ts.`current_tax`,
+     ts.`year_tax`,
+     ts.`room_fee`,
+     ts.`other_fee`,
+     ts.`trade_union_fee`,
+     ts.`phone_fee`,
+     ts.`debit_total_fee`,
+     ts.`real_total_salary`,
+     ts.`status`,
+     ts.`receive_mail`,
+     ts.`send_time`
+FROM
+     `salary_info` ts ]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="post_salary" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="base_salary" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="perform_salary" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="employ_no" class="java.lang.String">
+		<fieldDescription><![CDATA[月工编号]]></fieldDescription>
+	</field>
+	<field name="employee_name" class="java.lang.String">
+		<fieldDescription><![CDATA[员工姓名]]></fieldDescription>
+	</field>
+	<field name="center" class="java.lang.String">
+		<fieldDescription><![CDATA[中心]]></fieldDescription>
+	</field>
+	<field name="department" class="java.lang.String">
+		<fieldDescription><![CDATA[部门]]></fieldDescription>
+	</field>
+	<field name="salary_month" class="java.lang.String">
+		<fieldDescription><![CDATA[月份]]></fieldDescription>
+	</field>
+	<field name="should_attendance" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[应出勤]]></fieldDescription>
+	</field>
+	<field name="realy_attendance" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[实出勤]]></fieldDescription>
+	</field>
+	<field name="salary_days" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[计薪天数 ]]></fieldDescription>
+	</field>
+	<field name="current_base_salary" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[当月基本工资]]></fieldDescription>
+	</field>
+	<field name="kpi" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[考核系数]]></fieldDescription>
+	</field>
+	<field name="current_perform_salary" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[当月绩效工资]]></fieldDescription>
+	</field>
+	<field name="temp_allowance" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[临时津贴/岗位特殊津贴]]></fieldDescription>
+	</field>
+	<field name="post_allowance" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[职务津贴]]></fieldDescription>
+	</field>
+	<field name="attendance_subsidy" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[考勤补助]]></fieldDescription>
+	</field>
+	<field name="piece_salary" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[计件工资]]></fieldDescription>
+	</field>
+	<field name="certify_subsidy" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[证件补助]]></fieldDescription>
+	</field>
+	<field name="other_subsidy" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[补杂]]></fieldDescription>
+	</field>
+	<field name="meal_subsidy" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[餐补]]></fieldDescription>
+	</field>
+	<field name="commission" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[提成/其他]]></fieldDescription>
+	</field>
+	<field name="year_end_perform" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[年终发放工资]]></fieldDescription>
+	</field>
+	<field name="should_salary" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[当月应发工资合计]]></fieldDescription>
+	</field>
+	<field name="social_insurance" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[社会保险]]></fieldDescription>
+	</field>
+	<field name="housing_fund" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[公积金]]></fieldDescription>
+	</field>
+	<field name="current_tax" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[当月个税]]></fieldDescription>
+	</field>
+	<field name="year_tax" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[年终奖计税]]></fieldDescription>
+	</field>
+	<field name="room_fee" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[房费]]></fieldDescription>
+	</field>
+	<field name="other_fee" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[其他扣款]]></fieldDescription>
+	</field>
+	<field name="trade_union_fee" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[工会费 ]]></fieldDescription>
+	</field>
+	<field name="phone_fee" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[电话费]]></fieldDescription>
+	</field>
+	<field name="debit_total_fee" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[扣款合计]]></fieldDescription>
+	</field>
+	<field name="real_total_salary" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[实发工资]]></fieldDescription>
+	</field>
+	<field name="status" class="java.lang.String">
+		<fieldDescription><![CDATA[0 导入成功(待编辑)
+            1.编辑完成
+            2.发送成功
+            3.发送失败]]></fieldDescription>
+	</field>
+	<field name="receive_mail" class="java.lang.String">
+		<fieldDescription><![CDATA[接受邮箱]]></fieldDescription>
+	</field>
+	<field name="send_time" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="mer_date">
+		<groupExpression><![CDATA[]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="1700" height="20" uuid="9fbf5dd6-9bfb-44fe-acb5-f020749df4aa"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[员工工资信息表]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="20">
+			<staticText>
+				<reportElement x="431" y="0" width="639" height="20" uuid="9e58ac4c-6be0-4a32-b63a-7c495d53bf0a"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[应发明细]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1070" y="0" width="144" height="20" uuid="6dacb09f-e24b-4109-9451-375adfc7f10f"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[应发合计]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="281" height="20" uuid="ebf5a56b-2c8c-4ba1-a8c8-bb3300bf71ca"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="281" y="0" width="150" height="20" uuid="3975d2d0-e03a-4bbc-bea0-a3b63558bcc8"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[工资标准明细]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1214" y="0" width="421" height="20" uuid="ffdac57e-2d5d-46e2-930c-6a4f53a3ec95"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[扣款项目]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1635" y="0" width="65" height="20" uuid="69a5421c-7b91-4f0f-8308-8a2a2b77758f"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20">
+			<staticText>
+				<reportElement x="0" y="0" width="50" height="20" uuid="d96817c5-c940-4091-9739-df1f16e95252"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[计薪月份]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="0" width="80" height="20" uuid="1ae7bc9c-d327-40e9-b61d-40207085f991"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[姓名]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="0" width="50" height="20" uuid="559c535a-8a84-4e6a-9f66-c34c05b0d5d7"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[应出勤]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="181" y="0" width="50" height="20" uuid="a4505f04-1b87-4930-a630-b07981dfdd4c"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[实出勤]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="281" y="0" width="50" height="20" uuid="d743cfac-b25e-46c2-a6f3-b5ab41877495"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[岗位工资]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="331" y="0" width="50" height="20" uuid="4ec5c8e5-92b5-4c93-88b1-93efc5e91148"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[基本工资]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="381" y="0" width="50" height="20" uuid="76f5140e-bfb6-4cb5-b8d0-e8d293a0d9b6"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[绩效工资]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="431" y="0" width="65" height="20" uuid="76b4d806-2f4a-4ae1-82f9-a95b14190a19"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[当月基本工资]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="496" y="0" width="50" height="20" uuid="3d85ac4c-5ab7-4c80-87b9-d18e4d95a37c"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[考核系数]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="546" y="0" width="66" height="20" uuid="ee487b96-901d-4bca-bcdf-8ab6e9803c2b"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[当月绩效工资]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="612" y="0" width="108" height="20" uuid="57dc397c-a810-40e7-9a7d-eabaa99c0d54"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[临时津贴/岗位特殊津贴]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="720" y="0" width="50" height="20" uuid="0665f8c8-a6dc-466a-b66f-322330f1e40c"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[职务津贴]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="770" y="0" width="50" height="20" uuid="2abb5469-9fc4-4903-977d-1918a7ee7242"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[考勤补助]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="820" y="0" width="50" height="20" uuid="86d8ad99-3ba5-44d3-98ab-1b31c816962d"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[计件工资]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="870" y="0" width="50" height="20" uuid="f206e621-0236-4f11-919b-7578700f77db"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[证件补助]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="920" y="0" width="50" height="20" uuid="c73780e6-5c41-4b78-94d9-70f7c14ee22e"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[补杂]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="970" y="0" width="50" height="20" uuid="d9213046-e73a-447b-b2c8-c75125284d30"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[餐补]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1020" y="0" width="50" height="20" uuid="f5d2156a-9291-45ff-9d34-9f5740d1c4f2"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[提成/其他]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1070" y="0" width="65" height="20" uuid="c98a10e5-0fd3-4e2d-b0c6-daebff0ac811"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[年终发放工资]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1135" y="0" width="79" height="20" uuid="9831fc7e-19ef-47b7-b16d-04fa90bafb43"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[当月应发合计]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1214" y="0" width="50" height="20" uuid="9c68860d-b365-4a49-a339-e96e90ed0ead"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[社会保险]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1264" y="0" width="40" height="20" uuid="54abdea0-ea12-4dcc-83b9-d18454abc5da"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[公积金]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1304" y="0" width="50" height="20" uuid="6fe7b0b9-e226-408d-b84c-f74a6101117e"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[当月个税]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1354" y="0" width="50" height="20" uuid="49862668-6188-4dfc-ae3a-40981956bfeb"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[年终奖计税]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1404" y="0" width="31" height="20" uuid="5008eae9-c6e0-4de5-9748-84c49a5d743b"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[房费]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1435" y="0" width="50" height="20" uuid="f85b2e6c-86c0-4830-83ed-65a752be876c"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[其他扣款]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1485" y="0" width="50" height="20" uuid="9b12e7cd-ab54-45d3-bca1-1b3e72669e50"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[工会费]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1535" y="0" width="50" height="20" uuid="a079f22b-aec4-4f13-97aa-35653cfcb659"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[电话费]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1585" y="0" width="50" height="20" uuid="e7497c85-c883-4fb8-bfa4-9dc6e1fc7849"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[扣款合计]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1635" y="0" width="65" height="20" uuid="c34e4ab8-9d9a-4ccf-af5c-a370421feea0"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[当月实发工资]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="231" y="0" width="50" height="20" uuid="2692d509-e946-4d13-864b-6fc0831468aa"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[计薪天数]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="50" height="14" uuid="13ffadf1-a095-4616-95f8-3a0d64521d68"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{salary_month}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="50" y="0" width="80" height="14" uuid="e77debee-4c5c-40db-877a-0a7fed25d7ea"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{employee_name}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="130" y="0" width="50" height="14" uuid="8a15cebd-855e-4685-812a-0711f25687ff"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{should_attendance}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="231" y="0" width="50" height="14" uuid="9dffda9e-b3ee-4cad-b110-8ac4ff6732eb"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{salary_days}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="281" y="0" width="50" height="14" uuid="c37701f6-f472-4076-81c9-1a392a7e47c0"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{post_salary}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="331" y="0" width="50" height="14" uuid="dbaf4ef0-0314-4bf2-9e24-fe8c9be2936e"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{base_salary}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="381" y="0" width="50" height="14" uuid="28342090-f667-4602-a841-9ccdcbb04a1a"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{perform_salary}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="431" y="0" width="65" height="14" uuid="192b3f40-b553-4829-9bda-e2565ca2100c"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{current_base_salary}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="496" y="0" width="50" height="14" uuid="b11f07a3-c467-40dd-b51c-edefb033dde1"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{kpi}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="720" y="0" width="50" height="14" uuid="fb6c85a6-9172-4b7c-a0e8-dc7868ffcbe8"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{post_allowance}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="546" y="0" width="66" height="14" uuid="405cad2a-65bb-4b4f-b4c4-f5d310a2b970"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{current_perform_salary}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="612" y="0" width="108" height="14" uuid="f849b725-d053-4223-8820-81a0c31bf67d"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{temp_allowance}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="770" y="0" width="50" height="14" uuid="7b90c3e4-fab2-4076-a398-103882137c95"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{attendance_subsidy}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="820" y="0" width="50" height="14" uuid="3987db35-d0fa-4d53-baba-a916851585b5"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{piece_salary}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="870" y="0" width="50" height="14" uuid="976f8e92-ff80-4535-86ee-dd3f4fac87f0"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{certify_subsidy}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="920" y="0" width="50" height="14" uuid="52359cb0-c6f7-4893-870e-74c9edff24c7"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{other_subsidy}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="970" y="0" width="50" height="14" uuid="ef0ec378-cb51-4699-a378-9a15bd22b5d6"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{meal_subsidy}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1020" y="0" width="50" height="14" uuid="f0bbc68c-0834-4a10-9271-623186bb544a"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{commission}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1070" y="0" width="65" height="14" uuid="334e53b9-2d31-48be-b7e6-8f7ef41a124d"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{year_end_perform}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1135" y="0" width="79" height="14" uuid="840cacc7-2036-4074-84a1-0dfafa465a9a"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{should_salary}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1214" y="0" width="50" height="14" uuid="2ac822a9-4e95-4e3c-be9f-c2ddd4f014f6"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{social_insurance}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1264" y="0" width="40" height="14" uuid="ba540e65-5f62-40d6-9d3f-0d6cb025e34f"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{trade_union_fee}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1304" y="0" width="50" height="14" uuid="a9af955c-7a07-4a55-9028-e9e8dc846662"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{current_tax}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1354" y="0" width="50" height="14" uuid="f17ad525-5b38-4ce9-a333-3ab769b33c5c"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{year_tax}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1404" y="0" width="31" height="14" uuid="3924095f-c3b7-4e1d-980a-28b9f7b52455"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{room_fee}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1435" y="0" width="50" height="14" uuid="177fdf9a-234c-45cf-b935-962c1ea705ea"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{other_fee}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1485" y="0" width="50" height="14" uuid="9300fb4d-29a7-40a0-af16-8de250a2b376"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{trade_union_fee}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1535" y="0" width="50" height="14" uuid="bf8ed823-0332-4bfa-accf-b1f8274f69db"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{phone_fee}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1585" y="0" width="50" height="14" uuid="5557f066-84d8-42fd-8377-0b5d67cce116"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{current_base_salary}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1635" y="0" width="65" height="14" uuid="a131de04-930f-4903-8bb8-8a092f1b34ea"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{real_total_salary}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="180" y="0" width="50" height="14" uuid="d7a39edc-395e-431f-b40f-2f602706c50e"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{realy_attendance}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

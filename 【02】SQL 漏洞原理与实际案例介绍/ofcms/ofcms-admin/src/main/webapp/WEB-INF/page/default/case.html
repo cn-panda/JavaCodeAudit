@@ -1,0 +1,29 @@
+<#include "default/common/head.html" />
+<link rel="stylesheet" href="${reroot}/static/assets/css/case.css"  >
+<div class="of-banner">
+    <div class="layui-carousel" id="test">
+        <div carousel-item="">
+            <img src="${webroot}${columns.column_image}" style="width: 100%;height: 250px;" >
+        </div>
+    </div>
+</div>
+<div class="of-content">
+     <div class="of-list">
+         <@of.content_list site_id = site.site_id column_id=columns.column_id limit=4>
+         <ul>
+             <#list content_list as data >
+                 <li>
+                 <a href="${data.url}" title="${data.title_name}">
+                     <img src="${webroot}${data.thumbnail}">
+                     <span>${data.title_name}</span>
+                  </a>
+                 </li>
+             </#list>
+         </ul>
+         <@of.page />
+        </@of.content_list>
+    </div>
+</div>
+    <div style="clear:both;"></div>
+</div>
+<#include "default/common/footer.html" />

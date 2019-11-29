@@ -1,0 +1,37 @@
+<#assign column_name='/page/news'>
+<#include "default/common/head.html" />
+<div class="of-banner">
+    <div class="layui-carousel" id="test">
+        <div carousel-item="">
+            <img src="${reroot}/static/assets/image/news.jpg"  >
+        </div>
+    </div>
+</div>
+<div class="of-content">
+    <div class="of-crad">
+        <@of.content_list site_id = site.site_id column_id = columns.column_id>
+
+        <div class="of-crad-content" style="width: 900px">
+            <div class="layui-tab layui-tab-brief">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">公司新闻</li>
+                    <li ><a href="${webroot}/industry.html">行业新闻</a></li>
+                </ul>
+            </div>
+            <#list content_list as data >
+                <div class="content" style="margin-bottom: 5px;height: 200px; background-color: #f5f5f5;border: 1px solid #e7e7e7">
+                    <a href="${data.url}">
+                    <div class="content-reight" style="height: 200px;    float: left; background-color: #f5f5f5;border: 1px solid #e7e7e7"><img src="${webroot}${data.thumbnail}" style="width:200px;height: 180px; padding: 10px;"></div>
+                    <div class="content-left" style="float: left; width: 570px;font-size: 14px;line-height: 30px;margin-left: 10px">
+                        <span class="content-title" style="font-size:18px;font-weight: 300 ">  <br>&nbsp;&nbsp;&nbsp;&nbsp;${data.title_name}</span>
+                        <div class="content-body" style="height: 128px;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;color: #aaaaaa"> &nbsp;&nbsp;&nbsp;&nbsp;${data.content}</div>
+                    </div>
+                    </a>
+                </div>
+            </#list>
+            <@of.page />
+        </div>
+        </@of.content_list>
+    </div>
+</div>
+<#include "default/common/footer.html" />

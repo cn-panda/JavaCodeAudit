@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>${system.system_name!'OFCMS'}内容管理系统</title>
+<link rel="icon" type="image/png"
+	href="${webroot}/static/assets/image/favicon.png">
+<link rel="stylesheet"
+	href="${webroot}/static/plugins/layui/css/layui.css">
+<link
+	href="${webroot}/static/assets/css/font-awesome.min.css"
+	rel="stylesheet">
+<link
+	href="${webroot}/static/plugins/contextMenu/jquery.contextMenu.min.css"
+	rel="stylesheet">
+	<link rel="stylesheet" type="text/css"
+		href="${webroot}/static/assets/css/admin.css" />
+<!-- <script type="text/javascript"
+	src="${webroot}/static/lib/jquery-3.0.0.min.js"></script> -->
+<script type="text/javascript" src="${webroot}/static/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="${webroot}/static/plugins/layer/layer.js"></script>
+<script
+	src="${webroot}/static/plugins/contextMenu/jquery.contextMenu.min.js"></script>
+	 <link rel="stylesheet" href="${webroot}/static/plugins/ztree/css/metroStyle/metroStyle.css">
+<script type="application/javascript">
+	var webroot = "${webroot!'ofcms-admin'}";
+</script>
+</head>
+<body class="layui-layout-body">
+	<div class="layui-layout layui-layout-admin">
+		<div class="layui-header" style="background-color: #2F9688;">
+			<div class="layui-logo" style="background: #3daa97;color: #f2f2f2; font-size: 20px;">${system.system_name!'OFCMS'}</div>
+			 <a href="javascript:;" class="layui-hide-xs"><div class="sykSwitchMenu"><i class="fa fa-outdent"></i></div></a>  
+			<!-- 头部区域（可配合layui已有的水平导航） -->
+			<!-- top left   -->
+
+			<ul class="layui-nav layui-layout-left admin-top-menu" id="adminTopMenu"
+				lay-filter="adminTopMenu">
+			</ul>
+
+			<!-- top right  -->
+			<ul class="layui-nav layui-layout-right">
+
+				<li class="layui-nav-item" lay-unselect>
+					<a href="javascript:;" id = "reward">捐赠作者</a>
+				</li>
+				<li class="layui-nav-item" lay-unselect>
+					<a href="javascript:;" id = "lockScreen"><i class="fa fa-lock"></i>锁屏</a>
+				</li>
+				<li class="layui-nav-item"><a target="_blank" href="${session.site.access_protocol}://${session.site.access_path}" ><i class="layui-icon">&#xe68e;</i>网站首页</a></li>
+			<li class="layui-nav-item"><a href="javascript:;">选择站点</a>
+					<dl class="layui-nav-child">
+						<#list system_util.getSitCache()  as data>
+							<dd <#if data.site_id == session.site.site_id> class="layui-this" </#if>>
+								<!--<a href="system/setSite.html?site_id =${data.site_id} ">${data.site_name}</a>-->
+								<a href="setSite.html?site_id=${data.site_id}">${data.site_name}</a>
+							</dd>
+						</#list>
+					</dl>
+				</li>
+				
+				<li class="layui-nav-item"><a href="javascript:;"> <img
+						src="${webroot}/static/assets/image/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" class="layui-nav-img"> ${session.ofcms_user.user_name}
+				</a>
+					<dl class="layui-nav-child">
+						<dd>
+							<a class="open" href="javascript:;" function="top"
+							   topUrl="f.html?p=system/user/edit.html&topMode=readonly&user_id=${session.ofcms_user.user_id}" topWidth="680px"
+							   isMaximize="0" topHeight="470px" toptitle="基本资料"><i
+									class="layui-icon">&#xe612;</i>基本资料</a>
+						</dd>
+						<dd>
+							<a class="open" href="javascript:;" function="top"
+							   topUrl="f.html?p=system/user/respwd.html" topWidth="450px"
+							   isMaximize="0" topHeight="300px" toptitle="修改密码"><i
+									class="layui-icon">&#xe614;</i>修改密码</a>
+						</dd>
+						<dd>
+							<a href="logout.html"><i class="layui-icon">&#x1007;</i>离开</a>
+						</dd>
+					</dl></li>
+			</ul>
+		</div>
+
+		<div class="layui-side layui-bg-cyan ">
+			<div class="layui-side-scroll">
+				<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+				<ul class="layui-nav layui-nav-tree layui-bg-cyan  layui-inline"
+					lay-filter="adminLeftMenu" id="adminLeftMenu">
+				</ul>
+			</div>
+		</div>
+		<div class="layui-body">
+			<div class="layui-tab layui-tab-card admin-main-tab" lay-filter="adminMainTab" lay-allowClose="true">
+				<!-- 菜单导航 -->
+				<ul class="layui-tab-title" id="adminMainTab">
+					<li class="layui-this" lay-id="1"><i class="layui-icon">&#xe68e;</i><cite>首页</cite><p class="layui-tab-close" style="display: none;"></p></li>
+				</ul>
+				<!-- 内容 -->
+				<div class="layui-tab-content" id="main">
+					<div class="layui-tab-item layui-show" lay-id="1">
+						<iframe src="main.html"></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="layui-footer">
+			<!-- 底部固定区域 -->
+			<div class="layui-row">
+				<div class="layui-col-md11">
+					${system.copyright!'© www.ofosft.cn'}
+				</div>
+				<div class="layui-col-md1">
+					version：${system.version!'1.1'}
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="${webroot}/static/plugins/layui/layui.js"></script>
+	<script src="${webroot}/static/assets/js/admin.js"></script>
+	<script src="${webroot}/static/assets/js/tools.js"></script>
+	<script type="text/javascript"
+		src="${webroot}/static/plugins/of/admin/js/admin.core.js"></script>
+	<script type="text/javascript"
+		src="${webroot}/static/plugins/of/admin/js/admin.index.js"></script>
+	<script>
+		layui.use([  'layer', 'form', 'element',"admin.tab" ],function() {
+			var layer = layui.layer, 
+			form = layui.form, 
+			element = layui.element,tab =  layui['admin.tab'] ;
+			layer.msg('欢迎光临!');
+		});
+	</script>
+</body>
+</html>

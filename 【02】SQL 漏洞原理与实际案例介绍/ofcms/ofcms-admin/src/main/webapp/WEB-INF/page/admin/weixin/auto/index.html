@@ -1,0 +1,58 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"weixin/auto"
+		},
+		"queryform":{
+	          "form_id":"query_form",	
+	          "sqlid":"weixin.auto.query",
+	          "switch_filter":"is_status",
+	          "fields":[
+						 {"name":"auto_key","type":"text","label":"关键字","div_width":"200","placeholder":"请输入关键字"} 
+						], 
+			   "tab_buttons":[
+			  					 {"button_id":"s1","type":"submit","button_name":"查询" } 
+			  				 ]
+			  },
+		"queryresult":{ 
+	            "table_id":"adminDatagrid", 
+	            "is_load":"true", 
+	            "is_page":"true",
+	            "width":"680px",
+	            "height":"400px",
+	            "inputs":"id",
+	            "delkey":"id",
+	            "del_sqlid":"weixin.auto.status",
+	            "add_url":"weixin/auto/add.html",
+	            "edit_url":"weixin/auto/edit.html",
+	            "columnlist":[
+					           		{"title":"#","field":"","sort":"","style":"","type":"numbers","fixed":"left"},
+					           		{"title":"","field":"","sort":"","style":"","checkbox":"true","fixed":"left"},
+								 	{"title":"编号","field":"id","width":"100" },
+								 	{"title":"关键字","field":"auto_key","width":"160" },
+								 	{"title":"内容","field":"content","width":"220" },
+								 	{"title":"状态","field":"status","width":"100" ,"templet":"#isShowTpl"},
+								 	{"title":"创建时间","field":"created","width":"160" },
+								 	{"title":"修改时间","field":"updated","width":"160" },
+								{"title":"操作","width":"180","align":"center","fixed":"right","toolbar":"#barTools"}
+							],
+			  "tab_buttons":[
+			    				{"button_id":"b1","button_name":"增加","event":"add","title":"增加","icon":"&#xe654;"},
+			    				{"button_id":"b2","button_name":"批量删除","event":"bathdel","icon":"&#xe640;"},
+			    				{"button_id":"b4","button_name":"刷新","event":"refresh","url":"#","icon":"&#x1002;"}
+			    			],      
+			    "tools_buttons":[
+			    				{"tool_button_id":"t1","button_name":"查看","event":"detail","title":"查看"},
+			    				{"tool_button_id":"t2","button_name":"编辑","event":"edit","title":"编辑"},
+			    				{"tool_button_id":"t3","button_name":"删除","event":"del"}
+			    			]          
+        	 } 
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_query.html">
+<script type="text/html" id="isShowTpl">
+	<input type="checkbox" name="status" lay-skin="switch"  value="{{d.id}}" sqlid="weixin.auto.status_show"   lay-text="正常|禁止" lay-filter="is_status"  {{ d.status == 1 ? 'checked' : '' }}>
+ </script>

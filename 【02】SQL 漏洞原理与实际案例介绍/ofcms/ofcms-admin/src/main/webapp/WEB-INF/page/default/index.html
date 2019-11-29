@@ -1,0 +1,90 @@
+<#assign column_name='/'/>
+<#include "default/common/head.html" />
+<div class="of-banner">
+    <div class="layui-carousel" id="banner">
+        <div carousel-item="">
+            <@of.ad site_id=site.site_id edition="banner">
+            <#list ad as data >
+                <div><a href="${data.ad_jump_url!'javascript:;'}"><img
+                        src="${session.site.access_protocol}://${session.site.access_path}${data.ad_image_url}"
+                        alt="${data.ad_name}" style="width: 100%;"></a></div>
+            </#list>
+           </@of.ad>
+    </div>
+</div>
+</div>
+<div class="of-content">
+    <div class="of-crad" style="height: 250px;width: 1200px;margin: 0 auto;">
+        <!--新闻-->
+        <div class="announce" style="float: left;">
+            <p class="title">最新新闻</p>
+            <ul>
+                <@of.content_list site_id = site.site_id column_name="industry" limit=5>
+                <#list content_list as data >
+                    <li><span>${data.create_time}</span>·  <a href="${data.url}" title="${data.title_name}">${data.title_name}</a> </li>
+                </#list>
+               </@of.content_list>
+            </ul>
+        </div>
+        <!--公告-->
+        <div class="announce">
+            <p class="title">系统公告</p>
+            <ul>
+                <@of.announce_list site_id=site.site_id limit=5>
+                    <#list announce as data >
+                        <li>
+                        <a href="${data.id}"></a>|
+                            <span>${data.create_time}</span> <a href="page.html?s=/announce&content_id=${data.id}" title="${data.title}">${data.title}</a>
+                        </li>
+                    </#list>
+                </@of.announce_list>
+            </ul>
+        </div>
+    </div>
+    <div class="of-crad" style="height: 370px;width: 1200px;margin: 0 auto;text-align: center;">
+        <img src="${reroot}/static/assets/image/app.png">
+    </div>
+    <div class="of-crad" style="height: 300px;width: 1200px;margin: 0 auto;">
+        <!--案例-->
+        <div class="case">
+            <p class="title">客户案例 Case</p>
+            <ul>
+                <@of.content_list site_id = site.site_id column_name="case" limit=8>
+                    <#list content_list as data >
+                        <li>
+                            <a href="${data.url}" ><img src="${webroot}${data.thumbnail}"><span style="margin-top: 15px;    display: inline-block;">${data.title_name}</span></a>
+                        </li>
+                    </#list>
+                </@of.content_list>
+            </ul>
+        </div>
+
+    </div>
+    <div class="of-crad">
+        <div class="of-crad-content">
+            <div class="of-crad-title">关于我们 About</div>
+            <div class="of-crad-body">
+                <@of.content content_id = '45' site_id=site.site_id>
+                <div class="of-crad-body"> ${content.content}</div>
+            </@of.content>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['carousel', 'element'], function () {
+        var carousel = layui.carousel;
+        var element = layui.element;
+        //图片轮播
+        carousel.render({
+            elem: '#banner'
+            , width: '100%' //设置容器宽度
+            , arrow: 'always' //始终显示箭头
+            , height: '350px'
+            , autoplay: true
+            , full: false
+            , interval: 3000
+        });
+    });
+</script>
+<#include "default/common/footer.html" />

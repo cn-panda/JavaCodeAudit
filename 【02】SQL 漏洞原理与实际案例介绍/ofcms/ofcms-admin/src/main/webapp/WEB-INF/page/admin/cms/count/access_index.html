@@ -1,0 +1,44 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"cms/link"
+		},
+		"queryform":{
+	          "form_id":"query_form",	
+	          "sqlid":"cms.count.list",
+	          "fields":[
+						 {"name":"site_id","type":"hidden","value":"${session.site.site_id}"},
+						 {"name":"count_date","type":"date","label":"日期","div_width":"200","placeholder":"请输入日期"}
+						],
+			   "tab_buttons":[
+			  					 {"button_id":"s1","type":"submit","button_name":"查询" } 
+			  				 ]
+			  },
+		"queryresult":{ 
+	            "table_id":"adminDatagrid", 
+	            "is_load":"true", 
+	            "is_page":"true",
+	            "width":"680px",
+	            "height":"500px",
+	            "inputs":"link_id",
+	            "columnlist":[
+					           	{"title":"#","field":"","sort":"","style":"","type":"numbers","fixed":"left"},
+					           	{"title":"","field":"","sort":"","style":"","checkbox":"true","fixed":"left"},
+							 	{"title":"编号","field":"id","width":"160" },
+								{"title":"统计日期","field":"count_date","width":"160" },
+							 	{"title":"今日访问","field":"day_access_count","width":"160" },
+							 	{"title":"累计访问","field":"total_access_count","width":"100" },
+							 	{"title":"创建时间","field":"create_time","width":"160" }
+							],
+			  "tab_buttons":[
+			    				{"button_id":"b4","button_name":"刷新","event":"refresh","url":"#","icon":"&#x1002;"}
+			    			],      
+			    "tools_buttons":[
+			    			]
+        	 } 
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_query.html">

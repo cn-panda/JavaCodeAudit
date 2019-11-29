@@ -1,0 +1,26 @@
+ <#include "admin/template/page/head_lib.html">
+<#assign queryform=pannelConfig.queryform>
+<body>
+	<div class="layui-fluid">
+	<form class="layui-form ${queryform.form_box!''}"  <#if pannelConfig.page_config.function_name=="edit" > id="${queryform.form_id!'edit_form'}" isLoad="1" loadUrl="${pannelConfig.page_config.load_url!'comn/service/detail.json'}?sqlid=${pannelConfig.page_config.load_sqlid!''}" </#if> >
+	 <#include "admin/template/component/form.html">
+	 <#if queryform.tab_buttons??>
+	  <hr/>
+		 <div class="layui-form-item" style="text-align: center;">
+			  	<#list queryform.tab_buttons as button >
+		    <button <#if button.event == 'add' >
+						class="${button.class!'layui-btn'}"
+						lay-submit="" lay-filter="save"	url="${queryform.action!'comn/service/update.json'}?sqlid=${queryform.sqlid!''}"
+				  	<#elseif button.event == 'close' >
+				  		type="button"  class="${button.class!'layui-btn layui-btn-primary'}" function="close"
+				  	<#else>
+				  		type="button"  class="${button.class!'layui-btn'}" function="${button.function}"
+				  	</#if>
+				  	>${button.button_name!'按钮'}</button>	
+			  	</#list>
+		 </div>
+	 	</#if>
+	</form>
+	</div>
+</body>
+</html>

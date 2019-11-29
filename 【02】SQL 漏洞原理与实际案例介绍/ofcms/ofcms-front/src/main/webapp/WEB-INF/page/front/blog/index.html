@@ -1,0 +1,13 @@
+<html>
+<body>
+<h2>blog</h2>
+
+<@of.like site_id=site.site_id>
+<p class="nav">
+    <#list likes  as data >
+        <a href="${data.link_url}">${data.link_name}</a>|
+    </#list>
+</p>
+</@of.like>
+</body>
+</html>

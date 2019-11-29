@@ -1,0 +1,61 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"cms/site"
+		},
+		"queryform":{
+	          "form_id":"query_form",	
+	          "sqlid":"cms.site.query",
+	          "fields":[
+						 {"name":"site_name","type":"text","label":"站点名称","div_width":"200","placeholder":"请输入站点名称"}
+						],
+			   "tab_buttons":[
+			  					 {"button_id":"s1","type":"submit","button_name":"查询" } 
+			  				 ]
+			  },
+		"queryresult":{ 
+	            "table_id":"adminDatagrid", 
+	            "is_load":"true", 
+	            "is_page":"true",
+	            "width":"680px",
+	            "height":"500px",
+	            "inputs":"site_id",
+	            "delkey":"site_id",
+	            "del_sqlid":"cms.site.delete",
+	            "add_url":"cms/site/add.html",
+	            "edit_url":"cms/site/edit.html",
+	            "columnlist":[
+					           	{"title":"#","field":"","sort":"","style":"","type":"numbers","fixed":"left"},
+					           	{"title":"","field":"","sort":"","style":"","checkbox":"true","fixed":"left"},
+							 	{"title":"站点名称","field":"site_name","width":"120" },
+							 	{"title":"站点简称","field":"site_path","width":"160" },
+							 	{"title":"关键字","field":"keywords","width":"120" },
+							 	{"title":"域名","field":"domain_name","width":"140" },
+							 	{"title":"访问协议","field":"access_protocol","width":"100" },
+							 	{"title":"访问地址","field":"access_path","width":"120" },
+							 	{"title":"模板名称","field":"template_name","width":"100" },
+							 	{"title":"模板路径","field":"template_path","width":"120" },
+							 	{"title":"是否主站","field":"is_master","width":"100","dict":"is_status" },
+							 	{"title":"排序","field":"sort","width":"80" },
+							 	{"title":"创建时间","field":"create_time","width":"160" },
+							 	{"title":"修改时间","field":"update_time","width":"160" },
+							 	{"title":"备注","field":"remark","width":"160" },
+								{"title":"操作","width":"210","align":"center","fixed":"right","toolbar":"#barTools"}
+							],
+			  "tab_buttons":[
+			    				{"button_id":"b1","button_name":"增加","event":"add","title":"增加","icon":"&#xe654;"},
+			    				{"button_id":"b2","button_name":"批量删除","event":"bathdel","icon":"&#xe640;"},
+			    				{"button_id":"b4","button_name":"刷新","event":"refresh","url":"#","icon":"&#x1002;"}
+			    			],      
+			    "tools_buttons":[
+			    				{"tool_button_id":"t1","button_name":"查看","event":"detail","title":"查看","icon":"&#xe615;"},
+			    				{"tool_button_id":"t2","button_name":"编辑","event":"edit","title":"编辑","icon":"&#xe642;"},
+			    				{"tool_button_id":"t3","button_name":"删除","event":"del","icon":"&#xe640;"}
+			    			]          
+        	 } 
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_query.html">

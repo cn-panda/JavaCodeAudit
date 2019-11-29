@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: net.sf.jasperreports:jasperreports:5.6.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../maven/repository/net/sf/jasperreports/jasperreports/5.6.1/jasperreports-5.6.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../../maven/repository/net/sf/jasperreports/jasperreports/5.6.1/jasperreports-5.6.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../maven/repository/net/sf/jasperreports/jasperreports/5.6.1/jasperreports-5.6.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

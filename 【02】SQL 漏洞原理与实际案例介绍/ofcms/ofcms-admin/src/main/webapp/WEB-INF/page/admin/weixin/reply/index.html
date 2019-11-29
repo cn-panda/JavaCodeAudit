@@ -1,0 +1,40 @@
+<#include "admin/template/page/head_lib.html">
+<body>
+	<div>
+		<div class="layui-fluid">
+			<button class="layui-btn" lay-submit="" lay-filter="edit" url="weixin/reply/config.json" >
+				<i class="layui-icon">&#x1002;</i>更新缓存
+			</button><br><br>
+			<div class="layui-row layui-col-space1">
+			<#list list as data >
+				<div class="layui-col-md12">
+					<blockquote class="layui-elem-quote  " style="padding: 0.5px  5px ">
+						<div class="layui-form-query">
+							<form class="layui-form" id="query_form_${data.param_id}">
+							<input type="hidden" name ="id" value = "${data.param_id}">
+								<div class="layui-form-item">
+									<div class="layui-inline">
+										<label class="layui-form-mid" style="width: 135px;">${data.param_desc}：</label>
+										<div class="layui-input-inline" style="width:500px;">
+										 <textarea name="value" placeholder="请输入${data.param_desc}" class="layui-textarea" style="width:500px"  >${data.param_value}</textarea>
+										</div>
+									</div>
+									<div class="layui-inline">
+										<div class="layui-input-inline">
+											<button class="layui-btn" lay-submit="" lay-filter="edit" url="comn/service/update.json?sqlid=weixin.reply.update" >
+												<i class="layui-icon">&#xe61f;</i>保存
+											</button>
+										</div>
+									
+									</div>
+								</div>
+							</form>
+						</div>
+					</blockquote>
+				</div>
+				</#list>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

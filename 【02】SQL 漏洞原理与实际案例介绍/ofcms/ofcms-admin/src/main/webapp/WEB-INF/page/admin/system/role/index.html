@@ -1,0 +1,84 @@
+<#include "admin/template/page/head_lib.html">
+<body>
+	<div>
+		<div class="layui-fluid">
+			<div class="layui-row layui-col-space1">
+				<div class="layui-col-md12">
+					<blockquote class="layui-elem-quote  " style="padding: 0.5px  5px ">
+						<div class="layui-form-query">
+							<form class="layui-form" id="query_form">
+								<div class="layui-form-item">
+									<div class="layui-inline">
+										<label class="layui-form-mid">：</label>
+										<div class="layui-input-inline" style="width: 150px;">
+											<input type="tel" name="role_id" autocomplete="off"  placeholder="请输入角色编号"
+												class="layui-input" />
+										</div>
+									</div>
+									<div class="layui-inline">
+										<label class="layui-form-mid">角色名称：</label>
+										<div class="layui-input-inline" style="width: 150px;">
+											<input type="text" name="role_name" autocomplete="off"  placeholder="请输入角色名称"
+												class="layui-input" />
+										</div>
+									</div>
+									<div class="layui-inline">
+										<div class="layui-input-inline">
+											<button class="layui-btn" type="button" function="query">
+												<i class="layui-icon">&#xe615;</i>查询
+											</button>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</blockquote>
+				</div>
+				<div class="layui-col-md12">
+					<div class="layui-row grid-demo">
+						<div class="layui-col-md12">
+							<div class="layui-btn-container">
+								<button class="layui-btn layui-btn-sm" function="top"
+									topUrl="f.html?p=system/role/add.html" topWidth="680px"
+									isMaximize="0" topHeight="400px" topTitle="新增用户">
+									<i class="layui-icon">&#xe654;</i>新增
+								</button>
+								<button class="layui-btn  layui-btn-sm layui-btn-danger"
+									function="submit" url="comn/service/del.json?sqlid=system.role.delete" isMutiDml="1" isConfirm="1"
+									confirmMsg="是否确定删除选中的数据？" inputs="role_id:" delkey="role_id">
+									<i class="layui-icon ">&#xe640;</i>批量删除
+								</button>
+								<button class="layui-btn layui-btn-sm" function="refresh">
+									<i class="layui-icon">&#x1002;</i>刷新
+								</button>
+							</div>
+							<table id="adminDatagrid" lay-filter="adminDatagrid"
+								class="adminDatagrid" isLoad="1" url="comn/service/query.json?sqlid=system.role.query"
+								isPage="1" sortType="1" defaultForm="query_form"
+								height="full-130"></table>
+							<div class="adminDatagridCols">
+								<p type="numbers" title="#" />
+								<p checkbox="true" />
+								<p field="role_id" title="编号" width="80" sort="true" />
+								<p field="role_name" title="名称" width="80" sort="true" />
+								<p field="role_type" title="类型" width="80" />
+								<p field="role_desc" title="描述" width="180"  />
+								<p field="create_time" title="创建时间" align="center" width="160" />
+								<p field="update_time" title="修改时间" align= "center" width="160" />
+								<p fixed="right" align="center" toolbar="#bar" title="操作"
+									width="200" />
+							</div>
+							<script type="text/html" id="bar">
+								<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="top" topUrl="f.html?p=system/role/edit.html" topMode="readonly" topWidth="680px" topHeight="400px" topTitle="查看角色" inputs="role_id:">查看</a>
+ 								<a class="layui-btn layui-btn-xs" lay-event="top" topUrl="f.html?p=system/role/edit.html" topWidth="680px" topHeight=400px" topTitle="编辑角色" inputs="role_id:">编辑</a>
+ 								<a class="layui-btn layui-btn-xs" lay-event="top" topUrl="system/role/permission.html" topWidth="300px" topHeight=380px" topTitle="设置权限" inputs="role_id:">赋权</a>
+  								<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="submit" url="comn/service/del.json?sqlid=system.role.delete" isConfirm="1" confirmMsg="是否确定删除当前记录？" inputs="role_id:">删除</a>
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>${system.system_name!'OF-ADMIN'}</title>
+<link rel="icon" type="image/png"
+	href="${webroot}/static/assets/image/favicon.png">
+<link rel="stylesheet"
+	href="${webroot}/static/plugins/layui/css/layui.css" media="all">
+<link href="${webroot}/static/assets/css/font-awesome.min.css"
+	rel="stylesheet">
+<link
+	href="${webroot}/static/plugins/contextMenu/jquery.contextMenu.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="${webroot}/static/plugins/ztree/css/metroStyle/metroStyle.css">
+<link rel="stylesheet" type="text/css"
+	href="${webroot}/static/assets/css/admin2.css" media="all" />
+<!-- <script type="text/javascript"
+	src="${webroot}/static/lib/jquery-3.0.0.min.js"></script> -->
+<script type="text/javascript"
+	src="${webroot}/static/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="${webroot}/static/plugins/layer/layer.js"></script>
+<script
+	src="${webroot}/static/plugins/contextMenu/jquery.contextMenu.min.js"></script>
+	<script type="application/javascript">
+        var webroot = "${webroot!'ofcms-admin'}";
+	</script>
+</head>
+<body class="layui-layout-body">
+<style id="theme">
+<style type="text/css">
+.layui-nav-tree .layui-this,.layui-nav-tree .layui-this>a,.layui-nav-tree .layui-nav-child dd.layui-this,.layui-nav-tree .layui-nav-child dd.layui-this a
+	{
+	background-color: {{ d.logoColor }};
+}	 
+.layui-layout-admin .layui-header{
+	background-color: {{ d.headerColor }};
+}
+.layui-layout-admin .layui-side-menu{
+	background-color: {{ d.sideColor }};
+}
+.layui-layout-admin .layui-side-menu .layui-nav{
+	background-color: {{ d.sideColor }};
+}
+.layui-layout-admin .layui-logo{
+	background-color: {{ d.logoColor }};
+}
+</style>
+</style>
+<div id="view"></div>
+	<div class="layui-layout layui-layout-admin">
+		<div class="layui-header ">
+			<div class="layui-logo"
+				style="color: #f2f2f2; font-size: 22px;">${system.system_name!'OF-ADMIN'}</div>
+			<a href="javascript:;" class="layui-hide-xs"><div
+					class="sykSwitchMenu">
+					<i class="fa fa-outdent"></i>
+				</div></a>
+			<!-- 头部区域（可配合layui已有的水平导航） -->
+			<!-- top left   -->
+			<ul class="layui-nav layui-layout-left admin-top-menu"
+				id="adminTopMenu" lay-filter="adminTopMenu">
+				<li class="layui-nav-item layui-hide-xs" lay-unselect><a
+					href="javascript:;" target="_blank" title="前台">
+						<i class="layui-icon" style="font-size: 18px; ">&#xe7ae;</i>
+				</a></li>
+				<li class="layui-nav-item" lay-unselect><a
+					href="javascript:;"> <i class="layui-icon"
+						style="font-size: 18px; ">&#xe669;</i>
+				</a></li>
+				<li class="layui-nav-item layui-hide-xs" lay-unselect ><input
+					type="text" placeholder="搜索..." autocomplete="off"
+					class="layui-input layui-input-search" layadmin-event="serach"
+					lay-action="template/search/keywords="></li>
+				<li class="layui-nav-item layui-hide-xs" lay-unselect="" style="line-height: 10px; padding-left: 10px;"> 
+					<iframe src="//www.seniverse.com/weather/weather.aspx?uid=UBF9E8D9AC&cid=CHBJ000000&l=zh-CHS&p=SMART&a=1&u=C&s=4&m=0&x=1&d=0&fc=FFFFFF&bgc=&bc=&ti=0&in=0&li=" frameborder="0" scrolling="no" width="250" height="27" allowTransparency="true"></iframe>
+				</li>
+			</ul>
+			<!-- top right  -->
+			<ul class="layui-nav layui-layout-right ">
+				<li class="layui-nav-item" lay-unselect>
+	                <a href="javascript:;" id = "reward">捐赠作者</a>
+	            </li>
+				<li class="layui-nav-item" lay-unselect>
+                <a href="javascript:;" id = "lockScreen"><i class="fa fa-lock"></i>锁屏</a>
+           		</li>
+               <li class="layui-nav-item"><a target="_blank" href="${session.site.access_protocol}://${session.site.access_path}" ><i class="layui-icon">&#xe68e;</i>网站首页</a></li>
+				 <li class="layui-nav-item" lay-unselect><a href="javascript:;">选择站点</a>
+					 <dl class="layui-nav-child">
+							<#list system_util.getSitCache()  as data>
+							  <dd <#if data.site_id == session.site.site_id> class="layui-this" </#if>>
+									<!--<a href="system/setSite.html?site_id =${data.site_id} ">${data.site_name}</a>-->
+									<a href="setSite.html?site_id=${data.site_id}">${data.site_name}</a>
+							  </dd>
+							 </#list>
+					 </dl>
+				 </li>
+				<li class="layui-nav-item" lay-unselect><a   href="javascript:;"
+					id="component-theme"> <i class="layui-icon">&#xe614;</i>更换主题
+				</a></li>
+
+				<li class="layui-nav-item" lay-unselect><a href="javascript:;"> <img
+						src="${webroot}/static/assets/image/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"
+						class="layui-nav-img"> ${session.sys_user.user_name!'OF'}
+				</a>
+					<dl class="layui-nav-child">
+						<dd>
+							<a class="open" href="javascript:;" function="top"
+								topUrl="f.html?p=system/user/edit.html&topMode=readonly&user_id=${session.sys_user.user_id}" topWidth="680px"
+								isMaximize="0" topHeight="470px" toptitle="基本资料"><i
+								class="layui-icon">&#xe612;</i>基本资料</a>
+						</dd>
+						<dd>
+							<a class="open" href="javascript:;" function="top"
+								topUrl="f.html?p=system/user/respwd.html" topWidth="450px"
+								isMaximize="0" topHeight="300px" toptitle="修改密码"><i
+								class="layui-icon">&#xe614;</i>修改密码</a>
+						</dd>
+						<dd>
+							<a href="logout.html"><i class="layui-icon">&#x1007;</i>离开</a>
+						</dd>
+					</dl></li>
+			</ul>
+		</div>
+
+		<div class="layui-side  layui-side-menu" style="background-color: #2F4056">
+			<div class="layui-side-scroll">
+				<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+				<ul class="layui-nav layui-nav-tree  layui-inline"
+					lay-filter="adminLeftMenu" id="adminLeftMenu">
+					<li class="layui-nav-item layui-nav-itemed"><a href="index.html"><i class="layui-icon">&#xe68e;</i>    主页</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="layui-body">
+			<div class="layui-tab layui-tab-card admin-main-tab"
+				lay-filter="adminMainTab" lay-allowClose="true" >
+				<!-- 菜单导航 -->
+				<ul class="layui-tab-title top_tab" id="adminMainTab">
+					<li class="layui-this" lay-id="0000"><i class="layui-icon">&#xe68e;</i><cite>主页</cite>
+						<p class="layui-tab-close" style="display: none;"></p></li>
+				</ul>
+				<ul class="layui-nav closeBox">
+				  <li class="layui-nav-item">
+				    <a href="javascript:;"><i class="layui-icon caozuo"></i> 页面操作</a>
+				    <dl class="layui-nav-child layui-anim layui-anim-upbit">
+					  <dd  lay-event="refresh"><a href="javascript:;" class="refresh refreshThis"><i class="layui-icon">ဂ</i> 刷新当前</a></dd>
+				      <dd  lay-event="close"> <a href="javascript:;" class="closePageOther"><i class="layui-icon ayui-icon-close">&#x1006;</i> 关闭当前</a></dd>
+				      <dd  lay-event="closeOther"> <a href="javascript:;" class="closePageOther"><i class="layui-icon ayui-icon-close">&#x1006;</i> 关闭其他</a></dd>
+				      <dd  lay-event="closeAll" ><a href="javascript:;" class="closePageAll"><i class="layui-icon layui-icon-face-smile">&#x1007;</i> 关闭全部</a></dd>
+				    </dl>
+				  </li>
+				</ul>
+				<!-- 内容 -->
+				<div class="layui-tab-content" id="main">
+					<div class="layui-tab-item layui-show" lay-id="1">
+						<iframe src="main.html"></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div  
+			id="layui-layer3" class="layui-layer-content" style="display: none">
+				<div class="layui-card-header">配色方案</div>
+				<div class="layui-card-body layadmin-setTheme">
+					<ul class="layadmin-setTheme-color">
+						<li layadmin-event="setTheme" data-index="0" data-alias="default"
+							title="default">
+							<div class="layadmin-setTheme-header"
+								style="background-color: undefined;"></div>
+							<div class="layadmin-setTheme-side" color="#2F4056"
+								style="background-color: #2F4056;">
+								<div class="layadmin-setTheme-logo"
+									style="background-color: undefined;"></div>
+							</div>
+						</li>
+						<li layadmin-event="setTheme" data-index="1"
+							data-alias="dark-blue" title="dark-blue">
+							<div class="layadmin-setTheme-header"
+								style="background-color: undefined;"></div>
+							<div class="layadmin-setTheme-side"  color="#03152A"
+								style="background-color: #03152A;">
+								<div class="layadmin-setTheme-logo"
+									style="background-color: undefined;"></div>
+							</div>
+						</li>
+						<li layadmin-event="setTheme" data-index="2" data-alias="coffee"
+							title="coffee">
+							<div class="layadmin-setTheme-header"
+								style="background-color: undefined;"></div>
+							<div class="layadmin-setTheme-side" color="#2E241B"
+								style="background-color: #2E241B;">
+								<div class="layadmin-setTheme-logo" 
+									style="background-color: undefined;"></div>
+							</div>
+						</li>
+						<li layadmin-event="setTheme" data-index="3"
+							data-alias="purple-red" title="purple-red">
+							<div class="layadmin-setTheme-header"
+								style="background-color: undefined;"></div>
+							<div class="layadmin-setTheme-side" color="#50314F"
+								style="background-color: #50314F;">
+								<div class="layadmin-setTheme-logo"  
+									style="background-color: undefined;"></div>
+							</div>
+						</li>
+						<li layadmin-event="setTheme" data-index="4" data-alias="ocean"
+							title="ocean">
+							<div class="layadmin-setTheme-header"
+								style="background-color: undefined;"></div>
+							<div class="layadmin-setTheme-side" color="#344058"
+								style="background-color: #344058;">
+								<div class="layadmin-setTheme-logo" color="#1E9FFF"
+									style="background-color: #1E9FFF;"></div>
+							</div>
+						</li>
+						<li layadmin-event="setTheme" data-index="5" data-alias="green"
+							title="green">
+							<div class="layadmin-setTheme-header"
+								style="background-color: undefined;"></div>
+							<div class="layadmin-setTheme-side" color="#3A3D49"
+								style="background-color: #3A3D49;">
+								<div class="layadmin-setTheme-logo" color="#2F9688"
+									style="background-color: #2F9688;"></div>
+							</div>
+						</li>
+						<li layadmin-event="setTheme" data-index="6" data-alias="red"
+							title="red">
+							<div class="layadmin-setTheme-header"
+								style="background-color: undefined;"></div>
+							<div class="layadmin-setTheme-side"
+								style="background-color: #20222A;">
+								<div class="layadmin-setTheme-logo" color="#F78400"
+									style="background-color: #F78400;"></div>
+							</div>
+						</li>
+						<li layadmin-event="setTheme" data-index="7"
+							data-alias="fashion-red" title="fashion-red">
+							<div class="layadmin-setTheme-header"
+								style="background-color: undefined;"></div>
+							<div class="layadmin-setTheme-side"
+								style="background-color: #28333E;">
+								<div class="layadmin-setTheme-logo" color="#AA3130"
+									style="background-color: #AA3130;"></div>
+							</div>
+						</li>
+						<li layadmin-event="setTheme" data-index="8"
+							data-alias="classic-black" title="classic-black">
+							<div class="layadmin-setTheme-header"
+								style="background-color: undefined;"></div>
+							<div class="layadmin-setTheme-side" color="#24262F"
+								style="background-color: #24262F;">
+								<div class="layadmin-setTheme-logo" color="#3A3D49"
+									style="background-color: #3A3D49;"></div>
+							</div>
+						</li>
+						<li layadmin-event="setTheme" data-index="9"
+							data-alias="green-header" title="green-header">
+							<div class="layadmin-setTheme-header" color="#2F9688"
+								style="background-color: #2F9688;"></div>
+							<div class="layadmin-setTheme-side" color="#152926"
+								style="background-color: #2b3a37;">
+							<div class="layadmin-setTheme-logo" color="#226A62"
+								style="background-color: #226A62;"></div>
+						</div>
+						</li>
+						<li layadmin-event="setTheme" data-index="10" 
+							data-alias="ocean-header" title="ocean-header">
+							<div class="layadmin-setTheme-header" color="#1E9FFF"
+								style="background-color: #1E9FFF;"></div>
+							<div class="layadmin-setTheme-side" color="#344058"
+								style="background-color: #344058;">
+								<div class="layadmin-setTheme-logo" color="#0085E8"
+									style="background-color: #0085E8;"></div>
+							</div>
+						</li>
+						<li layadmin-event="setTheme" data-index="11"
+							data-alias="classic-black-header" class="layui-this"
+							title="classic-black-header">
+							<div class="layadmin-setTheme-header" color="#393D49"
+								style="background-color: #393D49;"></div>
+							<div class="layadmin-setTheme-side" color=""
+								style="background-color: undefined;">
+								<div class="layadmin-setTheme-logo" color=""
+									style="background-color: undefined;"></div>
+							</div>
+						</li>
+					</ul>
+			</div>
+		</div>
+
+		<div class="layui-footer">
+			<!-- 底部固定区域 -->
+			<div class="layui-col-md11">
+					${system.copyright!'© www.ofosft.com'}
+				</div>
+				<div class="layui-col-md1">
+					version：${system.version!'1.1'}
+				</div>
+		</div>
+	</div>
+	<script src="${webroot}/static/plugins/layui/layui.js"></script>
+	<script src="${webroot}/static/assets/js/admin.js"></script>
+	<script src="${webroot}/static/assets/js/tools.js"></script>
+	<script type="text/javascript"
+		src="${webroot}/static/plugins/of/admin/js/admin.core.js"></script>
+	<script type="text/javascript"
+		src="${webroot}/static/plugins/of/admin/js/admin.index2.js"></script>
+	<script>
+		layui
+				.use(
+						[ 'layer', 'form', 'laytpl','element', "admin.tab" ],
+						function() {
+							var layer = layui.layer, form = layui.form, element = layui.element, tab = layui['admin.tab'];
+							var laytpl = layui.laytpl;
+							 
+							element.render();
+							var json = JSON.parse(localStorage.getItem("adminTheme"));
+							if (json != null || json != undefined) {
+								var data = { //数据
+									"logoColor" : json.logoColor,
+									"sideColor" : json.sideColor,
+									"headerColor" : json.headerColor
+								}
+								var getTpl = theme.innerHTML, view = document
+										.getElementById('view');
+								laytpl(getTpl).render(data, function(html) {
+									view.innerHTML = html;
+								});
+							}
+							
+							$('#component-theme').on('click', function() {
+								layer.open({
+									type :1, offset: 'rb',closeBtn: 0,title:false,anim: 5,
+									 area: ['300px', '92%'],shadeClose:true,
+									content : $('#layui-layer3')
+								//这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+								});
+							});
+							$('.layadmin-setTheme-color li').on('click', function() {
+								var headerColor =  $(this).children('.layadmin-setTheme-header').attr('color');
+								var sideColor =    $(this).children('.layadmin-setTheme-side').attr('color');
+								var logoColor =    $(this).find('.layadmin-setTheme-logo').attr('color');
+								//第三步：渲染模版
+								 var data = { //数据
+								   "logoColor":logoColor,"sideColor":sideColor,"headerColor":headerColor
+								 }
+								 var getTpl = theme.innerHTML
+								 ,view = document.getElementById('view');
+								 laytpl(getTpl).render(data, function(html){
+								   view.innerHTML = html;
+								 });
+								 localStorage.setItem("adminTheme",JSON.stringify(data));
+							});
+						});
+	</script>
+</body>
+</html>

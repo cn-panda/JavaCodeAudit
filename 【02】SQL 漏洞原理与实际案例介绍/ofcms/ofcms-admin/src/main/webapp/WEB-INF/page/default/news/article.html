@@ -1,0 +1,21 @@
+<#include "default/common/head.html" />
+<br>
+<div class="of-content" style="clear: both;margin-top: 60px">
+    <div class="of-crad" style="height: 300px;width: 900px;margin: 0 auto;">
+        <@of.content site_id=site.site_id content_id=data.id>
+        <h2 class="content-title"> ${content.title_name}</h2>
+        <div class="content-inf">发布时间：${content.create_time}&nbsp;&nbsp; 作者：${content.author}&nbsp;&nbsp;浏览次数：<span
+                id="views">${content.clicks}</span>
+        </div>
+        <div class="content-txt">${content.content}</div>
+    </@of.content>
+</div>
+</div>
+<script>
+    layui.use(['carousel','element'], function () {
+        var carousel = layui.carousel;
+        var element = layui.element;
+    });
+</script>
+</body>
+</html>

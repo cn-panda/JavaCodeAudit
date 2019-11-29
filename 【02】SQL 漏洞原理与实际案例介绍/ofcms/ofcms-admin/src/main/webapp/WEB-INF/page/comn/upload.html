@@ -1,0 +1,115 @@
+<#include "template/page/head_lib.html">
+<body class="layui-layout-body">
+	<div class="layui-fluid">
+	  <div class="layui-form-item">
+	  	<div style="text-align: center;">
+		    <div class="layui-upload-drag" style="width: 320px;">
+			  <i class="layui-icon"></i>
+			  <p id="fileName">点击上传，或将文件拖拽到此处</p>
+			</div>
+	  	</div>
+	  </div>
+	  <hr/>
+	  <div class="layui-form-item">
+	    <div class="layui-input-block">
+	      <button id="upload" class="layui-btn">开始上传</button>
+	      <button type="button" class="layui-btn layui-btn-primary" function="close">关闭</button>
+	    </div>
+	  </div>
+	</div>
+</body>
+<script>
+layui.use(['upload','layer','admin.config','admin.common'], function(){
+  var upload = layui.upload,
+  fsConfig = layui['admin.config'],
+  layer = layui.layer,
+  fsCommon = layui['admin.common'],
+  isSelectFile = false,//是否选择文件，默认false
+  statusName = $.result(fsConfig,"global.result.statusName"),
+  msgName = $.result(fsConfig,"global.result.msgName"),
+  uploadUrl = $.result(fsConfig,"global.uploadUrl",""),
+  dataName = $.result(fsConfig,"global.result.dataName");
+  
+  var uploadFilePath = top.$('meta[name="uploadFilePath"]');
+  if(uploadFilePath.length==0)
+  {
+	top.$('head').append("<meta name=\"uploadFilePath\" content=\"\"/>");
+  }else{
+ 	uploadFilePath.attr("content","");
+  }
+  
+  
+  //获取参数
+  var paramUrl = fsCommon.getUrlParam();
+  
+  var fileAccept,fileExts,fileSize;
+  
+  //获取业务参数绑定
+  if(!$.isEmpty(paramUrl["fileParam"])){
+  	var fileParam = JSON.parse(unescape(paramUrl["fileParam"]));
+  	fileAccept = fileParam["fileAccept"];
+  	fileExts = fileParam["fileExts"];
+  	fileSize = fileParam["fileSize"];
+  }
+  delete paramUrl["fileParam"];
+  
+  //绑定默认按钮
+  fsCommon.buttionEvent();
+  
+  var loadIndex;
+  
+  //选完文件后不自动上传
+  upload.render({
+    elem: '.layui-upload-drag'
+    ,url: uploadUrl
+    ,data: paramUrl
+    ,accept :fileAccept
+    ,exts :fileExts
+    ,size :fileSize
+    ,auto: false
+    ,before: function(){
+    	if(!isSelectFile){
+    		fsCommon.warnMsg("请选择文件！");
+    		return;
+    	}
+    	
+    	loadIndex = layer.load(); //上传loading
+    }
+    //,multiple: true
+    ,bindAction: '#upload'
+    ,choose: function(obj){
+    	isSelectFile = true;
+    	obj.preview(function(index, file, result){
+    		$("#fileName").html(file.name);
+    	})
+    }
+    ,done: function(result){
+		layer.closeAll(loadIndex); //关闭loading
+		if(result[statusName] != "200"){
+			var filters = fsConfig["filters"];
+		   	if(!$.isEmpty(filters)){
+	     	  var otherFunction = filters[result[statusName]];
+	      	  if($.isFunction(otherFunction)){
+	       	     otherFunction(result);
+	      	      return;
+	     	   }
+		    }
+	   		fsCommon.errorMsg(result[msgName]);
+	   		return;
+		}
+		
+		//上传成功后，返回文件路径
+		var data = $.result(result,dataName);
+		top.$('meta[name="uploadFilePath"]').attr("content",data["filePath"]);
+		//关闭
+		var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+		parent.layer.close(index);
+    },
+    error: function(index, upload){
+		layer.closeAll(loadIndex); //关闭loading
+    }
+  });
+
+});
+</script>
+</html>

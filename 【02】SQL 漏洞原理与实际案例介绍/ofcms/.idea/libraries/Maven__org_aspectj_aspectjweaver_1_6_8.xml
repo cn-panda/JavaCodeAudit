@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.aspectj:aspectjweaver:1.6.8">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../maven/repository/org/aspectj/aspectjweaver/1.6.8/aspectjweaver-1.6.8.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../../maven/repository/org/aspectj/aspectjweaver/1.6.8/aspectjweaver-1.6.8-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../maven/repository/org/aspectj/aspectjweaver/1.6.8/aspectjweaver-1.6.8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

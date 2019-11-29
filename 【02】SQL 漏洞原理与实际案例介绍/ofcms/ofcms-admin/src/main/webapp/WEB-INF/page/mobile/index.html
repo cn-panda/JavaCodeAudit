@@ -1,0 +1,54 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>首页</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet" href="${reroot}/static/assets/css/index.css" media="all">
+    <link rel="stylesheet" href="${reroot}/static/plugins/swiper/swiper.min.css" />
+    <script src="${reroot}/static/plugins/swiper/swiper.min.js"></script>
+
+</head>
+<body>
+<div class="of-banner">
+    <div class="swiper-container" style="height: 300px;">
+        <div class="swiper-wrapper">
+            <@of.ad site_id=1 edition="banner">
+            <#list ad as data >
+            <div class="swiper-slide"><img
+                    src="${webroot}${data.ad_image_url}"
+                    alt="${data.ad_name}" style="width: 100%;height: 350px"></div>
+            </#list>
+        </@of.ad>
+        </div>
+    <!-- 分页器 -->
+    <div class="swiper-pagination"></div>
+    <!-- 导航按钮 -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+</div>
+</div>
+<!--新闻-->
+<div class="announce" style="float: left;">
+    <p class="title">最新新闻   <a href="industry.html">更多</a></p>
+    <ul>
+        <@of.content_list site_id = "1" column_name="industry" limit=5>
+        <#list content_list as data >
+            <li><span>${data.create_time}</span>·  <a href="${data.url}" title="${data.title_name}">${data.title_name}</a> </li>
+        </#list>
+    </@of.content_list>
+    </ul>
+</div>
+<script>
+    var mySwiper = new Swiper('.swiper-container', {
+        autoplay: 3000,//可选选项，自动滑动
+        // 如果需要分页器
+        pagination: '.swiper-pagination',
+        // 如果需要前进后退按钮
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+    })
+</script>
+</body>
+</html>

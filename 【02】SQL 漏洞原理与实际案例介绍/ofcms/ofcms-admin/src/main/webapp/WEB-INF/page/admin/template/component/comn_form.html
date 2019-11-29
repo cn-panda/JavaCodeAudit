@@ -1,0 +1,75 @@
+<#-- 表单组件处理  count 控制自每行显示三列-->
+<#list queryform.fields as item>
+		<#if item.type=="hidden">
+			<input type="hidden" <#if item.id?exists> id='${item.id}' </#if> name='${(item.name)!""}' value='${(item.value)!""}' />
+		<#else>
+		<label class="layui-form-mid">${item.label}：</label>
+		       <div class="layui-input-inline" style="width:${item.div_width!' 500'}px;">
+		      		<@loadfields item /> 
+		       </div>
+		</#if>
+</#list>
+ <#--开始处理页面输入项组件-->
+<#macro loadfields item>
+	<#if item.type=="text">
+	
+	<input type="text" <#if item.id?exists> id='${item.id}' </#if> 	name='${(item.name)!""}' value='${(item.value)!""}'
+		<#if item.verify?exists>  required="" lay-verType="${queryform.ver_type!'msg'}" lay-verify="${item.verify}"  </#if> 
+	    <#if item.placeholder?exists> placeholder="${item.placeholder}"  </#if>
+	      <#if item.disabled?exists>  disabled="disabled"  </#if>
+	   autocomplete="off" 	class="${item.class!'layui-input'}"
+	 />
+    <#elseif item.type=="select" >
+    	<select class="${item.class!'sykSelect'}"  name="${item.name}" 
+    	<#if item.dict?exists> dict_type="${item.dict_type}" dict="${item.dict}" addNull="1" </#if>
+    	<#if item.id?exists>  lay-filter="${item.id}"  childrenSelectId="${item.id}" </#if>
+    	<#if item.select_name?exists>  select_name="${item.select_name}"   </#if>
+    	<#if item.verify?exists>  required="" lay-verType="${queryform.ver_type!'msg'}" lay-verify="${item.verify}"  </#if> 
+    	>
+    		<#if item.dict == "">
+	    		<#list item.option as options>
+			    	<option value="${options.value}">${options.label}</option>
+	    		</#list>
+    		</#if>
+		</select>
+		
+    <#elseif item.type=="mutipleselect" >
+    
+    <#elseif item.type=="moneyarea" >
+    
+    <#elseif item.type=="selectmore" >
+    <#elseif item.type=="radio" >
+    	<#if item.radio?? >
+    		<#list item.radio as radio>
+    		 	<input type="radio"  
+		name='${(item.name)!""}' value='${(radio.value)!""}' title="${radio.title}"
+			<#if radio.checked?exists>checked="checked" </#if> 
+			 >
+    		</#list>
+    	</#if>
+	<#elseif item.type=="datetime" >
+	<#elseif item.type=="date" >
+	<input type="text" name='${(item.name)!""}'  datetype="${item.datetype!'date'}"  
+         <#if item.verify?exists>  required="" lay-verType="${queryform.ver_type!'msg'}" lay-verify="${item.verify}"   </#if> 
+    	 placeholder="${item.placeholder}" autocomplete="off" class="layui-input ${item.class!'sykDate'}">
+	<#elseif item.type=="label" >
+	<#elseif item.type=="money" >
+	<#elseif item.type=="checkbox" >
+		<input type="checkbox" <#if item.id?exists> id='${item.id}' </#if> 
+		name='${(item.name)!""}' lay-skin="switch"  <#if item.checked?exists> checked="" </#if> 
+		<#if item.verify?exists>  required="" lay-verType="${queryform.ver_type!'msg'}" lay-verify="${item.verify}"   </#if> 
+		lay-text="${item.checkbox_text!'正常|停止'}" value='${(item.value)!""}' >
+	<#elseif item.type=="textarea" >
+		<textarea <#if item.id?exists> id='${item.id}' </#if> 
+		 style="height:${item.height!'100px'};width:${item.width!'400px'}"
+		 name='${(item.name)!""}'
+		 placeholder="${item.placeholder}"  class="${item.class!'layui-textarea'}"
+		<#if item.verify?exists>  required="" lay-verType="${queryform.ver_type!'msg'}" lay-verify="${item.verify}"  </#if> 
+		height="${item.height!'80'}" width="${item.width!'400'}">${(item.value)!""}</textarea>
+	<#elseif item.type=="edit" >
+	 <textarea id="${(item.id)!'description'}" name="${(item.name)!'description'}"  placeholder="${item.placeholder}" 
+	 class="sykLayedit" height="${item.height!'80'}" width="${item.width!'400'}"></textarea>
+    <#else>
+    
+    </#if>
+</#macro>

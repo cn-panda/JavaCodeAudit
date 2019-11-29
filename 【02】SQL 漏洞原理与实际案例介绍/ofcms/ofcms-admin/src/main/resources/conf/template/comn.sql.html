@@ -1,0 +1,69 @@
+#sql("query")
+	select  
+	<#list column_list as column>
+		 <#if (!column_has_next)>
+		 	 ${column.column_name}
+		 <#else>
+		 	 ${column.column_name},
+	  	</#if>
+	</#list>	 
+	from
+		  ${table_name} 
+	#if (${table_key}?? ) where  ${table_key} = #para(${table_key})#end
+	#if (sort?? && field) order by order_field order_sort  #else order by ${table_key} desc #end
+#end
+ 
+#sql("detail")
+	select 
+	<#list column_list as column>
+	 <#if (!column_has_next)>
+		 	 ${column.column_name}
+		 <#else>
+		 	 ${column.column_name},
+	  	</#if>
+	  </#list>
+	  from
+		 ${table_name} where  ${table_key}  = #para(${table_key})
+#end
+
+#sql("save")
+	insert into ${table_name} (
+	<#list column_list as column>
+		<#if (!column_has_next)>
+		 	 ${column.column_name} 
+		 <#else>
+		 	 ${column.column_name}, 
+	  	</#if>
+	 </#list>
+	) values(
+	<#list column_list as column>
+		 <#if (!column_has_next)>
+		 	 #para(${column.column_name}) 
+		 <#else>
+		 	 #para(${column.column_name}), 
+	  	</#if>
+	 </#list>
+	)
+#end
+
+#sql("delete")
+	delete from ${table_name} where  ${table_key}  = #para(${table_key})
+#end
+
+#sql("status")
+	update  ${table_name} set status = '0'  where ${table_key}  = #para(${table_key})
+#end
+
+#sql("update")
+	update  
+		${table_name} set 
+		<#list column_list as column>
+			 <#if (!column_has_next)>
+			   ${column.column_name} = #para(${column.column_name}) 
+			 <#else>
+			   ${column.column_name} = #para(${column.column_name}), 
+		  	</#if>
+	 	 </#list>
+	where  ${table_key}  = #para(${table_key})
+#end
+ 

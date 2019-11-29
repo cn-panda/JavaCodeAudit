@@ -1,0 +1,36 @@
+<div class="of-footer  layui-bg-cyan">
+    <div class="of-crad  ">
+        <div class="of-crad-content">
+            <@of.like site_id=site.site_id>
+            <p class="nav">
+                <#list like as data >
+                    <a href="${data.link_url}"  target="_blank">${data.link_name}</a>|
+                </#list>
+            </p>
+        </@of.like>
+        <p>
+            Copyright◎ 2017-2020 <a href="http://wwww.ofsoft.cn" target="_blank">wwww.ofsoft.cn</a>,
+            All Rights Reserved 湘ICP备17023316号
+        </p>
+    </div>
+</div>
+</div>
+
+<script>
+    layui.use(['carousel','element'], function () {
+        var carousel = layui.carousel;
+        var element = layui.element;
+        //图片轮播
+        carousel.render({
+            elem: '#test'
+            , width: '100%' //设置容器宽度
+            , arrow: 'always' //始终显示箭头
+            , height: '250px'
+            , autoplay:true
+            , full:false
+            , interval: 3000
+        });
+    });
+</script>
+</body>
+</html>

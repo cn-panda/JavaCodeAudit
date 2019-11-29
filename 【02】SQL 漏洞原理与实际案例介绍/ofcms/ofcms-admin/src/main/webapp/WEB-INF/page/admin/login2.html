@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>OF-ADMIN</title>
+<link rel="icon" type="image/png"
+	href="${webroot}/static/assets/image/favicon.png">
+<link rel="stylesheet"
+	href="${webroot}/static/plugins/layui/css/layui.css">
+<link rel="stylesheet" href="${webroot}/static/assets/css/login2.css">
+</head>
+<body>
+	<div class="admin-login-header">
+		<div class="logo">
+			<a href="http://www.ofsoft.cn" target="_blank">
+			  <span>OFCMS</span>
+			</a>
+		</div>
+		<div class="log-nav">
+			<a href="http://www.ofsoft.cn" target="_blank">官网</a>|<a
+				id="help-url-id" href="http://www.ofsoft.cn"
+				target="_blank">帮助</a>|<a
+				href="http://www.ofsoft.cn" target="_blank">购买</a>
+		</div>
+	</div>
+	<div class="admin-login-body">
+		<div class="admin-login-body-content">
+			<div class="admin-login-body-left"></div>
+			<div class="admin-login-body-right">
+				<div class="admin-login">
+					<h2>用户登录</h2>
+				</div>
+				<form class="layui-form" style="padding: 0 20px;">
+					<div class="layui-form-item">
+						<div class="layui-input-block" style="  margin-left: 0px; ">
+						<span class="ct_img_yhm">&nbsp;</span>
+							<input type="text"  name="username"  style="padding-left:30px;" required lay-verify="required"
+								placeholder="请输入用户账户"  autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-input-block" style="margin-left: 0px;  ">
+							<span class="ct_img_mm">&nbsp;</span>
+							<input type="password"  name="password"  style="padding-left:30px;" required lay-verify="required"
+							 placeholder="请输入用户密码" autocomplete="off"  	class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-input-block" style="  margin-left: 0px;  ">
+							<button class="layui-btn layui-btn-fluid" lay-submit  lay-filter="*" style="width:100%">登录</button>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="account-oprate clearfix">
+							<a class="find-mm"
+								href="#">忘记密码</a>
+							<a
+								href="#"
+								class="regist-btn">注册</a>
+						</div>
+					</div>
+					<hr>
+					<div class="layui-carousel" id="carousel" >
+					  <div carousel-item="">
+					    <div style="background-color: #009688; font-weight: bold; font-size: 28px; text-align: center; color: #ffffff;  line-height: 90px; ">OFCMS</div>
+					    <div style="background-color: #5FB878; font-weight: bold; font-size: 28px; text-align: center; color: #ffffff;  line-height: 90px; ">of-admin</div>
+					  </div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="admin-login-footer">
+		<div class="admin-login-copy">
+			<p>
+				Copyright© <a href="http://www.ofsoft.cn" target="_blank">wwww.ofsoft.cn</a>
+				, All Rights Reserved.
+			</p>
+		</div>
+	</div>
+	<script src="${webroot}/static/lib/jquery-3.0.0.min.js"></script>
+	<script src="${webroot}/static/plugins/layui/layui.js"></script>
+	<script src="${webroot}/static/assets/js/admin.js"></script>
+	<script src="${webroot}/static/assets/js/tools.js"></script>
+	<script src="${webroot}/static/assets/js/utile.js"></script>
+	<script>
+		layui.use([ 'form', 'carousel', 'layer' ], function() {
+			var form = layui.form,carousel = layui.carousel, layer = layui.layer;
+			layer.config({
+				anim : 6
+			});
+			carousel.render({
+				elem : '#carousel'
+				,interval: 3000
+			    ,anim: 'fade'
+			    ,height: '110px',width:'260px',arrow : 'none'
+			});
+			//监听提交
+			form.on('submit(*)', function(data) {
+				utile.ajaxSubmit({
+					"url" : "dologin.json",
+					data : data.field
+				}, function(data) {
+					if (data.code == '200') {
+						location.href = 'index.html';
+					} else {
+						tools.alertError(data.msg);
+					}
+				})
+				return false;
+			});
+		});
+
+		if (window != top)
+			top.location.href = location.href;
+	</script>
+</body>
+</html>

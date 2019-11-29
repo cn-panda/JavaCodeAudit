@@ -1,0 +1,28 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"system/dict"
+		},
+		"queryform":{
+	          "form_id":"query_form",	
+	          "sqlid":"system.dict.save",
+	          "action":"system/dict/add.json",
+	          "ver_type":"msg",
+	          "fields":[
+							  {"name":"dict_name","type":"text","label":"字典名称","div_width":"200","verify":"required","placeholder":"请输入字典名称"}, 
+							  {"name":"dict_value","type":"text","label":"字典值","div_width":"200","verify":"required","placeholder":"请输入字典值"}, 
+							  {"name":"dict_desc","type":"text","label":"字典描述","div_width":"200","verify":"required","placeholder":"请输入字典描述"}, 
+							  {"name":"dict_group","type":"text","label":"字典分组","div_width":"200","verify":"required","placeholder":"请输入字典分组"}  
+					   ],
+	       "tab_buttons":[
+		    				{"button_id":"s1","button_name":"新增","event":"add"  },
+		    				{"button_id":"s2","button_name":"关闭","event":"close" }
+			    		]
+			  }
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_update.html">
+ 

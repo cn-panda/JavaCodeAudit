@@ -1,0 +1,28 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"system/task"
+		},
+		"queryform":{
+	          "form_id":"query_form",	
+	          "sqlid":"system.task.save",
+	          "ver_type":"msg",
+	          "fields":[
+							  {"name":"bean_name","type":"text","label":"任务名称","div_width":"300","verify":"required","placeholder":"请输入任务名称"}, 
+							  {"name":"job_desc","type":"text","label":"任务描述","div_width":"300","verify":"required","placeholder":"请输入任务描述"}, 
+							  {"name":"class_path","type":"text","label":"任务路径","div_width":"300","placeholder":"请输入任务路径"}, 
+							  {"name":"cron_expression","type":"text","label":"表达式","div_width":"300","verify":"required","placeholder":"请输入表达式"}, 
+							  {"name":"remark","type":"textarea","label":"备注","div_width":"300","width":"200","placeholder":"请输入备注"} 
+					   ],
+	       "tab_buttons":[
+		    				{"button_id":"s1","button_name":"新增","event":"add"  },
+		    				{"button_id":"s2","button_name":"关闭","event":"close" }
+			    		]
+			  }
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_update.html">
+ 

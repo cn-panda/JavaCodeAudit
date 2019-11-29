@@ -1,0 +1,26 @@
+<#include "admin/template/page/head_lib.html">
+<style>
+.main {
+	width: 500px;
+	height: 400px; border : 1px #f30 solid;
+	display: block;
+	border: 1px #f30 solid
+}
+</style>
+<body>
+	<div>
+		<div class="layui-fluid">
+			<button class="layui-btn" lay-submit="" lay-filter="edit"
+				url="weixin/reply/config.json">
+				<i class="layui-icon">&#x1002;</i>更新菜单
+			</button>
+			<div class="main">
+				<div class="left">
+					<img src="${webroot}/static/assets/image/menu.png" width="320" height="430">
+				</div>
+				<div class="reght"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

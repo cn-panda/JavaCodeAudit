@@ -1,0 +1,46 @@
+.admin-login-block {
+    width: 100%;
+    max-width: 640px;
+    margin: 100px auto 0 auto;
+}
+.admin-login-text {
+    padding-top: 30px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 40px;
+    text-align: center;
+    width: 100%;
+}
+.admin-login-text span {
+    color: #5FB878;
+}
+.login-font {
+    font-size: 16px;
+    width: 100%;
+    color: #5e5e5e;
+    text-align: center;
+    padding: 20px 0;
+    padding-top: 10px;
+    margin: 10px auto;
+}
+.login-font span {
+    color: #fff;
+}
+.admin-login-form {
+    margin: 0 auto;
+    width: 63.33333333%;
+}
+.admin-login-input {
+    margin-left: 0;
+}
+.admin-login-btn {
+    width: 100%;
+    background: #5FB878;
+}
+.admin-login-copy {
+    text-align: center;
+    color: #999;
+}
+.verifyCode {
+    width: 43.33333333%;
+}

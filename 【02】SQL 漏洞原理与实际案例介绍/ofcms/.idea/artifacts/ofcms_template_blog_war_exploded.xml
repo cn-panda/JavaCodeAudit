@@ -1,0 +1,72 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="ofcms-template-blog:war exploded">
+    <output-path>$PROJECT_DIR$/ofcms-template-blog/target/ofcms-front</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="ofcms-front" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="archive" name="ofcms-model-1.0-SNAPSHOT.jar">
+            <element id="module-output" name="ofcms-model" />
+          </element>
+          <element id="archive" name="ofcms-core-1.0-SNAPSHOT.jar">
+            <element id="module-output" name="ofcms-core" />
+          </element>
+          <element id="library" level="project" name="Maven: com.jfinal:jfinal:3.2" />
+          <element id="library" level="project" name="Maven: cglib:cglib-nodep:3.2.5" />
+          <element id="library" level="project" name="Maven: com.jfinal:cos:2017.5" />
+          <element id="library" level="project" name="Maven: com.jfinal:jfinal-weixin:1.8" />
+          <element id="library" level="project" name="Maven: javax.servlet:javax.servlet-api:3.0.1" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.6" />
+          <element id="library" level="project" name="Maven: commons-io:commons-io:2.4" />
+          <element id="library" level="project" name="Maven: commons-collections:commons-collections:3.2.2" />
+          <element id="library" level="project" name="Maven: com.google.guava:guava:18.0" />
+          <element id="library" level="project" name="Maven: com.google.zxing:core:3.3.0" />
+          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.0" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-aop:3.2.9.RELEASE" />
+          <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-beans:3.2.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-core:3.2.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-tx:3.2.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-orm:3.2.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.aspectj:aspectjrt:1.6.8" />
+          <element id="library" level="project" name="Maven: org.aspectj:aspectjweaver:1.6.8" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:3.2.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-context-support:3.2.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-context:3.2.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-expression:3.2.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.javassist:javassist:3.15.0-GA" />
+          <element id="library" level="project" name="Maven: log4j:log4j:1.2.16" />
+          <element id="library" level="project" name="Maven: net.coobird:thumbnailator:0.4.8" />
+          <element id="library" level="project" name="Maven: net.sf.opencsv:opencsv:2.3" />
+          <element id="library" level="project" name="Maven: org.freemarker:freemarker:2.3.21" />
+          <element id="library" level="project" name="Maven: org.apache.poi:poi:3.10.1" />
+          <element id="library" level="project" name="Maven: org.apache.poi:poi-ooxml:3.10.1" />
+          <element id="library" level="project" name="Maven: org.apache.poi:poi-ooxml-schemas:3.10.1" />
+          <element id="library" level="project" name="Maven: org.apache.xmlbeans:xmlbeans:2.6.0" />
+          <element id="library" level="project" name="Maven: stax:stax-api:1.0.1" />
+          <element id="library" level="project" name="Maven: net.sf.jxls:jxls-core:0.9.9" />
+          <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.1.1" />
+          <element id="library" level="project" name="Maven: commons-beanutils:commons-beanutils:1.8.2" />
+          <element id="library" level="project" name="Maven: commons-digester:commons-digester:2.0" />
+          <element id="library" level="project" name="Maven: commons-jexl:commons-jexl:1.1" />
+          <element id="library" level="project" name="Maven: dom4j:dom4j:1.6.1" />
+          <element id="library" level="project" name="Maven: xml-apis:xml-apis:1.0.b2" />
+          <element id="library" level="project" name="Maven: com.alibaba:druid:1.0.5" />
+          <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.1.41" />
+          <element id="library" level="project" name="Maven: com.squareup.okhttp3:okhttp:3.8.1" />
+          <element id="library" level="project" name="Maven: com.squareup.okhttp:okhttp:2.7.5" />
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.10" />
+          <element id="library" level="project" name="Maven: com.squareup.okio:okio:1.9.0" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.20" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/ofcms-front/target/ofcms-front/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="ofcms-front/web/Web" />
+      <element id="artifact" artifact-name="ofcms-admin:war exploded" />
+    </root>
+  </artifact>
+</component>

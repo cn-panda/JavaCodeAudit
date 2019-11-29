@@ -1,0 +1,27 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"system/announce"
+		},
+		"queryform":{
+	          "form_id":"query_form",	
+	          "sqlid":"system.announce.save",
+	          "ver_type":"msg",
+	          "fields":[
+							  {"name":"title","type":"text","label":"公告标题","verify":"required","placeholder":"请输入公告标题"},  
+							  {"name":"type","type":"select","label":"公告类型","div_width":"183","verify":"required","class":"","option":[{ "label":"系统公告","value":"1"},{ "label":"前台公告","value":"2"}],"right_list":[
+							  {"name":"sort","type":"text","label":"排序","verify":"required|number","div_width":"183","placeholder":"请输入排序"}]},
+							  {"name":"content","type":"edit","label":"公告内容","div_width":"","verify":"required","height":"140","width":"600","placeholder":"请输入内容"}
+					   ],
+	       "tab_buttons":[
+		    				{"button_id":"s1","button_name":"新增","event":"add"  },
+		    				{"button_id":"s2","button_name":"关闭","event":"close" }
+			    		]
+			  }
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_update.html">
+ 

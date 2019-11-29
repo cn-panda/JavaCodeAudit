@@ -1,0 +1,103 @@
+<#include "admin/template/page/head_lib.html">
+<body>
+	<div>
+		<div class="layui-fluid">
+			<div class="layui-row layui-col-space1">
+				<div class="layui-col-md12">
+					<blockquote class="layui-elem-quote  " style="padding: 0.5px  5px ">
+						<div class="layui-form-query">
+							<form class="layui-form" id="query_form">
+								<div class="layui-form-item">
+									<div class="layui-inline">
+										<label class="layui-form-mid">用户编号：</label>
+										<div class="layui-input-inline" style="width: 150px;">
+											<input type="tel" name="user_id" autocomplete="off"  placeholder="请输入用户编号"
+												class="layui-input" />
+										</div>
+									</div>
+									<div class="layui-inline">
+										<label class="layui-form-mid">用户名称：</label>
+										<div class="layui-input-inline" style="width: 150px;">
+											<input type="text" name="user_name" autocomplete="off"
+												class="layui-input" placeholder="请输入用户名称" />
+										</div>
+									</div>
+									<div class="layui-inline">
+										<label class="layui-form-mid">手机号：</label>
+										<div class="layui-input-inline" style="">
+											<input type="text" name="user_mobile" autocomplete="off" placeholder="请输入手机号"
+												   class="layui-input"  />
+										</div>
+									</div>
+									<div class="layui-inline">
+										<div class="layui-input-inline">
+											<button class="layui-btn" type="button" function="query">
+												<i class="layui-icon">&#xe615;</i>查询
+											</button>
+										</div>
+									
+									</div>
+								</div>
+							</form>
+						</div>
+					</blockquote>
+				</div>
+				<div class="layui-col-md12">
+					<div class="layui-row grid-demo">
+						<div class="layui-col-md12">
+							<div class="layui-btn-container">
+						    	<@shiro.hasPermission name="system/user/add"> 
+								<button class="layui-btn layui-btn-sm" function="top"
+									topUrl="f.html?p=system/user/add.html" topWidth="680px"
+									isMaximize="0" topHeight="450px" topTitle="新增用户">
+									<i class="layui-icon">&#xe654;</i>新增
+								</button>
+								</@shiro.hasPermission>  
+								<@shiro.hasPermission name="system/user/bathdel"> 
+								<button class="layui-btn  layui-btn-sm layui-btn-danger"
+									function="submit" url="system/user/del" isMutiDml="1" isConfirm="1"
+									confirmMsg="是否确定删除选中的数据？" inputs="user_id:">
+									<i class="layui-icon ">&#xe640;</i>批量删除
+								</button>
+								</@shiro.hasPermission>  
+								<a class="layui-btn  layui-btn-sm layui-btn-danger" href="reprot/expReport.html?j=user&reportName=20160813">导出全部</a>
+								<button class="layui-btn layui-btn-sm" function="refresh">
+									<i class="layui-icon">&#x1002;</i>刷新
+								</button>
+							</div>
+							<table id="adminDatagrid" lay-filter="adminDatagrid"
+								class="adminDatagrid" isLoad="1" url="system/user/getData.json"
+								isPage="1" sortType="1" defaultForm="query_form"
+								height="full-130"></table>
+							<div class="adminDatagridCols">
+								<p type="numbers" title="#" />
+								<p checkbox="true" />
+								<p field="user_id" title="ID" width="80" sort="true" />
+								<p field="user_name" title="名称" width="80" sort="true" />
+								<p field="login_name" title="登录名" width="120" sort="true" />
+								<p field="role_name" title="所属角色" width="100" sort="true" />
+								<p field="user_email" title="邮箱" width="180" />
+								<p field="user_mobile" title="手机号" width="140" />
+								<p field="user_sex" title="性别" width="80" dict="sex" />
+								<p field="status" title="状态" width="80" templet="#stateTpl" />
+								<p field="user_birthday" title="创建时间" width="110" />
+								<p field="remark" title="备注" width="10%" />
+								<p fixed="right" align="center" toolbar="#barDemo" title="操作"
+									width="180" />
+							</div>
+							<script type="text/html" id="stateTpl">
+				<input type="checkbox" name="state" lay-skin="switch" disabled lay-text="允许|禁止" {{ d.status == 1 ? 'checked' : '' }}>
+			</script>
+							<script type="text/html" id="barDemo">
+				<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="top" topUrl="f.html?p=system/user/edit.html" topMode="readonly" topWidth="680px" topHeight="450px" topTitle="查看用户" inputs="user_id:">查看</a>
+ 				<a class="layui-btn layui-btn-xs" lay-event="top" topUrl="f.html?p=system/user/edit.html" topWidth="680px" topHeight=450px" topTitle="编辑用户" inputs="user_id:">编辑</a>
+  				<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="submit" url="system/user/del.html" isConfirm="1" confirmMsg="是否确定删除当前记录？" inputs="user_id:">删除</a>
+</script>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" 
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/aop   
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+        http://www.springframework.org/schema/tx  
+        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd  
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+       default-autowire="byName">
+    <context:component-scan base-package="com.ofsoft.cms.core"/>
+    <context:component-scan base-package="com.ofsoft.cms.admin.service"/>
+	<context:property-placeholder location="classpath:conf/admin.properties" ignore-unresolvable="true" />
+	<context:property-placeholder location="classpath:conf/db.properties" ignore-unresolvable="true" />
+
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="driverClassName" value="${driverClassName}" />
+<!-- 		<property name="filters" value="${druid.filters}" /> -->
+		<!-- <property name="connectionProperties" value="config.decrypt=true" /> -->
+		<property name="maxActive" value="${maxActive}" />
+		<property name="initialSize" value="${initialSize}" />
+		<property name="maxWait" value="${maxWait}" />
+		<property name="minIdle" value="${minIdle}" />
+		<property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />
+		<property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" />
+		<property name="validationQuery" value="${validationQuery}" />
+		<property name="testWhileIdle" value="${testWhileIdle}" />
+		<property name="testOnBorrow" value="${testOnBorrow}" />
+		<property name="testOnReturn" value="${testOnReturn}" />
+		<property name="maxOpenPreparedStatements" value="${maxOpenPreparedStatements}" />
+		<property name="removeAbandoned" value="${removeAbandoned}" />
+		<property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />
+		<property name="logAbandoned" value="${logAbandoned}" />
+		  <!--  打开PSCache    -->  
+        <property name="poolPreparedStatements" value="false" />  
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />  
+        <!-- 配置监控统计拦截的filters，去掉后监控界面sql无法统计 -->  
+        <property name="filters" value="stat,wall,log4j" />  
+        <!-- 监控统计拦截的filters -->  
+        <!-- 并在filters属性中配置了log4j -->  
+        <property name="proxyFilters">  
+            <list>  
+                <ref bean="stat-filter" />  
+                <ref bean="log-filter" />  
+            </list>  
+        </property>  
+	</bean>
+	   <!-- 慢SQL记录-->  
+    <bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">  
+        <property name="mergeSql" value="true" />  
+        <property name="slowSqlMillis" value="10000" />  
+        <property name="logSlowSql" value="true" />  
+    </bean>  
+      <bean id="log-filter" class="com.alibaba.druid.filter.logging.Log4jFilter">  
+        <!-- <property name="resultSetLogEnabled" value="false" /> -->  
+        <!-- <property name="statementExecutableSqlLogEnable" value="true" /> -->  
+    </bean>  
+	<bean id="dataSourceProxy" class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy">
+	    <property name="targetDataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="springContextUtil" class="com.ofsoft.cms.core.spring.SpringContextUtil" />
+	<bean id="sysBeans" class="com.ofsoft.cms.core.config.SysBeans" />
+	
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+	<aop:aspectj-autoproxy />
+</beans>

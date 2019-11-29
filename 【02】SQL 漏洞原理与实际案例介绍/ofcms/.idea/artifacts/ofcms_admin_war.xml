@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ofcms-admin:war">
+    <output-path>$PROJECT_DIR$/ofcms-admin/target</output-path>
+    <root id="archive" name="ofcms-admin.war">
+      <element id="artifact" artifact-name="ofcms-admin:war exploded" />
+    </root>
+  </artifact>
+</component>

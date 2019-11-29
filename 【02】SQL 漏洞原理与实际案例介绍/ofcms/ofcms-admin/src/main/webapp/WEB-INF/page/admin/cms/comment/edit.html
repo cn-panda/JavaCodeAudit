@@ -1,0 +1,31 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"cms/comment",
+		"function_name":"edit",
+		"load_sqlid":"cms.comment.detail"
+		},
+		"queryform":{
+	          "form_id":"edit_form",	
+	          "sqlid":"cms.comment.update",
+	          "ver_type":"msg",
+	          "fields":[
+							  {"name":"comment_id","type":"hidden"},
+							  {"name":"comment_title","type":"text","label":"评论标题","div_width":"183", "placeholder":"请输入评论标题",
+							  "right_list":[ {"name":"comment_name","type":"text","label":"评论人","div_width":"183", "placeholder":"请输入评论人"}]},
+							  {"name":"comment_ip","type":"text","label":"IP地址","div_width":"183","placeholder":"请输入IP地址",
+	                          "right_list":[  {"name":"check_status","type":"select","label":"审核","div_width":"183","dict_type":"dict","dict":"check_status"}]},
+							  {"name":"comment_content","type":"textarea","label":"评论内容","width":"500","verify":"required","placeholder":"请输入评论内容"}
+					   ],
+	       "tab_buttons":[
+		    				{"button_id":"s1","button_name":"保存","event":"add","icon":"&#xe610;" },
+		    				{"button_id":"s2","button_name":"关闭","event":"close","icon":"&#x1006;"}
+			    		]
+			  }
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_update.html">
+ 

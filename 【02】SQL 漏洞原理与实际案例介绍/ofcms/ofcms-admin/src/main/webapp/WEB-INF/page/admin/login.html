@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>${system.system_name!'OFCMS'}内容管理系统</title>
+<link rel="icon" type="image/png"
+	href="${webroot}/static/assets/image/favicon.png">
+<link rel="stylesheet"
+	href="${webroot}/static/plugins/layui/css/layui.css">
+<link rel="stylesheet" href="${webroot}/static/assets/css/login.css">
+	<script type="application/javascript">
+        var webroot = "${webroot!'ofcms-admin'}";
+	</script>
+</head>
+<body style="background-color: #2F4056">
+	<div class="admin-login-block">
+		<div class="admin-login-text">
+			${system.login_key!'OF'}<span>${system.login_value!'CMS'}</span>
+		</div>
+		<div class="login-font"></div>
+		<div class="admin-login-form">
+			<form class="layui-form">
+				<div class="layui-form-item">
+					<div class="layui-input-block admin-login-input">
+						<input type="text" name="username" required lay-verify="required"
+							placeholder="登录账号" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block admin-login-input">
+						<input type="password" name="password" required
+							lay-verify="required" placeholder="登录密码" autocomplete="off"
+							class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block admin-login-input">
+						<button class="layui-btn admin-login-btn" lay-filter="*"
+							lay-submit>登录</button>
+					</div>
+				</div>
+			</form>
+			<div class="admin-login-copy">
+				<p>© <a href = "http://www.ofosft.com" target="_blank" style="color: #e0e0e0">${system.copyright!'© www.ofosft.cn'}</a></p>
+			</div>
+		</div>
+	</div>
+	<script src="${webroot}/static/lib/jquery-3.0.0.min.js"></script>
+	<script src="${webroot}/static/plugins/layui/layui.js"></script>
+	<script src="${webroot}/static/assets/js/admin.js"></script>
+	<script src="${webroot}/static/assets/js/tools.js"></script>
+	<script src="${webroot}/static/assets/js/utile.js"></script>
+	<script>
+		layui.use([ 'form', 'layer' ], function() {
+			var form = layui.form, layer = layui.layer;
+			layer.config({
+				anim : 6
+			});
+			//监听提交
+			form.on('submit(*)', function(data) {
+				 utile.ajaxSubmit({"url":"dologin.json",data:data.field}, function(data) {
+					if (data.code == '200') {
+						location.href = 'index.html';
+					} else {
+						tools.alertError(data.msg);
+					}
+				})
+				return false;
+			});
+		});
+		
+		if (window != top) 
+		top.location.href = location.href; 
+	</script>
+</body>
+</html>

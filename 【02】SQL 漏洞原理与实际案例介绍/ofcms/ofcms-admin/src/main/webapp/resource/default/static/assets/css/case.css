@@ -1,0 +1,29 @@
+.of-list{
+    width:1200px;
+    margin: 0 auto;
+    padding: 10px;
+}
+.of-list ul{
+
+}
+.of-list ul li{
+   width: 280px;
+   height: 300px;
+   float: left;
+    margin: 5px;
+    border: 1px solid #eeeeee;
+}
+.of-list ul li span{
+    font-size: 16px;
+    width: 100%;
+    font-family: "Adobe 黑体 Std R";
+    color: #3F3F3F;
+    display: inline-block;
+    margin-top: 5px;
+    text-align: center;
+}
+.of-list ul li img{
+    width: 280px;
+    height: 260px;
+
+}

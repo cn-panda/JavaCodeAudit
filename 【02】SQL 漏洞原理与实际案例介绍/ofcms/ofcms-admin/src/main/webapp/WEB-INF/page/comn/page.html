@@ -1,0 +1,47 @@
+[#assign n=5/]
+[#assign m=3/]
+[#assign b=2/]
+[#assign p=page/]
+<link rel="stylesheet" href="${webroot}/static/assets/css/page.css" >
+<div class="page">
+    [#assign p=page/]
+      <div style="display:inline-block;">
+		  [#--是否第一页-不是就显示上一页图标--]
+	 [#if !p.firstPage]
+		  <a href="#" class="prev-page" onclick="location.href='${params.page}[#if p.pageNumber gt 1]-${p.pageNumber-1}[/#if].html'"></a>
+   	 [/#if]
+		  <!--总页数大于n-->
+     [#if p.totalPage gt n]
+		 [#if p.pageNumber lte m]
+			[#list 1..n as page]
+				<a [#if page==p.pageNumber]class="Num on"[#else]class="Num"[/#if] href="#" onclick="location.href='${params.page}[#if page gt 1]-${page}[/#if].html'">${page!}</a>
+			[/#list]
+		     <a class="Num none">...</a>
+		     <a [#if p.totalPage==p.pageNumber]class="Num on"[#else]class="Num"[/#if] href="#" onclick="location.href='${params.page}-${p.totalPage}.html'">${p.totalPage!}</a>
+	     [#elseif p.pageNumber>p.totalPage-m]
+		     <a [#if 1==p.pageNumber]class="Num on"[#else]class="Num"[/#if] href="#" onclick="location.href='${params.page}.html'">1</a>
+		     <a class="Num none">...</a>
+		     [#list p.totalPage-n+1..p.totalPage as page]  
+		     <a [#if page==p.pageNumber]class="Num on"[#else]class="Num"[/#if] href="#" onclick="location.href='${params.page}[#if page gt 1]-${page}[/#if].html'">${page!}</a>
+		     [/#list]
+	     [#else]
+		     <a [#if 1==p.pageNumber]class="Num on"[#else]class="Num"[/#if] href="#" onclick="location.href='${params.page}.html'">1</a>
+		     <a class="Num none">...</a>
+		     [#list p.pageNumber-b..p.pageNumber+b as page]
+		     <a [#if page==p.pageNumber]class="Num on"[#else]class="Num"[/#if] href="#" onclick="location.href='${params.page}[#if page gt 1]-${page}[/#if].html'">${page!}</a>
+		     [/#list]
+		     <a class="Num none">...</a>
+		     <a [#if p.totalPage==p.pageNumber]class="Num on"[#else]class="Num"[/#if] href="#" onclick="location.href='${params.page}-${p.totalPage}.html'">${p.totalPage!}</a>
+	     [/#if]
+	  <!--页数小于5-->
+     [#else]
+	     [#list 1..p.totalPage as page]
+	     <a [#if page==p.pageNumber]class="Num on"[#else]class="Num"[/#if] href="#" onclick="location.href='${params.page}[#if page gt 1]-${page}[/#if].html'">${page!}</a>
+	     [/#list]
+	 [/#if]
+		  [#--不是最后一页显示下一页图标--]
+     [#if !p.lastPage]
+    	 <a class="next-page" href="#" onclick="location.href='${params.page}-${p.pageNumber +1}.html'"></a>
+     [/#if]
+      </div>
+</div>

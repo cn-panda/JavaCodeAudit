@@ -1,0 +1,74 @@
+<#include "admin/template/page/head_lib.html">
+    <body>
+    <div>
+        <div class="layui-fluid">
+            <div class="layui-row layui-col-space1">
+                <div class="layui-col-md3">
+                    <fieldset class="layui-elem-field">
+                        <legend>模板目录</legend>
+                        <div class="layui-field-box">
+                            <div class="layui-row layui-col-space10">
+                                <div class="layui-col-md12">
+                                    <select  onchange="window.location=this.value;" lay-ignore style="width:250px; height:35px; margin-bottom: 10px; background: #ffffff;border: 1px #d7d7d7 solid;">
+                                        <#if dirs ??>
+                                            <#list dirs as dir>
+                                                     <option value="${webroot}/admin/cms/template/getTemplates.html?dir=/${dir.name!}&up_dir=${up_dir}" >${dir.name!}</option>
+                                            </#list>
+                                        </#if>
+                                        <option value="${webroot}/admin/cms/template/getTemplates.html?dir=/">根目录</option>
+                                        <option value="${webroot}/admin/cms/template/getTemplates.html?up_dir=${up_dir_name}">上级目录</option>
+                                        <option style="display: none" selected="selected" >${up_dir}</option>
+                                    </select>
+                                    <ul class="list-unstyled">
+                                        <#if files ??>
+                                            <#list files as file>
+                                                <#if file.name == file_name!>
+                                                    <li class="" style="font-size: 14px; line-height: 35px;    background-color: #fff;">
+                                                        <a href="${webroot}/admin/cms/template/getTemplates.html?file_name=${file.name}&dir=${up_dir}&dir_name=${dir_name}"><b>${file.name!} （编辑中...）</b></a>
+                                                    </li>
+                                                    <#else>
+                                                        <li class="">
+                                                            <a href="${webroot}/admin/cms/template/getTemplates.html?file_name=${file.name}&dir=${up_dir}&dir_name=${dir_name}">${file.name!} </a>
+                                                        </li>
+                                                </#if>
+                                            </#list>
+                                        </#if>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="layui-col-md9">
+                    <form class="layui-form" id="edit_form" >
+                                <input type="hidden" name="file_path" value="${file_path}" />
+                                <input type="hidden" name="dirs" value="${up_dir}" />
+                                <input type="hidden" name="res_path" value="" />
+                       <div class="layui-form-item">
+                            <label class="layui-form-label">文件名称</label>
+                            <div class="layui-input-inline" style="width:50%">
+                                <input type="text" name="file_name" disabled required="" lay-verType="tips"
+                                       lay-verify="required" autocomplete="off" value="${file_name}"
+                                       class="layui-input"/>
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">内容</label>
+                            <div class="layui-input-block"  >
+                                <textarea name="file_content"  required="" lay-verType="tips"  lay-verify="required" autocomplete="off"class="layui-textarea"
+                                          style="width: 95%;min-height: 370px" >${file_content}</textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item" style="text-align: center;">
+                            <button class="layui-btn" lay-submit="" lay-filter="edit" url="cms/template/save.json"><i
+                                    class="layui-icon">&#xe642;</i>保存
+                            </button>
+                        </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+    </body>
+    </html>
