@@ -68,11 +68,11 @@ https://github.com/cn-panda/JavaCodeAudit
 
 修改连接数据库的账号密码：
 
-![image-20191127160610862](/Users/panda/Library/Application Support/typora-user-images/image-20191127160610862.png)
+![2.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/2.png?raw=true)
 
 
 
-![image-20191127160707546](/Users/panda/Library/Application Support/typora-user-images/image-20191127160707546.png)
+![3.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/3.png?raw=true)
 
 项目是一个简单的查询用户信息的实现，在 servlet 层接受到请求后，调`UserInfoServiceImpl`，`UserInfoServiceImpl`在调用`UserInfoDaoImpl`，`UserInfoDaoImpl`去操作数据库，然后封装 `UserInfo` 对象，再把` UserInfo` 对象返回给` UserInfoService`，最后 service 层再返回给 servlet 层，最终把查询的内容显示到` info.jsp `页面。
 
@@ -118,13 +118,11 @@ public UserInfo UserInfoFoundDao(String id){
 
 可以看到在 sql 语句中，存在着拼接的String类型变量`id`，且没有进行任何的过滤处理，直接带入执行。这也就导致了 SQL 注入，如下图，带入参数`and 1=1`：
 
-![image-20191127195213966](/Users/panda/Library/Application Support/typora-user-images/image-20191127195213966.png)
+![4.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/4.png?raw=true)
 
 监视 MySQL 的执行记录，如下图所示：
 
-![image-20191127195319942](/Users/panda/Library/Application Support/typora-user-images/image-20191127195319942.png)
-
-
+![5.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/5.png?raw=true)
 
 完整的把我们带入的参数给传了进去。
 
@@ -134,11 +132,11 @@ public UserInfo UserInfoFoundDao(String id){
 id=2 union select 1,2,3,group_concat(username),group_concat(password) from admin--
 ```
 
-![image-20191127195616949](/Users/panda/Library/Application Support/typora-user-images/image-20191127195616949.png)
+![6.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/6.png?raw=true)
 
 MySQL 执行记录如下：
 
-![image-20191127195645267](/Users/panda/Library/Application Support/typora-user-images/image-20191127195645267.png)
+![7.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/7.png?raw=true)
 
 ## 0x03 修复方案
 
@@ -280,73 +278,73 @@ https://gitee.com/oufu/ofcms/releases
 
 然后打开 idea，点击`import Project`，选择` Import project from external model`中的 Maven
 
-![image-20191128200219579](/Users/panda/Library/Application Support/typora-user-images/image-20191128200219579.png)
+![8.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/8.png?raw=true)
 
 
 
 然后一路默认
 
-![image-20191128200509393](/Users/panda/Library/Application Support/typora-user-images/image-20191128200509393.png)
+![9.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/9.png?raw=true)
 
-![image-20191128200522311](/Users/panda/Library/Application Support/typora-user-images/image-20191128200522311.png)
+![10.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/10.png?raw=true)
 
 ![image-20191128200543346](/Users/panda/Library/Application Support/typora-user-images/image-20191128200543346.png)
 
-![image-20191128200553472](/Users/panda/Library/Application Support/typora-user-images/image-20191128200553472.png)
+![11.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/11.png?raw=true)
 
 
 
 然后在`ofcms-admin/src/main/resources/dev/conf/`文件夹下打开`db.properties`，修改数据的账号密码
 
-![image-20191128200719160](/Users/panda/Library/Application Support/typora-user-images/image-20191128200719160.png)
+![12.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/12.png?raw=true)
 
 然后修改根目录下的 `pom.xml`，搜索 `mysql`，然后修改成自己机器上的装的版本，最后点击` import changes`
 
-![image-20191128201011063](/Users/panda/Library/Application Support/typora-user-images/image-20191128201011063.png)
+![13.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/13.png?raw=true)
 
 
 
 然后下载需要的 jar 包资源：
 
-![image-20191128201138715](/Users/panda/Library/Application Support/typora-user-images/image-20191128201138715.png)
+![14.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/14.png?raw=true)
 
 配置Tomcat 服务，点击 run-->edit configurations
 
-![image-20191128201219662](/Users/panda/Library/Application Support/typora-user-images/image-20191128201219662.png)
+![15.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/15.png?raw=true)
 
-![image-20191128201317202](/Users/panda/Library/Application Support/typora-user-images/image-20191128201317202.png)
+![16.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/16.png?raw=true)
 
 然后选择 Tomcat 的安装目录：
 
-![image-20191128201359941](/Users/panda/Library/Application Support/typora-user-images/image-20191128201359941.png)
+![17.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/17.png?raw=true)
 
 端口按照本地情况修改：
 
-![image-20191128201442520](/Users/panda/Library/Application Support/typora-user-images/image-20191128201442520.png)
+![18.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/18.png?raw=true)
 
 然后配置 Deployment
 
-![image-20191128201505918](/Users/panda/Library/Application Support/typora-user-images/image-20191128201505918.png)
+![19.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/19.png?raw=true)
 
 选择 ofcms-admin:war
 
-![image-20191128201526664](/Users/panda/Library/Application Support/typora-user-images/image-20191128201526664.png)
+![20.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/20.png?raw=true)
 
 修改名字为`/ofcms-admin`
 
-![image-20191128201541544](/Users/panda/Library/Application Support/typora-user-images/image-20191128201541544.png)
+![21.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/21.png?raw=true)
+
+![22.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/22.png?raw=true)
 
 最后打开 MySQL，创建一个名为 ofcms 的数据库，导入`fcms/doc/sql`下的 sql 文件即可。
 
 然后启动项目
 
-![image-20191128204708155](/Users/panda/Library/Application Support/typora-user-images/image-20191128204708155.png)
+![23.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/23.png?raw=true)
 
 即可访问该项目：
 
-![image-20191128204614625](/Users/panda/Library/Application Support/typora-user-images/image-20191128204614625.png)
-
-
+![24.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/24.png?raw=true)
 
 站点地址：http://localhost:8080/ofcms-admin/
 
@@ -381,7 +379,7 @@ public void create() {
 
 在后台中找到该段代码对应的功能：
 
-![image-20191129140424919](/Users/panda/Library/Application Support/typora-user-images/image-20191129140424919.png)
+![25.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/25.png?raw=true)
 
 抓包传入一句测试的语句：
 
@@ -390,11 +388,11 @@ update of_cms_link set link_name='panda' where link_id = 4
 
 ```
 
-![image-20191129140317344](/Users/panda/Library/Application Support/typora-user-images/image-20191129140317344.png)
+![26.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/26.png?raw=true)
 
 查看 SQL 执行记录：
 
-![image-20191129140342507](/Users/panda/Library/Application Support/typora-user-images/image-20191129140342507.png)
+![27.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/27.png?raw=true)
 
 完完全全的可以控制 update 型的 SQL 注入语句，因此可以利用以下语句进行注入：
 
@@ -403,7 +401,7 @@ update of_cms_link set link_name=updatexml(1,concat(0x7e,(user())),0) where link
 
 ```
 
-![image-20191129140756239](/Users/panda/Library/Application Support/typora-user-images/image-20191129140756239.png)
+![28.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/28.png?raw=true)
 
 ### 4、修复方案
 
