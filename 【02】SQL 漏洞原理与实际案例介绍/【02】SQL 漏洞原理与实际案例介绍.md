@@ -62,7 +62,7 @@ https://github.com/cn-panda/JavaCodeAudit
 
 导入项目，可以得到以下目录
 
-![image-20191127160933485](/Users/panda/Library/Application Support/typora-user-images/image-20191127160933485.png)
+![1.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9002%E3%80%91SQL%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/1.png?raw=true)
 
 
 
