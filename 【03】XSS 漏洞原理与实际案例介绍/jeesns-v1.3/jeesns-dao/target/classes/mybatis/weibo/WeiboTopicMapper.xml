@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.weibo.IWeiboTopicDao">
+  <resultMap id="WeiboTopicResult" type="WeiboTopic">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+  </resultMap>
+
+  <insert id="save" parameterType="WeiboTopic" keyProperty="id" useGeneratedKeys="true">
+    insert into tbl_weibo_topic (create_time, name, count) VALUES (now(),#{name},0)
+  </insert>
+
+  <select id="findByName" resultMap="WeiboTopicResult">
+    SELECT * from tbl_weibo_topic where name = #{name}
+  </select>
+
+</mapper>

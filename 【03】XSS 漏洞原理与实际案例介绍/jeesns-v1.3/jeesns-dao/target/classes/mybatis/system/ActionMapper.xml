@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.system.IActionDao">
+    <resultMap id="ActionResult" type="Action">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="log" jdbcType="VARCHAR" property="log" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+    <select id="allList" resultMap="ActionResult">
+        SELECT * FROM tbl_action
+    </select>
+    <select id="findById" resultMap="ActionResult">
+        SELECT * FROM tbl_action WHERE id=#{id}
+    </select>
+    <update id="update" parameterType="Action">
+        UPDATE tbl_action set log=#{log},update_time=now() WHERE id=#{id}
+    </update>
+    <update id="isenable" parameterType="java.lang.Integer">
+        update tbl_action set status=(case when status=0 then 1 else 0 end),update_time=now() where id=#{id}
+    </update>
+</mapper>

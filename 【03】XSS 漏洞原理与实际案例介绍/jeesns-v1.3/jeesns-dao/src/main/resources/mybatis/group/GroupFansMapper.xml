@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.group.IGroupFansDao">
+  <resultMap id="GroupFansResult" type="GroupFans">
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="group_id" jdbcType="INTEGER" property="groupId" />
+    <result column="member_id" jdbcType="INTEGER" property="memberId" />
+  </resultMap>
+  <select id="findByMemberAndGroup" resultMap="GroupFansResult">
+    select * from tbl_group_fans where group_id=#{groupId} and member_id=#{memberId}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from tbl_group_fans where group_id=#{groupId} and member_id=#{memberId}
+  </delete>
+  <insert id="save" parameterType="GroupFans">
+    insert into tbl_group_fans(create_time,group_id,member_id)
+    values(now(),#{groupId},#{memberId})
+  </insert>
+  <select id="listByPage" resultMap="GroupFansResult">
+    select a.group_id as 'group.id',a.member_id as 'member.id',b.name as 'member.name',b.avatar as 'member.avatar' FROM tbl_group_fans as a left join tbl_member as b
+    on a.member_id = b.id WHERE a.group_id=#{groupId} order by a.create_time DESC
+  </select>
+  <select id="listByMember" resultMap="GroupFansResult">
+    select a.group_id as 'group.id',b.name as 'group.name',b.logo as 'group.logo',
+    (select count(c.id) from tbl_group_topic as c where group_id=a.group_id and c.status=1) as 'group.topicCount',
+    (select count(*) from tbl_group_fans as d where group_id=a.group_id) as 'group.fansCount'
+    FROM tbl_group_fans as a INNER JOIN tbl_group as b
+    on a.group_id = b.id WHERE a.member_id=#{memberId} order by a.create_time DESC
+  </select>
+</mapper>

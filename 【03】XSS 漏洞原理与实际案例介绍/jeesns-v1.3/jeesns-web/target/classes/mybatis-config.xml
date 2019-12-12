@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!-- 打印查询语句 -->
+        <!--<setting name="logImpl" value="STDOUT_LOGGING" />-->
+    </settings>
+    <plugins>
+        <plugin interceptor="com.lxinet.jeesns.interceptor.PageInterceptor"></plugin>
+    </plugins>
+</configuration>

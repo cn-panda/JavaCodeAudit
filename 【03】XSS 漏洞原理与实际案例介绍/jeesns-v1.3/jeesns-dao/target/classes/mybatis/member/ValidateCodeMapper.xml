@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.member.IValidateCodeDao">
+    <resultMap id="ValidateCodeResult" type="ValidateCode">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="code" jdbcType="VARCHAR" property="code" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="type" jdbcType="INTEGER" property="type" />
+    </resultMap>
+
+    <insert id="save">
+      INSERT INTO tbl_validate_code(create_time,email,code,status,type) VALUES (now(),#{email},#{code},0,#{type})
+    </insert>
+    <select id="valid" resultMap="ValidateCodeResult">
+        SELECT * FROM tbl_validate_code WHERE email=#{email} and code=#{code} and status=0 and type=#{type} and create_time>=DATE_SUB(NOW(),INTERVAL 30 MINUTE)
+    </select>
+    <update id="used">
+        update tbl_validate_code SET status=1 where id = #{id}
+    </update>
+</mapper>

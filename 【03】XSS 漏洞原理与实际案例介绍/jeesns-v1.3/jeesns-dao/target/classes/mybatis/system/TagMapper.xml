@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.system.ITagDao">
+  <resultMap id="TagResult" type="Tag">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="func_type" jdbcType="INTEGER" property="funcType" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="refer_count" jdbcType="INTEGER" property="referCount" />
+  </resultMap>
+
+  <select id="listByPage" resultMap="TagResult">
+    select id,func_type,name,refer_count from tbl_tag WHERE func_type = #{funcType} ORDER BY id DESC
+  </select>
+
+  <select id="findById" resultMap="TagResult">
+    select id,func_type,name,refer_count from tbl_tag WHERE id = #{id}
+  </select>
+
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from tbl_tag where id = #{id}
+  </delete>
+  <insert id="save" parameterType="Tag">
+    insert into tbl_tag (func_type, name) values (#{funcType}, #{name})
+  </insert>
+  <update id="update" parameterType="Tag">
+    UPDATE tbl_tag SET name = #{name} WHERE id = #{id}
+  </update>
+</mapper>

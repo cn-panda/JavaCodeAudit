@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.cms.IArticleDao">
+  <resultMap id="ArticleResult" type="Article">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime" />
+    <result column="article_cate_id" jdbcType="INTEGER" property="articleCateId" />
+    <result column="archive_id" jdbcType="INTEGER" property="archiveId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="post_type" jdbcType="INTEGER" property="postType" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="member_id" jdbcType="INTEGER" property="memberId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="keywords" jdbcType="VARCHAR" property="keywords" />
+    <result column="view_rank" jdbcType="INTEGER" property="viewRank" />
+    <result column="view_count" jdbcType="INTEGER" property="viewCount" />
+    <result column="writer" jdbcType="VARCHAR" property="writer" />
+    <result column="source" jdbcType="VARCHAR" property="source" />
+    <result column="pub_time" jdbcType="TIMESTAMP" property="pubTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="thumbnail" jdbcType="VARCHAR" property="thumbnail" />
+    <result column="last_reply" jdbcType="TIMESTAMP" property="lastReply" />
+    <result column="can_reply" jdbcType="INTEGER" property="canReply" />
+    <result column="good_num" jdbcType="INTEGER" property="goodNum" />
+    <result column="bad_num" jdbcType="INTEGER" property="badNum" />
+    <result column="check_admin" jdbcType="INTEGER" property="checkAdmin" />
+    <result column="favor" jdbcType="INTEGER" property="favor" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <association property="articleCate" column="article_cate_id" javaType="ArticleCate">
+      <result column="c_id" jdbcType="INTEGER" property="id" />
+      <result column="c_fid" jdbcType="INTEGER" property="fid" />
+      <result column="c_name" jdbcType="VARCHAR" property="name" />
+      <result column="c_status" jdbcType="INTEGER" property="status" />
+      <result column="c_sort" jdbcType="INTEGER" property="sort" />
+    </association>
+    <association property="member" column="member_id" javaType="Member">
+      <result column="m_id" property="id"/>
+      <result column="m_name" property="name"/>
+      <result column="m_email" property="email"/>
+      <result column="m_phone" property="phone"/>
+      <result column="m_avatar" property="avatar"/>
+      <result column="m_sex" property="sex"/>
+      <result column="m_money" property="money"/>
+      <result column="m_score" property="score"/>
+      <result column="m_follows" property="follows"/>
+      <result column="m_fans" property="fans"/>
+      <result column="m_is_admin" property="isAdmin"/>
+      <result column="m_introduce" property="introduce"/>
+      <result column="m_status" property="status"/>
+      <result column="m_is_active" property="isActive"/>
+    </association>
+  </resultMap>
+  <sql id="select_column">
+    a.id,a.cate_id,a.collect_time,a.status, b.archive_id,b.title,b.create_time,b.description,b.thumbnail,b.favor,b.last_reply,
+    b.member_id,b.good_num,b.bad_num,b.view_count,b.view_rank,
+    c.id as c_id,c.fid as c_fid,c.name as c_name,
+    c.status as c_status,c.sort as c_sort,d.id as m_id,d.name as m_name,d.email as m_email,d.phone as m_phone,
+    d.avatar as m_avatar,d.sex as m_sex,d.money as m_money,d.score as m_score,d.follows as m_follows,
+    d.fans as m_fans,d.is_admin as m_is_admin,d.introduce as m_introduce,d.status as m_status,d.is_active as m_fm_is_activeans
+  </sql>
+  <sql id="common_select">
+    select <include refid="select_column"/>
+    from tbl_article as a LEFT JOIN tbl_archive as b ON a.archive_id = b.archive_id
+    LEFT JOIN tbl_article_cate as c ON a.cate_id = c.id
+    LEFT JOIN tbl_member as d ON b.member_id = d.id
+  </sql>
+
+  <select id="listByPage" resultMap="ArticleResult">
+    <include refid="common_select"/>
+    <where>
+      <if test="cateid &gt; 0">
+        a.cate_id = #{cateid}
+      </if>
+      <if test="key != null and key != ''">
+        and b.title LIKE #{key}
+      </if>
+      <if test="status != 2">
+        and a.status = #{status}
+      </if>
+      <if test="memberId &gt; 0">
+        and b.member_id = #{memberId}
+      </if>
+    </where>
+    order by a.id DESC
+  </select>
+  <select id="findById" parameterType="java.lang.Integer" resultMap="ArticleResult">
+     select <include refid="select_column"/>,b.content,
+    (CASE WHEN (SELECT id FROM tbl_archive_favor WHERE archive_id=b.archive_id AND member_id=#{loginMemberId}) IS NULL THEN 0 ELSE 1 END) isFavor
+    from tbl_article as a LEFT JOIN tbl_archive as b ON a.archive_id = b.archive_id LEFT JOIN tbl_article_cate as c ON a.cate_id = c.id LEFT JOIN tbl_member as d on b.member_id=d.id
+    where a.id = #{id}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from tbl_action_log where type=1 and foreign_id = #{id};
+    delete from tbl_article where id = #{id}
+  </delete>
+  <insert id="save" parameterType="Article" useGeneratedKeys="true" keyProperty="id">
+    insert into tbl_article (collect_time,cate_id, archive_id,status) values (now(), #{cateId}, #{archiveId},#{status})
+  </insert>
+
+  <update id="update" parameterType="Article">
+    update tbl_article set cate_id=#{cateId} where id = #{id}
+  </update>
+  <update id="audit">
+    update tbl_article set status=(CASE WHEN status=0 THEN 1 ELSE 0 END)
+    where id = #{id}
+  </update>
+  <select id="listByCustom" resultMap="ArticleResult">
+    <include refid="common_select"/>
+    <where>
+      AND a.status = 1
+      <if test="cid &gt; 0">
+      AND a.cate_id = #{cid}
+      </if>
+      <if test="day &gt; 0">
+      AND DATEDIFF(now(),b.create_time) &lt;= #{day} AND DATEDIFF(now(),b.create_time) &gt;= 0
+      </if>
+      <if test="thumbnail == 1">
+      AND b.thumbnail is not NULL
+      </if>
+    </where>
+    ORDER BY
+    <choose>
+      <when test="sort == 'id'">
+        id
+      </when >
+      <when test="sort == 'view_count'">
+        view_count
+      </when >
+      <when test="sort == 'update_time'">
+        update_time
+      </when >
+      <when test="sort == 'favor'">
+        favor
+      </when >
+      <otherwise>
+        id
+      </otherwise>
+    </choose>
+    DESC
+    limit 0,#{num}
+  </select>
+</mapper>

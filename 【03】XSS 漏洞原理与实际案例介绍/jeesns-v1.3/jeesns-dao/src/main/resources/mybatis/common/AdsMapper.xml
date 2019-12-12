@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.common.IAdsDao">
+    <resultMap id="AdsResult" type="Ads">
+      <id column="id" jdbcType="INTEGER" property="id" />
+      <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+      <result column="type" jdbcType="INTEGER" property="type" />
+      <result column="name" jdbcType="VARCHAR" property="name" />
+      <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+      <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+      <result column="content" jdbcType="VARCHAR" property="content" />
+      <result column="link" jdbcType="VARCHAR" property="link" />
+      <result column="status" jdbcType="INTEGER" property="status" />
+    </resultMap>
+   <select id="findById" resultMap="AdsResult">
+    select * from tbl_ads where id = #{id}
+  </select>
+  <select id="listByPage" resultMap="AdsResult">
+    select *,(CASE WHEN type = 1 THEN '图片链接' WHEN type = 2 THEN '文字链接' WHEN type = 3 THEN '代码' END) AS typeName FROM tbl_ads  order by id DESC
+  </select>
+  <delete id="delete">
+    delete from tbl_ads where id = #{id}
+  </delete>
+  <insert id="save" parameterType="Ads">
+    insert into tbl_ads (name,create_time,type,start_time,end_time,content,link,status)
+    values (#{name}, now(), #{type}, #{startTime}, #{endTime}, #{content}, #{link}, #{status})
+  </insert>
+  <update id="update" parameterType="Ads">
+    update tbl_ads set name = #{name},type = #{type},start_time = #{startTime},end_time = #{endTime},
+    content = #{content},link = #{link},status = #{status} where id = ${id}
+  </update>
+  <!-- 设置禁用、可用 -->
+  <update id="enable" parameterType="java.lang.Integer">
+    update tbl_ads set status=(case when status=0 then 1 else 0 end) where id=#{id}
+  </update>
+</mapper>

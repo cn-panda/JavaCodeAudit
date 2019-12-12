@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.group.IGroupTopicDao">
+  <resultMap id="GroupTopicResult" type="GroupTopic">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime" />
+    <result column="group_id" jdbcType="INTEGER" property="groupId" />
+    <result column="type_id" jdbcType="INTEGER" property="typeId" />
+    <result column="archive_id" jdbcType="INTEGER" property="archiveId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="is_essence" jdbcType="INTEGER" property="isEssence" />
+    <result column="is_top" jdbcType="INTEGER" property="isTop" />
+  </resultMap>
+
+  <select id="listByPage" resultMap="GroupTopicResult">
+    select a.id,a.group_id,a.group_id as 'group.id', a.collect_time, a.status,a.is_top,a.is_essence,a.type_id,b.*,c.name 'group.name',
+    b.member_id as memberId,b.member_id as 'member.id',d.name as 'member.name',d.avatar as 'member.avatar'
+    from tbl_group_topic as a LEFT JOIN tbl_archive as b ON a.archive_id = b.archive_id
+    LEFT JOIN tbl_group as c ON a.group_id = c.id LEFT JOIN tbl_member as d on b.member_id=d.id
+    <where>
+      <if test="groupId &gt; 0">
+        a.group_id = #{groupId}
+      </if>
+      <if test="key != null and key != ''">
+        and b.title LIKE #{key}
+      </if>
+      <if test="status != 2">
+        and a.status = #{status}
+      </if>
+      <if test="memberId &gt; 0">
+        and b.member_id = #{memberId}
+      </if>
+      <if test="typeId &gt; 0">
+        and a.type_id = #{typeId}
+      </if>
+    </where>
+    order by a.is_top DESC,a.id DESC
+  </select>
+  <select id="findById" parameterType="java.lang.Integer" resultMap="GroupTopicResult">
+    select a.id,a.group_id,a.group_id as 'group.id', a.collect_time, a.status,a.is_top,a.is_essence,a.type_id,b.*,
+    c.name 'group.name',c.logo 'group.logo',b.member_id as memberId,b.member_id as 'member.id',d.name as 'member.name',
+    d.avatar as 'member.avatar',d.introduce as 'member.introduce',e.id as 'member.memberLevel.id',e.name as 'member.memberLevel.name',
+    (CASE WHEN (SELECT id FROM tbl_archive_favor WHERE archive_id=b.archive_id AND member_id=#{loginMemberId}) IS NULL THEN 0 ELSE 1 END) isFavor
+    from tbl_group_topic as a INNER JOIN tbl_archive as b ON a.archive_id = b.archive_id
+    LEFT JOIN tbl_group as c ON a.group_id = c.id LEFT JOIN tbl_member as d on b.member_id=d.id
+    left join tbl_member_level as e on e.id = d.member_level_id
+    where a.id = #{id}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from tbl_action_log where type=4 and foreign_id = #{id};
+    delete from tbl_group_topic where id = #{id}
+  </delete>
+  <insert id="save" keyProperty="id" useGeneratedKeys="true">
+    insert into tbl_group_topic (collect_time, group_id, archive_id,status
+    <if test="typeId != null and typeId != ''">
+    ,type_id
+    </if>
+    ) values (now(), #{groupId}, #{archiveId},#{status}
+    <if test="typeId != null and typeId != ''">
+      ,#{typeId}
+    </if>
+    )
+  </insert>
+  <update id="audit">
+    UPDATE tbl_group_topic SET status = 1 WHERE id = #{id}
+  </update>
+  <update id="top">
+    UPDATE tbl_group_topic SET is_top = #{top} WHERE id = #{id}
+  </update>
+  <update id="essence">
+    UPDATE tbl_group_topic SET is_essence = #{essence} WHERE id = #{id}
+  </update>
+
+  <update id="updateType">
+    UPDATE tbl_group_topic SET type_id = #{typeId} WHERE id = #{id}
+  </update>
+
+  <select id="listByCustom" resultMap="GroupTopicResult">
+    select a.id,a.group_id,a.group_id as 'group.id', a.collect_time, a.status,a.is_top,a.is_essence,a.type_id,b.*,c.name 'group.name',
+    b.member_id as memberId,b.member_id as 'member.id',d.name as 'member.name',d.avatar as 'member.avatar'
+    from tbl_group_topic as a LEFT JOIN tbl_archive as b ON a.archive_id = b.archive_id
+    LEFT JOIN tbl_group as c ON a.group_id = c.id LEFT JOIN tbl_member as d on b.member_id=d.id
+    <where>
+      AND a.status = 1
+      <if test="gid &gt; 0">
+      AND  a.group_id = #{gid}
+      </if>
+      <if test="day &gt; 0">
+      AND  DATEDIFF(now(),b.create_time) &lt;= #{day} AND DATEDIFF(now(),b.create_time) &gt;= 0
+      </if>
+      <if test="thumbnail == 1">
+      AND b.thumbnail is not NULL
+      </if>
+    </where>
+    ORDER BY ${sort} DESC
+    limit 0,${num}
+  </select>
+
+</mapper>

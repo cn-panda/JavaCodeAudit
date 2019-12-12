@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.system.IConfigDao">
+  <resultMap id="ConfigResult" type="Config">
+    <id column="jkey" jdbcType="VARCHAR" property="jkey" />
+    <result column="jvalue" jdbcType="VARCHAR" property="jvalue" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+
+  <select id="allList" resultMap="ConfigResult">
+    select * from tbl_config
+  </select>
+  
+  <update id="update" parameterType="String">
+    update tbl_config set jvalue=#{value} where jkey = #{key}
+  </update>
+
+  <select id="getValue" parameterType="String">
+    select jvalue from tbl_config WHERE  jkey = #{key}
+  </select>
+</mapper>

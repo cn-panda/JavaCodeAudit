@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.member.IMemberDao">
+    <resultMap id="RemberResult" type="Member">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="group_id" jdbcType="INTEGER" property="groupId" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="phone" jdbcType="VARCHAR" property="phone" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="sex" jdbcType="VARCHAR" property="sex" />
+        <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="regip" jdbcType="VARCHAR" property="regip" />
+        <result column="login_count" jdbcType="INTEGER" property="loginCount" />
+        <result column="curr_login_time" jdbcType="TIMESTAMP" property="currLoginTime" />
+        <result column="curr_login_ip" jdbcType="VARCHAR" property="currLoginIp" />
+        <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
+        <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="money" jdbcType="DOUBLE" property="money" />
+        <result column="score" jdbcType="INTEGER" property="score" />
+        <result column="is_active" jdbcType="INTEGER" property="isActive" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="birthday" jdbcType="VARCHAR" property="birthday" />
+        <result column="addprovince" jdbcType="VARCHAR" property="addprovince" />
+        <result column="addcity" jdbcType="VARCHAR" property="addcity" />
+        <result column="addarea" jdbcType="VARCHAR" property="addarea" />
+        <result column="address" jdbcType="VARCHAR" property="address" />
+        <result column="qq" jdbcType="VARCHAR" property="qq" />
+        <result column="wechat" jdbcType="VARCHAR" property="wechat" />
+        <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
+        <result column="contact_email" jdbcType="VARCHAR" property="contactEmail" />
+        <result column="website" jdbcType="VARCHAR" property="website" />
+        <result column="introduce" jdbcType="VARCHAR" property="introduce" />
+        <result column="is_admin" jdbcType="INTEGER" property="isAdmin" />
+        <result column="follows" jdbcType="INTEGER" property="follows" />
+        <result column="fans" jdbcType="INTEGER" property="fans" />
+        <result column="is_vip" jdbcType="INTEGER" property="isVip" />
+        <result column="member_level_id" jdbcType="INTEGER" property="memberLevelId" />
+        <association property="memberLevel" column="member_level_id"  select="selectMemberLevel"></association>
+    </resultMap>
+    <resultMap id="memberWithMessageResult" type="Member">
+        <collection property="messages" javaType="ArrayList" column="{from_member_id=from_member_id,to_member_id=to_member_id}" ofType="Message" select="selectUnreadMessagesByMember"/>
+    </resultMap>
+
+    <!-- 会员登录 -->
+    <select id="login" parameterType="Member" resultMap="RemberResult">
+        select
+        id,group_id,name,email,phone,sex,avatar,is_admin,status,is_active,score
+        from tbl_member
+        where (name = #{name} or email = #{name}) and password = #{password}
+    </select>
+
+    <!-- 管理员登录 -->
+    <select id="manageLogin" parameterType="Member" resultMap="RemberResult">
+        select
+        id,group_id,name,email,phone,sex,avatar,is_admin,is_active
+        from tbl_member
+        where (name = #{name} or email = #{name}) and password = #{password} and is_admin > 0
+    </select>
+
+    <!-- 会员列表 -->
+    <select id="listByPage" resultMap="RemberResult">
+        select
+        a.id, a.name, a.phone, a.email, a.create_time, a.login_count, a.status,a.is_admin from tbl_member a
+        <where>
+            <if test="key != null and key != ''">
+                and (a.name LIKE #{key} or a.phone like #{key} or email like #{key})
+            </if>
+        </where>
+        order by a.id DESC
+    </select>
+
+    <!-- 管理员列表 -->
+    <select id="managerList" resultMap="RemberResult">
+        select
+        a.id, a.name, a.phone, a.email, a.create_time, a.login_count, a.status,a.is_admin from tbl_member a
+        <where>
+            AND is_admin>0
+            <if test="key != null and key != ''">
+                and (a.name LIKE #{key} or a.phone like #{key} or email like #{key})
+            </if>
+        </where>
+        order by a.id DESC
+    </select>
+
+    <!--管理员授权与取消-->
+    <update id="managerAddAndCancel">
+        update tbl_member set is_admin = #{isAdmin} where id = #{id};
+    </update>
+
+    <!-- 根据ID查找 -->
+    <select id="findById" parameterType="java.lang.Integer" resultMap="RemberResult">
+        select * from tbl_member where id = #{id}
+    </select>
+
+    <!-- 根据昵称查找 -->
+    <select id="findByName" resultMap="RemberResult">
+        select * from tbl_member where name = #{name}
+    </select>
+
+    <!-- 根据邮箱查找 -->
+    <select id="findByEmail" resultMap="RemberResult">
+        select * from tbl_member where email = #{email}
+    </select>
+
+    <!-- 根据昵称和邮箱查找 -->
+    <select id="findByNameAndEmail" resultMap="RemberResult">
+        select * from tbl_member where name = #{name} and email = #{email}
+    </select>
+
+    <!-- 删除账户 -->
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from tbl_member where id = #{id}
+    </delete>
+
+    <!-- 设置账户禁用、可用 -->
+    <update id="isenable" parameterType="java.lang.Integer">
+      update tbl_member set status=(case when status=0 then -1 else 0 end) where id=#{id}
+    </update>
+
+    <!-- 修改密码 -->
+    <update id="changepwd">
+        update tbl_member set password=#{password} WHERE id=#{id}
+    </update>
+
+    <!-- 更新头像 -->
+    <update id="updateAvatar">
+        update tbl_member set avatar=#{avatar} WHERE id=#{id}
+    </update>
+
+    <!-- 注册 -->
+    <insert id="register" parameterType="Member" keyProperty="id" useGeneratedKeys="true">
+    insert into tbl_member (name, email, password, avatar, create_time, regip,last_login_time,last_login_ip,curr_login_time,curr_login_ip)
+    values (#{name}, #{email}, #{password}, #{avatar}, now(),#{regip},now(),#{regip},now(),#{regip})
+    </insert>
+
+    <!-- 修改基本信息 -->
+    <update id="editBaseInfo" parameterType="Member">
+        update tbl_member
+        <set>
+            name=#{name},sex=#{sex},introduce=#{introduce}
+        </set>
+        where id = #{id}
+    </update>
+
+    <!-- 修改会员其他信息 -->
+    <update id="editOtherInfo" parameterType="Member">
+        update tbl_member
+        <set>
+            birthday=#{birthday},qq=#{qq},wechat=#{wechat},contact_phone=#{contactPhone},contact_email=#{contactEmail},website=#{website}
+        </set>
+        where id = #{id}
+    </update>
+
+    <!-- 激活账号 -->
+    <update id="active">
+        update tbl_member set is_active=1 where id = #{id}
+    </update>
+
+    <!-- 登录成功后修改相关信息 -->
+    <update id="loginSuccess">
+        update tbl_member set login_count=login_count+1,last_login_time=curr_login_time,last_login_ip=curr_login_ip,
+        curr_login_time=now(),curr_login_ip=#{currLoginIp} where id = #{id}
+    </update>
+
+    <!-- 关注后修改会员关注数 -->
+    <update id="follows">
+        update tbl_member set follows=(select COUNT(*) FROM tbl_member_fans where who_follow=#{id}) where id = #{id}
+    </update>
+
+    <!-- 关注后修改会员粉丝数 -->
+    <update id="fans">
+        update tbl_member set fans=(select COUNT(*) FROM tbl_member_fans where follow_who=#{id}) where id = #{id}
+    </update>
+
+    <!-- 更新会员积分 -->
+    <update id="updateScore">
+        update tbl_member set score=score+#{score} where id = #{id}
+    </update>
+
+    <!-- 获取私信中的联系人ID列表 -->
+    <select id="listContactMemberIds" resultMap="RemberResult">
+        select distinct(member_id) as id from
+        (select * from
+            (
+                (select id,to_member_id as member_id  from tbl_message where from_member_id = #{memberId})
+                union
+                (select id,from_member_id as member_id from tbl_message where to_member_id = #{memberId})
+                order by id desc
+            ) as b
+        ) as c
+    </select>
+
+    <!-- 获取私信中的联系人列表 -->
+    <select id="listContactMembers" resultMap="memberWithMessageResult">
+        select id,id as from_member_id, #{memberId} as to_member_id, name,avatar from tbl_member where id in
+        <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        ORDER BY FIND_IN_SET(id,#{idString})
+    </select>
+
+    <!-- 获取会员未读的私信列表 -->
+    <select id="selectUnreadMessagesByMember" resultType="Message">
+        SELECT * FROM tbl_message WHERE isread = 0 and from_member_id = #{from_member_id} AND to_member_id = #{to_member_id}
+    </select>
+
+    <select id="selectMemberLevel" resultType="MemberLevel">
+        SELECT * FROM tbl_member_level WHERE id = #{memberLevelId}
+    </select>
+</mapper>

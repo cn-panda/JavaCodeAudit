@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.member.IScoreDetailDao">
+  <resultMap id="ScoreDetailResult" type="ScoreDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="member_id" jdbcType="INTEGER" property="memberId" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="balance" jdbcType="INTEGER" property="balance" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="foreign_id" jdbcType="INTEGER" property="foreignId" />
+    <result column="score_rule_id" jdbcType="INTEGER" property="scoreRuleId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <select id="listByPage" resultMap="ScoreDetailResult">
+    SELECT a.*,b.id as 'member.id',b.name as 'member.name' FROM tbl_score_detail as a LEFT JOIN tbl_member as b
+    ON a.member_id=b.id
+    <where>
+      <if test="memberId &gt; 0">
+        AND a.member_id=#{memberId}
+      </if>
+    </where>
+    ORDER BY id DESC
+  </select>
+  <select id="findById" resultMap="ScoreDetailResult">
+    select * from tbl_score_detail WHERE id=#{id}
+  </select>
+
+  <select id="findByForeignAndRule" resultMap="ScoreDetailResult">
+    select * from tbl_score_detail WHERE foreign_id != 0 and status=1 and type = 1 and foreign_id = #{foreignId} and member_id = #{memberId} and score_rule_id = #{scoreRuleId}
+  </select>
+
+  <!-- 是否能奖励，如果返回记录为0，表示可以奖励 -->
+  <select id="canBonus" resultMap="ScoreDetailResult">
+    select * from tbl_score_detail WHERE member_id=#{memberId} and score_rule_id=#{scoreRuleId} and status=1
+    <choose>
+      <!-- 只有一次奖励 -->
+      <when test="type == 'one'">
+        <!--不需要其他的条件了-->
+      </when>
+      <when test="type == 'day'">
+        and to_days(create_time) = to_days(now())
+      </when>
+      <when test="type == 'week'">
+        and yearweek(date_format(create_time,'%Y-%m-%d')) = yearweek(now());
+      </when>
+      <when test="type == 'month'">
+        and date_format(create_time,'%Y-%m') = date_format(now(),'%Y-%m')
+      </when>
+      <when test="type == 'year'">
+        and year(create_time) = year(NOW())
+      </when>
+    </choose>
+  </select>
+
+  <insert id="save" parameterType="ScoreDetail">
+    insert into tbl_score_detail(create_time,member_id,type,score,balance,remark,foreign_id,score_rule_id)
+    values(now(),#{memberId},#{type},#{score},(SELECT score FROM tbl_member WHERE id=#{memberId}),#{remark},#{foreignId},#{scoreRuleId})
+  </insert>
+
+  <insert id="cancel">
+    UPDATE tbl_score_detail SET status=0 WHERE id=#{id}
+  </insert>
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.weibo.IWeiboCommentDao">
+  <resultMap id="WeiboCommentResult" type="WeiboComment">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="member_id" jdbcType="INTEGER" property="memberId" />
+    <result column="weibo_id" jdbcType="INTEGER" property="weiboId" />
+    <result column="comment_id" jdbcType="INTEGER" property="commentId" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <association property="member" column="member_id" select="selectMember"></association>
+    <association column="comment_id" property="weiboComment" javaType="WeiboComment" select="com.lxinet.jeesns.dao.weibo.IWeiboCommentDao.findById"/>
+  </resultMap>
+  <select id="listByWeibo" resultMap="WeiboCommentResult">
+    select a.id,a.create_time,a.member_id,a.weibo_id,a.content,a.comment_id,c.name,c.avatar
+    from tbl_weibo_comment as a left join tbl_weibo as b on a.weibo_id=b.id left join tbl_member as c on
+    a.member_id=c.id
+    <where>
+      <if test="weiboId &gt; 0">
+        a.weibo_id = #{weiboId}
+      </if>
+    </where>
+    order by a.id DESC
+  </select>
+  <select id="findById" parameterType="java.lang.Integer" resultMap="WeiboCommentResult">
+   select a.id,a.create_time,a.member_id,a.weibo_id,a.content,a.comment_id,c.name,c.avatar
+    from tbl_weibo_comment as a left join tbl_weibo as b on a.weibo_id=b.id left join tbl_member as c on
+    a.member_id=c.id where a.id = #{id}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from tbl_weibo_comment where id = #{id}
+  </delete>
+  <delete id="deleteByWeibo" parameterType="java.lang.Integer">
+    delete from tbl_weibo_comment where weibo_id = #{weiboId}
+  </delete>
+  <insert id="save" parameterType="WeiboComment" keyProperty="id" useGeneratedKeys="true">
+    insert into tbl_weibo_comment (weibo_id,member_id,content,create_time,comment_id)
+    values (#{weiboId}, #{memberId}, #{content}, now(), #{commentId})
+  </insert>
+
+  <select id="selectMember" resultType="Member">
+      SELECT a.id,a.name,a.avatar,a.is_vip,a.member_level_id as 'memberLevel.id',b.name as 'memberLevel.name'
+      FROM tbl_member as a left join tbl_member_level as b on a.member_level_id = b.id WHERE a.id = #{memberId}
+   </select>
+</mapper>

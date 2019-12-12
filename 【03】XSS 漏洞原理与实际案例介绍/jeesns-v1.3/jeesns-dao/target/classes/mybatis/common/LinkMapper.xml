@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.common.ILinkDao">
+    <resultMap id="LinkResult" type="Link">
+      <id column="id" jdbcType="INTEGER" property="id" />
+      <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+      <result column="name" jdbcType="VARCHAR" property="name" />
+      <result column="url" jdbcType="VARCHAR" property="url" />
+      <result column="sort" jdbcType="INTEGER" property="sort" />
+      <result column="recomment" jdbcType="INTEGER" property="recomment" />
+      <result column="status" jdbcType="INTEGER" property="status" />
+    </resultMap>
+   <select id="findById" resultMap="LinkResult">
+    select * from tbl_link where id = #{id}
+  </select>
+  <select id="listByPage" resultMap="LinkResult">
+    select * FROM tbl_link order by sort DESC,id DESC
+  </select>
+  <select id="allList" resultMap="LinkResult">
+    select * FROM tbl_link order by sort DESC,id DESC
+  </select>
+  <select id="recommentList" resultMap="LinkResult">
+    select * FROM tbl_link WHERE recomment = 1 order by sort DESC,id DESC
+  </select>
+  <delete id="delete">
+    delete from tbl_link where id = #{id}
+  </delete>
+  <insert id="save" parameterType="Link">
+    insert into tbl_link (name,url,create_time,sort,recomment,status)
+    values (#{name}, #{url}, now(), #{sort}, #{recomment}, #{status})
+  </insert>
+  <update id="update" parameterType="Link">
+    update tbl_link set name = #{name},url = #{url},sort = #{sort},recomment = #{recomment},status = #{status} where id = ${id}
+  </update>
+  <!-- 禁用、可用 -->
+  <update id="enable" parameterType="java.lang.Integer">
+    update tbl_link set status=(case when status=0 then 1 else 0 end) where id=#{id}
+  </update>
+</mapper>

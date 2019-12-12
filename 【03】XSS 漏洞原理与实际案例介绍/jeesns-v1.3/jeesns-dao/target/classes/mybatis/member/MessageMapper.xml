@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.member.IMessageDao">
+  <resultMap id="MessageResult" type="Message">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="from_member_id" jdbcType="INTEGER" property="fromMemberId" />
+    <result column="to_member_id" jdbcType="INTEGER" property="toMemberId" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="isread" jdbcType="INTEGER" property="isread" />
+    <result column="app_tag" jdbcType="INTEGER" property="appTag" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="relate_key_id" jdbcType="INTEGER" property="relateKeyId" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <association property="fromMember" column="from_member_id" javaType="Member">
+      <result column="from_member_id" property="id"/>
+      <result column="from_member_name" property="name"/>
+      <result column="from_member_avatar" property="avatar"/>
+    </association>
+    <association property="toMember" column="to_member_id" javaType="Member">
+      <result column="to_member_id" property="id"/>
+      <result column="to_member_name" property="name"/>
+      <result column="to_member_avatar" property="avatar"/>
+    </association>
+    <association property="member" column="member_id" javaType="Member">
+      <result column="member_id" property="id"/>
+      <result column="member_name" property="name"/>
+      <result column="member_avatar" property="avatar"/>
+    </association>
+  </resultMap>
+
+  <select id="listByPage" resultMap="MessageResult">
+    select a.id,a.create_time,a.content,a.url,a.isread,
+    a.from_member_id,b.name as from_member_name,b.avatar as from_member_avatar,
+    a.to_member_id,c.name as to_member_name,c.avatar as to_member_avatar
+    from tbl_message as a LEFT JOIN tbl_member as b ON a.from_member_id = b.id
+    LEFT JOIN tbl_member as c ON a.to_member_id = c.id
+    <where>
+      <if test="fromMemberId &gt; -1">
+        AND a.from_member_id = #{fromMemberId}
+      </if>
+      <if test="toMemberId &gt; -1">
+        AND a.to_member_id = #{toMemberId}
+      </if>
+    </where>
+    ORDER BY a.id DESC
+  </select>
+  <select id="messageRecords" resultMap="MessageResult">
+    select a.id,a.create_time,a.content,a.url,a.isread,
+    a.from_member_id,b.name as from_member_name,b.avatar as from_member_avatar,
+    a.to_member_id,c.name as to_member_name,c.avatar as to_member_avatar
+    from tbl_message as a LEFT JOIN tbl_member as b ON a.from_member_id = b.id
+    LEFT JOIN tbl_member as c ON a.to_member_id = c.id
+    WHERE (a.from_member_id = #{fromMemberId} AND a.to_member_id = #{toMemberId})
+    OR (a.from_member_id = #{toMemberId} AND a.to_member_id = #{fromMemberId})
+    ORDER BY a.id DESC
+  </select>
+  <select id="systemMessage" resultMap="MessageResult">
+    SELECT a.id,a.create_time,a.from_member_id,a.to_member_id,a.isread,a.app_tag,a.relate_key_id,a.type,a.member_id,a.content,
+    b.name as member_name,b.avatar as member_avatar,
+    c.name as from_member_name,c.avatar as from_member_avatar,
+    d.name as to_member_name,d.avatar as to_member_avatar,
+    (CASE
+      WHEN (a.type &gt; 10000 AND a.type &lt; 20000) THEN (SELECT CONCAT(a.description,'《<![CDATA[<a]]> href="',#{basePath},'/article/detail/',a.relate_key_id,'" target="_blank">',e.title,'<![CDATA[</a>]]>》') FROM tbl_article as f left JOIN tbl_archive AS e ON f.archive_id = e.archive_id WHERE f.id=a.relate_key_id)
+      WHEN (a.type &gt; 20000 AND a.type &lt; 22000) THEN (SELECT CONCAT(a.description,'《<![CDATA[<a]]> href="',#{basePath},'/weibo/detail/',a.relate_key_id,'" target="_blank">',content,'<![CDATA[</a>]]>》') FROM tbl_weibo WHERE id=a.relate_key_id)
+      WHEN (a.type &gt; 22000 AND a.type &lt; 23000) THEN (SELECT CONCAT(a.description,'《<![CDATA[<a]]> href="',#{basePath},'/weibo/detail/',weibo_id,'" target="_blank">',content,'<![CDATA[</a>]]>》') FROM tbl_weibo_comment WHERE id=a.relate_key_id)
+      WHEN (a.type &gt; 31000 AND a.type &lt; 33000) THEN (SELECT CONCAT(a.description,'《<![CDATA[<a]]> href="',#{basePath},'/group/topic/',a.relate_key_id,'" target="_blank">',i.title,'<![CDATA[</a>]]>》') FROM tbl_group_topic as h left JOIN tbl_archive AS i ON h.archive_id = i.archive_id WHERE h.id=a.relate_key_id)
+      WHEN (a.type &gt; 33000 AND a.type &lt; 34000) THEN (SELECT CONCAT(a.description,'《<![CDATA[<a]]> href="',#{basePath},'/group/topic/',group_topic_id,'" target="_blank">',content,'<![CDATA[</a>]]>》') FROM tbl_group_topic_comment WHERE id=a.relate_key_id)
+    END) AS description
+    FROM tbl_message as a LEFT JOIN tbl_member as b ON a.member_id=b.id
+    LEFT JOIN tbl_member as c ON a.from_member_id=c.id
+    LEFT JOIN tbl_member as d ON a.to_member_id=d.id
+    WHERE a.app_tag != 0 AND a.to_member_id = #{toMemberId}
+    ORDER BY a.id DESC 
+  </select>
+  <select id="countUnreadNum" resultType="Integer">
+    SELECT COUNT(*) num FROM tbl_message WHERE isread = 0 AND app_tag = 0 AND to_member_id = #{memberId}
+  </select>
+  <select id="countSystemUnreadNum" resultType="Integer">
+    SELECT COUNT(*) num FROM tbl_message WHERE isread = 0 AND app_tag != 0 AND to_member_id = #{memberId}
+  </select>
+  <delete id="delete">
+    delete from tbl_message where id = #{id}
+  </delete>
+  <delete id="deleteByMember">
+    delete from tbl_message where from_member_id = #{id} OR to_member_id = #{id}
+  </delete>
+  <delete id="clearMessageByMember">
+    delete from tbl_message where (from_member_id = #{fromMemberId} AND to_member_id = #{toMemberId})
+    OR (from_member_id = #{toMemberId} AND to_member_id = #{fromMemberId})
+  </delete>
+  <insert id="sentMsg" parameterType="Message">
+    insert into tbl_message (create_time,from_member_id,to_member_id,content)
+    values (now(),#{fromMemberId},#{toMemberId},#{content})
+  </insert>
+  <insert id="systemMsgSave" parameterType="Message">
+    insert into tbl_message (create_time,from_member_id,to_member_id,content,url,isread,app_tag,type,relate_key_id,member_id,description)
+    values (now(),#{fromMemberId},#{toMemberId},#{content},#{url},0,#{appTag},#{type},#{relateKeyId},#{memberId},#{description})
+  </insert>
+  <update id="setRead">
+    update tbl_message SET isread = 1 WHERE isread = 0 AND to_member_id = #{toMemberId}
+    <if test="fromMemberId != null">
+      AND from_member_id = #{fromMemberId}
+    </if>
+  </update>
+</mapper>

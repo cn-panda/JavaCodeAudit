@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.picture.IPictureAlbumCommentDao">
+  <resultMap id="BaseResultMap" type="PictureAlbumComment">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="member_id" jdbcType="INTEGER" property="memberId" />
+    <result column="picture_album_id" jdbcType="INTEGER" property="pictureAlbumId" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <association property="member" javaType="Member">
+      <result column="member_id" property="id"/>
+      <result column="member_name" property="name"/>
+      <result column="member_avatar" property="avatar"/>
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, create_time, member_id, picture_album_id, content
+  </sql>
+  <select id="listByPicture" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from tbl_picture_album_comment as a left join tbl_member as b on a.member_id=b.id where a.picture_album_id = #{pictureAlbumId}
+    order by a.id DESC
+  </select>
+  <select id="findById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from tbl_picture_album_comment as a left join tbl_member as b on a.member_id=b.id where a.id = #{id}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from tbl_picture_album_comment where id = #{id}
+  </delete>
+  <delete id="deleteByPicture" parameterType="java.lang.Integer">
+    delete from tbl_picture_album_comment where picture_id = #{pictureAlbumId}
+  </delete>
+  <insert id="save" parameterType="PictureAlbumComment" keyProperty="id" useGeneratedKeys="true">
+    insert into tbl_picture_album_comment (picture_album_id,member_id,create_time,content)
+    values (#{pictureAlbumId}, #{memberId}, now(), #{content})
+  </insert>
+</mapper>

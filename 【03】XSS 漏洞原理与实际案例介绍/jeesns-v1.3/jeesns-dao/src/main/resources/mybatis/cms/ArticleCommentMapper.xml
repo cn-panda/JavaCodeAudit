@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.cms.IArticleCommentDao">
+  <resultMap id="ArticleCommentResult" type="ArticleComment">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="article_id" jdbcType="INTEGER" property="articleId" />
+    <result column="member_id" jdbcType="INTEGER" property="memberId" />
+  </resultMap>
+
+  <select id="listByPage" resultMap="ArticleCommentResult">
+    select a.id,a.create_time,a.member_id as 'member.id',a.article_id as 'article.id',d.title as 'article.title',a.content,c.name as 'member.name',c.avatar as 'member.avatar'
+    from tbl_article_comment as a left join tbl_article as b on a.article_id=b.id left join tbl_archive as d on b.archive_id = d.archive_id left join tbl_member as c on
+    a.member_id=c.id
+    <where>
+      <if test="articleId &gt; 0">
+        a.article_id = #{articleId}
+      </if>
+      <if test="key != null and key != ''">
+        and a.content LIKE #{key}
+      </if>
+    </where>
+    order by a.id DESC
+  </select>
+  <select id="findById" parameterType="java.lang.Integer" resultMap="ArticleCommentResult">
+   select * from tbl_article_comment where id = #{id}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from tbl_article_comment where id = #{id}
+  </delete>
+  <delete id="deleteByArticle" parameterType="java.lang.Integer">
+    delete from tbl_article_comment where article_id = #{articleId}
+  </delete>
+  <insert id="save" parameterType="ArticleComment" keyProperty="id" useGeneratedKeys="true">
+    insert into tbl_article_comment (article_id,member_id,content,create_time)
+    values (#{articleId}, #{memberId}, #{content}, now())
+  </insert>
+</mapper>

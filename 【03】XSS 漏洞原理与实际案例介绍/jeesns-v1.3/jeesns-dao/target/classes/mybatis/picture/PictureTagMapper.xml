@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.picture.IPictureTagDao">
+  <resultMap id="PictureTagResult" type="PictureTag">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="picture_id" jdbcType="INTEGER" property="pictureId" />
+    <result column="tag_id" jdbcType="INTEGER" property="tagId" />
+    <association property="tag" javaType="Tag" column="tag_id"/>
+  </resultMap>
+
+  <select id="listByPicture" resultMap="PictureTagResult">
+    select id,picture_id,tag_id from tbl_picture_tag WHERE picture_id = #{pictureId}
+  </select>
+
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from tbl_picture_tag where id = #{id}
+  </delete>
+  <insert id="save" parameterType="PictureTag">
+    insert into tbl_picture_tag (picture_id, tag_id) values (#{pictureId}, #{tagId})
+  </insert>
+</mapper>

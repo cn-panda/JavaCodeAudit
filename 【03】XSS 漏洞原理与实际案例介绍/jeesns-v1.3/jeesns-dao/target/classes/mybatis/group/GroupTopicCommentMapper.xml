@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.group.IGroupTopicCommentDao">
+  <resultMap id="GroupTopicCommentResult" type="GroupTopicComment">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="group_topic_id" jdbcType="INTEGER" property="groupTopicId" />
+    <result column="member_id" jdbcType="INTEGER" property="memberId" />
+    <result column="comment_id" jdbcType="INTEGER" property="commentId" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <association property="member" column="member_id" select="selectMember"></association>
+    <association column="comment_id" property="groupTopicComment" javaType="GroupTopicComment" select="com.lxinet.jeesns.dao.group.IGroupTopicCommentDao.findById"/>
+  </resultMap>
+  <select id="listByGroupTopic" resultMap="GroupTopicCommentResult">
+    select a.id,a.create_time,a.member_id,a.group_topic_id,a.content,a.comment_id,c.name,c.avatar
+    from tbl_group_topic_comment as a left join tbl_group_topic as b on a.group_topic_id=b.id left join tbl_member as c on
+    a.member_id=c.id
+    <where>
+      <if test="groupTopicId &gt; 0">
+        a.group_topic_id = #{groupTopicId}
+      </if>
+    </where>
+    order by a.id DESC
+  </select>
+  <select id="findById" parameterType="java.lang.Integer" resultMap="GroupTopicCommentResult">
+   select a.id,a.create_time,a.member_id,a.group_topic_id,a.content,a.comment_id,c.name,c.avatar
+    from tbl_group_topic_comment as a left join tbl_group_topic as b on a.group_topic_id=b.id left join tbl_member as c on
+    a.member_id=c.id where a.id = #{id}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from tbl_group_topic_comment where id = #{id}
+  </delete>
+  <delete id="deleteByTopic" parameterType="java.lang.Integer">
+    delete from tbl_group_topic_comment where group_topic_id = #{groupTopicId}
+  </delete>
+  <insert id="save" parameterType="GroupTopicComment" keyProperty="id" useGeneratedKeys="true">
+    insert into tbl_group_topic_comment (group_topic_id,member_id,content,create_time,comment_id)
+    values (#{groupTopicId}, #{memberId}, #{content}, now(),#{commentId})
+  </insert>
+
+  <select id="selectMember" resultType="Member">
+      SELECT a.id,a.name,a.avatar,a.is_vip,a.member_level_id as 'memberLevel.id',b.name as 'memberLevel.name'
+      FROM tbl_member as a left join tbl_member_level as b on a.member_level_id = b.id WHERE a.id = #{memberId}
+   </select>
+</mapper>

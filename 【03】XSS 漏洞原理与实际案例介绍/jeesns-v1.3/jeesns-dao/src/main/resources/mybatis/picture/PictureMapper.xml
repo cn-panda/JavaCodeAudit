@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.picture.IPictureDao">
+  <resultMap id="PictureResult" type="Picture">
+    <id column="picture_id" jdbcType="INTEGER" property="pictureId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="foreign_id" jdbcType="INTEGER" property="foreignId" />
+    <result column="member_id" jdbcType="INTEGER" property="memberId" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="thumbnail_path" jdbcType="VARCHAR" property="thumbnailPath" />
+    <result column="small_path" jdbcType="VARCHAR" property="smallPath" />
+    <result column="md5" jdbcType="VARCHAR" property="md5" />
+    <result column="width" jdbcType="INTEGER" property="width" />
+    <result column="height" jdbcType="INTEGER" property="height" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="album_id" jdbcType="INTEGER" property="albumId" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="favor_count" jdbcType="INTEGER" property="favorCount" />
+    <result column="comment_count" jdbcType="INTEGER" property="commentCount" />
+    <result column="is_favor" jdbcType="INTEGER" property="isFavor" />
+    <association property="member" column="member_id" javaType="Member">
+      <result column="member_id" property="id"/>
+      <result column="member_name" property="name"/>
+      <result column="member_avatar" property="avatar"/>
+      <result column="member_follows" property="follows"/>
+      <result column="member_fans" property="fans"/>
+      <result column="member_introduce" property="introduce"/>
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    a.*, b.name as member_name, b.avatar as member_avatar, b.follows as member_follows,
+    b.fans as member_fans,b.introduce as member_introduce
+  </sql>
+  <select id="find" resultMap="PictureResult">
+    select <include refid="Base_Column_List"/>
+    from tbl_picture AS a LEFT JOIN tbl_member AS b ON a.member_id = b.id where a.foreign_id=#{foreignId}
+  </select>
+  <select id="findById" resultMap="PictureResult">
+    select <include refid="Base_Column_List"/>,
+    (CASE WHEN (SELECT id FROM tbl_picture_favor WHERE picture_id=a.picture_id AND member_id=#{loginMemberId}) IS NULL THEN 0 ELSE 1 END) is_favor
+    from tbl_picture AS a LEFT JOIN tbl_member AS b ON a.member_id = b.id where a.picture_id=#{pictureId}
+  </select>
+  <select id="listByAlbum" resultMap="PictureResult">
+    select <include refid="Base_Column_List"/>,
+    (CASE WHEN (SELECT id FROM tbl_picture_favor WHERE picture_id=a.picture_id AND member_id=#{loginMemberId}) IS NULL THEN 0 ELSE 1 END) is_favor
+    from tbl_picture AS a LEFT JOIN tbl_member AS b ON a.member_id = b.id where album_id=#{albumId} ORDER BY picture_id DESC
+  </select>
+  <select id="listByPage" resultMap="PictureResult">
+    select <include refid="Base_Column_List"/>,
+    (CASE WHEN (SELECT id FROM tbl_picture_favor WHERE picture_id=a.picture_id AND member_id=#{loginMemberId}) IS NULL THEN 0 ELSE 1 END) is_favor
+    from tbl_picture AS a LEFT JOIN tbl_member AS b ON a.member_id = b.id ORDER BY picture_id DESC
+  </select>
+  <delete id="delete">
+    delete from tbl_picture where picture_id=#{id}
+  </delete>
+  <delete id="deleteByForeignId">
+    delete from tbl_picture where foreign_id=#{id}
+  </delete>
+  <insert id="save" useGeneratedKeys="true" keyProperty="pictureId">
+    insert into tbl_picture (create_time, type, foreign_id, path, thumbnail_path, small_path, md5, width, height, member_id, album_id)
+    values (now(), #{type}, #{foreignId}, #{path}, #{thumbnailPath}, #{smallPath}, #{md5}, #{width}, #{height},#{memberId},#{albumId})
+  </insert>
+  <update id="update">
+    UPDATE tbl_picture SET foreign_id=#{foreignId},description=#{description} WHERE picture_id in
+    <foreach item="item" index="index" collection="ids" open="("
+             separator="," close=")">
+      #{item}
+    </foreach>
+  </update>
+  <update id="favor">
+    update tbl_picture set favor_count = favor_count + #{num} where picture_id = #{id}
+  </update>
+</mapper>

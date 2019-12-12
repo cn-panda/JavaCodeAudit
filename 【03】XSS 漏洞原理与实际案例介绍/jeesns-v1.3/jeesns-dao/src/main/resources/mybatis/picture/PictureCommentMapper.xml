@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.picture.IPictureCommentDao">
+  <resultMap id="PictureCommentResult" type="PictureComment">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="member_id" jdbcType="INTEGER" property="memberId" />
+    <result column="picture_id" jdbcType="INTEGER" property="pictureId" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <association property="member" javaType="Member">
+      <result column="member_id" property="id"/>
+      <result column="member_name" property="name"/>
+      <result column="member_avatar" property="avatar"/>
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    a.*,b.name AS member_name,b.avatar AS member_avatar
+  </sql>
+  <select id="listByPicture" resultMap="PictureCommentResult">
+    select <include refid="Base_Column_List"/>
+    from tbl_picture_comment as a left join tbl_member as b on a.member_id=b.id where a.picture_id = #{pictureId}
+    order by a.id DESC
+  </select>
+  <select id="findById" parameterType="java.lang.Integer" resultMap="PictureCommentResult">
+    select <include refid="Base_Column_List"/>
+    from tbl_picture_comment as a left join tbl_member as b on a.member_id=b.id where a.id = #{id}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from tbl_picture_comment where id = #{id}
+  </delete>
+  <delete id="deleteByPicture" parameterType="java.lang.Integer">
+    delete from tbl_picture_comment where picture_id = #{pictureId}
+  </delete>
+  <insert id="save" parameterType="PictureComment" keyProperty="id" useGeneratedKeys="true">
+    insert into tbl_picture_comment (picture_id,member_id,create_time,content)
+    values (#{pictureId}, #{memberId}, now(), #{content})
+  </insert>
+</mapper>

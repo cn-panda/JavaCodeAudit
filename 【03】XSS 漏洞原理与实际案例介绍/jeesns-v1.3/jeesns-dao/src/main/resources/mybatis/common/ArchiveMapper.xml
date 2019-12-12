@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.common.IArchiveDao">
+  <resultMap id="ArchiveResult" type="Archive">
+    <id column="archive_id" jdbcType="INTEGER" property="archiveId" />
+    <result column="post_type" jdbcType="INTEGER" property="postType" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="member_id" jdbcType="INTEGER" property="memberId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="keywords" jdbcType="VARCHAR" property="keywords" />
+    <result column="view_rank" jdbcType="INTEGER" property="viewRank" />
+    <result column="view_count" jdbcType="INTEGER" property="viewCount" />
+    <result column="writer" jdbcType="VARCHAR" property="writer" />
+    <result column="source" jdbcType="VARCHAR" property="source" />
+    <result column="pub_time" jdbcType="TIMESTAMP" property="pubTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="thumbnail" jdbcType="VARCHAR" property="thumbnail" />
+    <result column="last_reply" jdbcType="TIMESTAMP" property="lastReply" />
+    <result column="can_reply" jdbcType="INTEGER" property="canReply" />
+    <result column="good_num" jdbcType="INTEGER" property="goodNum" />
+    <result column="bad_num" jdbcType="INTEGER" property="badNum" />
+    <result column="check_admin" jdbcType="INTEGER" property="checkAdmin" />
+    <result column="favor" jdbcType="INTEGER" property="favor" />
+  </resultMap>
+
+  <select id="findByArchiveId" resultMap="ArchiveResult">
+    select * from tbl_archive
+    where archive_id = #{archiveId}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from tbl_archive
+    where archive_id = #{id}
+  </delete>
+  <insert id="save" parameterType="Archive" useGeneratedKeys="true" keyProperty="archiveId">
+    insert into tbl_archive (title, member_id, create_time, description, keywords, view_rank,
+      view_count, writer, source, pub_time, thumbnail, content)
+    values (#{title}, #{memberId}, now(), #{description}, #{keywords}, #{viewRank},
+      #{viewCount}, #{writer}, #{source}, now(), #{thumbnail}, #{content})
+  </insert>
+  <update id="updateViewCount" parameterType="java.lang.Integer">
+    update tbl_archive set view_count=view_count+1 where archive_id=${archiveId}
+  </update>
+  <update id="update" parameterType="Archive">
+    update tbl_archive
+    <set>
+      update_time = now(),
+      <if test="title != null">title = #{title},</if>
+      <if test="description != null">description = #{description},</if>
+      <if test="keywords != null">keywords = #{keywords},</if>
+      <if test="writer != null">writer = #{writer},</if>
+      <if test="source != null">source = #{source},</if>
+      <if test="thumbnail != null">thumbnail = #{thumbnail},</if>
+      <if test="canReply != null">can_reply = #{canReply},</if>
+      <if test="content != null">content = #{content},</if>
+    </set>
+    where archive_id = #{archiveId}
+  </update>
+  <update id="favor">
+    update tbl_archive set favor = favor + #{num} where archive_id = #{archiveId}
+  </update>
+</mapper>

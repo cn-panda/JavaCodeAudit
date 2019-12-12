@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.picture.IPictureFavorDao">
+    <resultMap id="PictureFavorResult" type="PictureFavor">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="picture_id" jdbcType="INTEGER" property="pictureId"/>
+        <result column="member_id" jdbcType="INTEGER" property="memberId"/>
+    </resultMap>
+    <select id="find" resultMap="PictureFavorResult">
+      select * from tbl_picture_favor where picture_id = #{pictureId} and member_id = #{memberId}
+    </select>
+    <delete id="delete">
+      delete from tbl_picture_favor where picture_id = #{pictureId} and member_id = #{memberId}
+    </delete>
+    <insert id="save">
+      insert into tbl_picture_favor (picture_id,member_id,create_time)
+      values (#{pictureId}, #{memberId}, now())
+    </insert>
+</mapper>

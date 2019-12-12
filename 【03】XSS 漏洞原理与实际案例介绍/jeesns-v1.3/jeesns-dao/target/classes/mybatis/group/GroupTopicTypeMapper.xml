@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.group.IGroupTopicTypeDao">
+  <resultMap id="GroupTopicTypeResult" type="GroupTopicType">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="group_id" jdbcType="INTEGER" property="groupId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="juri" jdbcType="INTEGER" property="juri" />
+  </resultMap>
+
+  <select id="list" resultMap="GroupTopicTypeResult">
+    select * from tbl_group_topic_type
+    <where>
+      <if test="groupId &gt; 0">
+        group_id = #{groupId}
+      </if>
+    </where>
+    order by id asc
+  </select>
+
+  <select id="findById" parameterType="java.lang.Integer" resultMap="GroupTopicTypeResult">
+   select * from tbl_group_topic_type where id = #{id}
+  </select>
+
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from tbl_group_topic_type where id = #{id}
+  </delete>
+
+  <insert id="save" keyProperty="id" useGeneratedKeys="true">
+    insert into tbl_group_topic_type (create_time, group_id, name, juri) values (now(), #{groupId}, #{name},#{juri})
+  </insert>
+
+  <update id="update">
+    update tbl_group_topic_type set name = #{name},juri = #{juri} where id = #{id}
+  </update>
+</mapper>

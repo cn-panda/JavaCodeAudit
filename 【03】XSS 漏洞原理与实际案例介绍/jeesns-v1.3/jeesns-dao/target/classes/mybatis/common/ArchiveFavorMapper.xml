@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.common.IArchiveFavorDao">
+  <resultMap id="ArchiveFavorResult" type="ArchiveFavor">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="archive_id" jdbcType="INTEGER" property="archiveId" />
+    <result column="member_id" jdbcType="INTEGER" property="memberId" />
+  </resultMap>
+
+  <select id="find" resultMap="ArchiveFavorResult">
+    select * from tbl_archive_favor where archive_id = #{archiveId} and member_id = #{memberId}
+  </select>
+  <delete id="delete">
+    delete from tbl_archive_favor where archive_id = #{archiveId} and member_id = #{memberId}
+  </delete>
+  <insert id="save">
+    insert into tbl_archive_favor (archive_id,member_id,create_time) values (#{archiveId}, #{memberId}, now())
+  </insert>
+</mapper>

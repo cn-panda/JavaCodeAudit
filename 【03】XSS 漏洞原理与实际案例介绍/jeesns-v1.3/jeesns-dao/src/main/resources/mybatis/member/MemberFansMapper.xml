@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.member.IMemberFansDao">
+  <resultMap id="MemberFansResult" type="MemberFans">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="follow_who" jdbcType="INTEGER" property="followWho" />
+    <result column="who_follow" jdbcType="INTEGER" property="whoFollow" />
+  </resultMap>
+
+  <select id="find" resultMap="MemberFansResult">
+    select * from tbl_member_fans where follow_who=#{followWhoId} and who_follow=#{whoFollowId}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from tbl_member_fans where follow_who=#{followWhoId} and who_follow=#{whoFollowId}
+  </delete>
+  <insert id="save" parameterType="MemberFans">
+    insert into tbl_member_fans(create_time,follow_who,who_follow) values(now(),#{followWhoId},#{whoFollowId})
+  </insert>
+  <select id="followsList" resultMap="MemberFansResult">
+    SELECT a.who_follow,a.follow_who as follow_who,b.id as 'followWhoMember.id',b.name as 'followWhoMember.name',
+     b.avatar as 'followWhoMember.avatar',b.fans as 'followWhoMember.fans',b.follows as 'followWhoMember.follows'
+      FROM tbl_member_fans as a LEFT JOIN tbl_member as b ON a.follow_who = b.id
+     WHERE who_follow = #{whoFollowId}
+  </select>
+  <select id="fansList" resultMap="MemberFansResult">
+    SELECT a.follow_who,a.who_follow as who_follow,b.id as 'whoFollowMember.id',b.name as 'whoFollowMember.name',
+    b.avatar as 'whoFollowMember.avatar',b.fans as 'whoFollowMember.fans',b.follows as 'whoFollowMember.follows'
+     FROM tbl_member_fans as a LEFT JOIN tbl_member as b ON a.who_follow = b.id
+    WHERE follow_who = #{followWhoId}
+  </select>
+</mapper>

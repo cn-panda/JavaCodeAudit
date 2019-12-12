@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.member.ICheckinDao">
+  <resultMap id="CheckinResult" type="Checkin">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="member_id" jdbcType="INTEGER" property="memberId" />
+    <result column="continue_day" jdbcType="INTEGER" property="continueDay" />
+  </resultMap>
+  <select id="listByPage" resultMap="CheckinResult">
+    SELECT a.*,a.member_id as 'member.id',b.name as 'member.name',b.avatar as 'member.avatar',c.name as 'member.memberLevel.name' FROM tbl_checkin as a
+    left join tbl_member as b on a.member_id = b.id
+    left join tbl_member_level as c on b.member_level_id = c.id
+    <where>
+      <if test="memberId &gt; 0">
+        AND a.member_id=#{memberId}
+      </if>
+    </where>
+    ORDER BY a.id DESC
+  </select>
+
+  <select id="todayList" resultMap="CheckinResult">
+    SELECT a.*,a.member_id as 'member.id',b.name as 'member.name',b.avatar as 'member.avatar',c.name as 'member.memberLevel.name'
+    FROM tbl_checkin as a left join tbl_member as b on a.member_id = b.id
+    left join tbl_member_level as c on b.member_level_id = c.id
+    where DATEDIFF(a.create_time,now())=0
+    ORDER BY a.id DESC
+  </select>
+
+  <select id="todayContinueList" resultMap="CheckinResult">
+    SELECT a.*,a.member_id as 'member.id',b.name as 'member.name',b.avatar as 'member.avatar',c.name as 'member.memberLevel.name'
+    FROM tbl_checkin as a left join tbl_member as b on a.member_id = b.id
+    left join tbl_member_level as c on b.member_level_id = c.id
+    where DATEDIFF(a.create_time,now())=0
+    ORDER BY a.continue_day DESC limit 0,20
+  </select>
+
+  <select id="todayCheckin" resultMap="CheckinResult">
+     SELECT a.*,a.member_id as 'member.id',b.name as 'member.name',b.avatar as 'member.avatar',c.name as 'member.memberLevel.name'
+      FROM tbl_checkin as a left join tbl_member as b on a.member_id = b.id
+        left join tbl_member_level as c on b.member_level_id = c.id
+     where a.member_id = #{memberId} and DATEDIFF(a.create_time,now())=0
+  </select>
+
+  <select id="yesterdayCheckin" resultMap="CheckinResult">
+     SELECT a.*,a.member_id as 'member.id',b.name as 'member.name',b.avatar as 'member.avatar',c.name as 'member.memberLevel.name'
+     from tbl_checkin as a left join tbl_member as b on a.member_id = b.id
+       left join tbl_member_level as c on b.member_level_id = c.id
+     where a.member_id = #{memberId} and DATEDIFF(a.create_time,now())=-1
+  </select>
+
+  <insert id="save" parameterType="Checkin" keyProperty="id" useGeneratedKeys="true">
+    insert into tbl_checkin(create_time,member_id,continue_day)
+    values(now(),#{memberId},#{continueDay})
+  </insert>
+</mapper>
