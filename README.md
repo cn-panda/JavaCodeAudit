@@ -9,7 +9,7 @@ The articles in this series are aimed at people who have a basic knowledge of Ja
 * Includes vulnerability principles and actual case introductions
 * Serialization vulnerability principle and actual case introduction
 * S2 series classic vulnerability analysis
-* WebLogin series of classic vulnerability analysis
+* WebLogic series of classic vulnerability analysis
 * fastjson series classic vulnerability analysis
 * Jackson series classic vulnerability analysis, etc.
 
@@ -31,7 +31,7 @@ Have fun
 * 包含漏洞原理与实际案例介绍
 * 序列化漏洞原理与实际案例介绍
 * S2系列经典漏洞分析
-* WebLogin 系列经典漏洞分析
+* WebLogic 系列经典漏洞分析
 * fastjson系列经典漏洞分析
 * jackson系列经典漏洞分析等
 
