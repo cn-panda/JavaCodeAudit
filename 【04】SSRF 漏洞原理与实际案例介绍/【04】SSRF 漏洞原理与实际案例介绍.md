@@ -22,7 +22,7 @@ https://github.com/cn-panda/JavaCodeAudit
 
 导入项目，可以得到以下目录：
 
-![image-20200112170311527](/Users/panda/Desktop/Java 代码审计学习/java 代码审计入门 - 04/image-20200112170311527.png)
+![1.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9004%E3%80%91SSRF%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/1.png?raw=true)
 
 项目是一个简单模拟HTTP请求的实现。
 
@@ -30,7 +30,7 @@ https://github.com/cn-panda/JavaCodeAudit
 
 服务端请求伪造（Server-Side Request Forge）简称 SSRF，是OWASP TOP之一，它是由攻击者构造的payload传给服务端，服务端执行后造成了漏洞，一般用于在外网探测或攻击内网服务。Java网络请求支持的协议很多，包括：http，https，file，ftp，mailto，jar，netdoc。如下图所示：
 
-![image-20200111162741353](/Users/panda/Library/Application Support/typora-user-images/image-20200111162741353.png)
+![2.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9004%E3%80%91SSRF%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/2.png?raw=true)
 
 但是和 PHP 相比，java 中的SSRF的利用是有局限性的，实际场景中，一般利用http/https协议来探测端口、暴力穷举等，还可以利用file协议读取/下载任意文件等。
 
@@ -89,11 +89,11 @@ https://github.com/cn-panda/JavaCodeAudit
 
 以上，因为本机地址存在 SSRF 漏洞，那么久可以利用该漏洞去探测虚拟机开放的端口，如下图所示：
 
-![image-20200112155952526](/Users/panda/Library/Application Support/typora-user-images/image-20200112155952526.png)
+![3.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9004%E3%80%91SSRF%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/3.png?raw=true)
 
 如果该端口没有开放 http/https 协议，那么返回：
 
-![image-20200112160151816](/Users/panda/Library/Application Support/typora-user-images/image-20200112160151816.png)
+![4.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9004%E3%80%91SSRF%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/4.png?raw=true)
 
 根据不同的返回结果，就可以判断开放的 http/https 端口
 
@@ -126,11 +126,11 @@ String url = request.getParameter("url");
 
 `HttpURLconnection()`是基于http协议的，而我们要用的是 `file` 协议，删除后即可利用`file`协议去读取任意文件 ，如下图所示：
 
-![image-20200112162504442](/Users/panda/Library/Application Support/typora-user-images/image-20200112162504442.png)
+![5.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9004%E3%80%91SSRF%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/5.png?raw=true)
 
 如果我们知道了网站的路径，可以直接读取其数据库连接的相关信息：
 
-![image-20200112162654245](/Users/panda/Library/Application Support/typora-user-images/image-20200112162654245.png)
+![6.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9004%E3%80%91SSRF%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/6.png?raw=true)
 
 任意文件下载同理，只不过是将数据流写入到了文件中，如下代码：
 
@@ -153,7 +153,7 @@ String url = request.getParameter("url");
 
 将获取的内容写入到`SsrfFileDownTest.txt`文件中，测试如下：
 
-![image-20200112163115934](/Users/panda/Library/Application Support/typora-user-images/image-20200112163115934.png)
+![7.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9004%E3%80%91SSRF%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/7.png?raw=true)
 
 ## 0x03 修复方案
 
@@ -179,17 +179,19 @@ Hawtio是用于管理Java应用程序的轻型模块化Web控制台。Hawt Hawti
 
 首先进入搭建好的 tomcat 首页，输入账号密码进入manage app 管理界面（需要提前设置账号密码，具体可以百度，此处不再赘述）：
 
-![image-20200205183339964](/Users/panda/Library/Application Support/typora-user-images/image-20200205183339964.png)
+![8.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9004%E3%80%91SSRF%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/8.png?raw=true)
 
 然后选择`WAR file to deply`栏目，点击选择`hawtio-default-2.5.0.war`上传，最后deplay即可：
 
-![image-20200205183855319](/Users/panda/Library/Application Support/typora-user-images/image-20200205183855319.png)
+![9.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9004%E3%80%91SSRF%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/9.png?raw=true)
 
 布置以后，上方会出现布置好的应用，点击应用进入即可。
 
-![image-20200205183721356](/Users/panda/Library/Application Support/typora-user-images/image-20200205183721356.png)
+![10.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9004%E3%80%91SSRF%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/10.png?raw=true)
 
-![image-20200205184014421](/Users/panda/Library/Application Support/typora-user-images/image-20200205184014421.png)
+
+
+![11.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9004%E3%80%91SSRF%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/11.png?raw=true)
 
 ### 3、案例漏洞分析
 
@@ -320,17 +322,17 @@ public ProxyWhitelist(String whitelistStr, boolean probeLocal) {
 
 证明如下：
 
-![image-20200206134359148](/Users/panda/Library/Application Support/typora-user-images/image-20200206134359148.png)
+![12.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9004%E3%80%91SSRF%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/12.png?raw=true)
 
 ### 4、修复方案
 
 通过比对最新版的源码，发现该漏洞的修复方式为加了页面访问权限，如下图：
 
-![image-20200206135655961](/Users/panda/Library/Application Support/typora-user-images/image-20200206135655961.png)
+![13.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9004%E3%80%91SSRF%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/13.png?raw=true)
 
 未经验证的用户禁止访问该页面，测试如下：
 
-![image-20200206135754751](/Users/panda/Library/Application Support/typora-user-images/image-20200206135754751.png)
+![14.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9004%E3%80%91SSRF%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/14.png?raw=true)
 
 ## 0x05 总结
 
