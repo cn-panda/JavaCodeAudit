@@ -16,9 +16,7 @@
 
 ## 0x01 前戏
 
-下载 SSRF 测试源码：
-
-https://github.com/cn-panda/JavaCodeAudit
+下载 SSRF 测试源码：https://github.com/cn-panda/JavaCodeAudit
 
 导入项目，可以得到以下目录：
 
