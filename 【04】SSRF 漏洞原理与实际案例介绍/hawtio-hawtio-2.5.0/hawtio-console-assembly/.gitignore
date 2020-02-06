@@ -1,0 +1,6 @@
+.vscode
+dist
+node
+node_modules
+target
+temp

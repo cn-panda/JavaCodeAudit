@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "declaration": false,
+    "outFile": "compiled.js",
+    "typeRoots": [
+      "app/node_modules/@types",
+      "app/node_modules/@hawtio"
+    ]
+  },
+  "include": [
+    "app/src/**/*.ts",
+    "app/node_modules/jolokia.js/index.d.ts"
+  ]
+}

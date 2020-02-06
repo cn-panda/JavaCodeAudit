@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.jboss</groupId>
+    <artifactId>jboss-parent</artifactId>
+    <version>26</version>
+  </parent>
+
+  <groupId>io.hawt</groupId>
+  <artifactId>project</artifactId>
+  <packaging>pom</packaging>
+  <version>2.5.0</version>
+  <name>hawtio-java-project</name>
+  <description>hawtio :: project</description>
+  <url>http://hawt.io/</url>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>scm:git:git@github.com:hawtio/hawtio.git</connection>
+    <developerConnection>scm:git:git@github.com:hawtio/hawtio.git</developerConnection>
+    <url>git@github.com:hawtio/hawtio.git</url>
+    <tag>hawtio-2.5.0</tag>
+  </scm>
+
+  <distributionManagement>
+    <repository>
+      <id>oss-sonatype-staging</id>
+      <name>Sonatype Staging Repository</name>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+    </repository>
+    <snapshotRepository>
+      <id>oss-sonatype-snapshots</id>
+      <name>OSS Sonatype Nexus Snapshots</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <properties>
+    <failIfNoTests>false</failIfNoTests>
+    <jettyPort>8282</jettyPort>
+    <context>/hawtio</context>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+
+    <webapp-dir>${project.artifactId}-${project.version}</webapp-dir>
+    <webapp-outdir>${basedir}/target/${webapp-dir}</webapp-outdir>
+
+    <blueprint-web-version>1.1.0</blueprint-web-version>
+    <build-helper-maven-plugin-version>1.12</build-helper-maven-plugin-version>
+
+    <camel-version>2.23.1</camel-version>
+    <spring-version>5.1.3.RELEASE</spring-version>
+    <spring-boot-version>2.1.2.RELEASE</spring-boot-version>
+
+    <!-- Camel 2.21.x version for Spring Boot 1.5.x-->
+    <camel-2.21-version>2.21.3</camel-2.21-version>
+    <spring4-version>4.3.16.RELEASE</spring4-version>
+    <spring-boot1-version>1.5.12.RELEASE</spring-boot1-version>
+
+    <commons-codec-version>1.10</commons-codec-version>
+    <commons-httpclient-version>3.1</commons-httpclient-version>
+    <commons-io-version>2.2</commons-io-version>
+    <commons-logging-version>1.1.3</commons-logging-version>
+    <exec-maven-plugin-version>1.5.0</exec-maven-plugin-version>
+    <frontend-maven-plugin-version>1.6</frontend-maven-plugin-version>
+    <guava-version>21.0</guava-version>
+    <httpclient-version>4.5.2</httpclient-version>
+    <!-- make sure to align jackson with fuse/karaf 4.2 -->
+    <jackson-version>2.8.11</jackson-version>
+    <jackson-version-range>[2.8,3)</jackson-version-range>
+    <jetty-version>9.4.6.v20170531</jetty-version>
+    <jetty-plugin-version>${jetty-version}</jetty-plugin-version>
+    <jolokia-version>1.6.0</jolokia-version>
+    <junit-version>4.12</junit-version>
+    <karaf-version>4.2.1</karaf-version>
+    <karaf-version-range>[4.0,5)</karaf-version-range>
+    <keycloak-version>3.4.1.Final</keycloak-version>
+    <log4j-version>1.2.17</log4j-version>
+    <maven-bundle-plugin-version>3.0.1</maven-bundle-plugin-version>
+    <maven-failsafe-plugin-version>3.0.0-M1</maven-failsafe-plugin-version>
+    <maven-resources-plugin-version>2.6</maven-resources-plugin-version>
+    <maven-surefire-plugin-version>3.0.0-M1</maven-surefire-plugin-version>
+    <org-json-version>20171018</org-json-version>
+    <osgi-version>5.0.0</osgi-version>
+    <servlet-api-version>3.1.0</servlet-api-version>
+    <!-- use slf4j-api 1.6.x to be easy compatible with older Karaf/Camel releases -->
+    <slf4j-api-version>1.6.6</slf4j-api-version>
+    <slf4j-version>1.7.21</slf4j-version>
+    <wildfly-version>11.0.0.Final</wildfly-version>
+    <wildfly-maven-plugin-version>1.2.1.Final</wildfly-maven-plugin-version>
+  </properties>
+
+  <modules>
+    <module>bom</module>
+    <module>examples/springboot-authentication</module>
+    <module>examples/springboot</module>
+    <module>examples/springboot-1-authentication</module>
+    <module>examples/springboot-1</module>
+    <module>hawtio-app</module>
+    <module>hawtio-base</module>
+    <module>hawtio-console-assembly</module>
+    <module>hawtio-core</module>
+    <module>hawtio-default</module>
+    <module>hawtio-embedded</module>
+    <module>hawtio-ide</module>
+    <module>hawtio-log</module>
+    <module>hawtio-log-osgi</module>
+    <module>hawtio-local-jvm-mbean</module>
+    <module>hawtio-system</module>
+    <module>hawtio-util</module>
+    <module>hawtio-war</module>
+    <module>platforms/hawtio-osgi-jmx</module>
+    <module>platforms/karaf</module>
+    <module>platforms/springboot</module>
+    <module>platforms/springboot-1</module>
+    <module>platforms/wildfly</module>
+    <module>tooling/hawtio-junit</module>
+    <module>tooling/hawtio-maven-plugin</module>
+  </modules>
+
+  <build>
+    <defaultGoal>install</defaultGoal>
+
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>add-integration-test-sources</id>
+            <phase>generate-test-sources</phase>
+            <goals>
+              <goal>add-test-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>src/integration-test/java</source>
+              </sources>
+            </configuration>
+          </execution>
+          <execution>
+            <id>add-integration-test-resources</id>
+            <phase>generate-test-resources</phase>
+            <goals>
+              <goal>add-test-resource</goal>
+            </goals>
+            <configuration>
+              <resources>
+                <resource>
+                  <filtering>true</filtering>
+                  <directory>src/integration-test/resources</directory>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.4.1</version>
+        <configuration>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+          <!--
+          <tag>hawtio-${project.version}</tag>
+          -->
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <redirectTestOutputToFile>true</redirectTestOutputToFile>
+          <forkedProcessTimeoutInSeconds>300</forkedProcessTimeoutInSeconds>
+          <childDelegation>false</childDelegation>
+          <useFile>true</useFile>
+          <failIfNoTests>false</failIfNoTests>
+          <runOrder>alphabetical</runOrder>
+          <systemPropertyVariables>
+            <basedir>${basedir}</basedir>
+            <java.awt.headless>true</java.awt.headless>
+          </systemPropertyVariables>
+
+          <excludes>
+            <exclude>**/*IT.*</exclude>
+            <exclude>**/*ITCase.*</exclude>
+          </excludes>
+
+          <includes>
+            <include>**/*Test.*</include>
+          </includes>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>integration-tests</id>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <excludes>
+            <exclude>**/*Test.*</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+
+    </plugins>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.0.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>build-helper-maven-plugin</artifactId>
+          <version>${build-helper-maven-plugin-version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${maven-surefire-plugin-version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>${maven-failsafe-plugin-version}</version>
+          </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <profiles>
+    <!-- dealing with tools.jar for hawtio-local-jvm-mbean -->
+    <profile>
+      <id>default-profile</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+        <file>
+          <exists>${java.home}/../lib/tools.jar</exists>
+        </file>
+      </activation>
+      <properties>
+        <toolsjar>${java.home}/../lib/tools.jar</toolsjar>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>release</id>
+      <properties>
+      </properties>
+      <!--
+      TODO when using the release profile you should add your ~/.m2/settings.xml something like this:
+
+      <settings>
+        <profiles>
+          <profile>
+            <id>release</id>
+            <properties>
+              <gpg.passphrase>MyPassPhrase</gpg.passphrase>
+            </properties>
+          </profile>
+          ...
+      -->
+
+      <!--
+        Run the release /w the -P release flag to enable the release profile.
+      -->
+      <build>
+        <plugins>
+          <!-- We want to sign the artifact, the POM, and all attached artifacts -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <configuration>
+              <passphrase>${gpg.passphrase}</passphrase>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <configuration>
+              <encoding>${project.build.sourceEncoding}</encoding>
+              <doclint>none</doclint>
+            </configuration>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+</project>

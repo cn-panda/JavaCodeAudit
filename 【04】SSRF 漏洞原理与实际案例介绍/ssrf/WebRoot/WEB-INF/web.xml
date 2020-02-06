@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>ssrf</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>ssrfTest</display-name>
+    <servlet-name>ssrfTest</servlet-name>
+    <servlet-class>com.sec.servlet.ssrfTest</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ssrfTest</servlet-name>
+    <url-pattern>/ssrfTest</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ssrfFileDown</display-name>
+    <servlet-name>ssrfFileDown</servlet-name>
+    <servlet-class>com.sec.servlet.ssrfFileDown</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ssrfFileDown</servlet-name>
+    <url-pattern>/ssrfFileDown</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ssrfFileRead</display-name>
+    <servlet-name>ssrfFileRead</servlet-name>
+    <servlet-class>com.sec.servlet.ssrfFileRead</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ssrfFileRead</servlet-name>
+    <url-pattern>/ssrfFileRead</url-pattern>
+  </servlet-mapping>
+</web-app>
