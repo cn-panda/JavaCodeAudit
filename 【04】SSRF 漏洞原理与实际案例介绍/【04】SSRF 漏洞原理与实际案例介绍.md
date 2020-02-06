@@ -371,8 +371,6 @@ public ProxyWhitelist(String whitelistStr, boolean probeLocal) {
 * BasicHttpRequest
 * URI
 
-
-
 ## 0x06 参考
 
 https://github.com/frohoff/jdk8u-jdk/tree/master/src/share/classes/sun/net/www/protocol
