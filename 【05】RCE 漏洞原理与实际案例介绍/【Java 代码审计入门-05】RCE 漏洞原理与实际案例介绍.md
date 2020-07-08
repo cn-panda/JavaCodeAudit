@@ -24,7 +24,7 @@ https://github.com/cn-panda/JavaCodeAudit
 
 导入项目，可以得到以下目录：
 
-![image-20200611101308954](/Users/panda/Library/Application Support/typora-user-images/image-20200611101308954.png)
+![1.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9005%E3%80%91RCE%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/1.png?raw=true)
 
 项目是一个简单调用类方法去执行相关操作的实现。在 servlet 层接受到请求后，调用 rceTest中的CommandFound函数，该函数接受三个参数：command、method、str，command 为要执行的命令类，method 为要执行的方法，str 为要执行的内容。
 
@@ -60,11 +60,11 @@ RCE 出现的场景比较多，如：
 
 拿上述项目举例，首先看看项目的具体实现：
 
-![image-20200611223924441](/Users/panda/Library/Application Support/typora-user-images/image-20200611223924441.png)
+![1.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9005%E3%80%91RCE%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/2.png?raw=true)
 
 command 为请求的类，method 为请求类的方法，str 为请求类的参数，服务端接收这三个参数后执行 method 的具体方法，如上图所示，首先找到 `com.sec.pojo.Command`类，然后找到该类中的`AddCommand`方法，最后根据这个方法的需要，传入指定的参数`[add]`。
 
-<img src="/Users/panda/Library/Application Support/typora-user-images/image-20200612103803571.png" alt="image-20200612103803571" style="zoom:50%;" />
+![1.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9005%E3%80%91RCE%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/3.png?raw=true)
 
 项目的实现内容很简单，就是接收参数-->执行操作，下面我们来看这是怎么实现的。在`recTest.java`中，存在如下代码：
 
@@ -102,7 +102,7 @@ public void CommandFound(HttpServletRequest req, HttpServletResponse resp) throw
 
 有心的朋友可能发现了，上述代码中没有出现任何一个可执行函数（如exec()、system()等），但是却存在 RCE 漏洞。如下图所示：
 
-![image-20200612112613979](/Users/panda/Library/Application Support/typora-user-images/image-20200612112613979.png)
+![1.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9005%E3%80%91RCE%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/4.png?raw=true)
 
 可以发现，由于代码对于我们传入的类、传入类的方法、传入类的参数没有做任何限制，从而导致了 RCE 漏洞，这也是RCE 漏洞可能出现场景中的第二项。
 
@@ -130,17 +130,11 @@ CVE 地址：https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2010-1871
 
 值得注意的是，在这个漏洞的CVE 介绍中提到：”仅当未正确配置Java安全管理器时，这才是漏洞。“但其实这个漏洞有两个不同的点，如下图，当我们在Metasploit中搜索 cve-2010-1871时：
 
-![image-20200629103124108](/Users/panda/Library/Application Support/typora-user-images/image-20200629103124108.png)
+![1.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9005%E3%80%91RCE%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/5.png?raw=true)
 
 存在两个exploit，首先看第一个`auxiliary/admin/http/jboss_seam_exec`的配置
 
-![image-20200629103232160](/Users/panda/Library/Application Support/typora-user-images/image-20200629103232160.png)
-
-可以看到其实这个exploit 利用的点在`/seam-booking/home.seam`
-
-而`exploit/multi/http/jboss_seam_upload_exec`的配置：
-
-![image-20200629103359432](/Users/panda/Library/Application Support/typora-user-images/image-20200629103359432.png)
+![1.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9005%E3%80%91RCE%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/7.png?raw=true)
 
 这个 exploit 利用点在`/admin-console.login.seam`，当配置了java安全管理器后，该漏洞利用不成功。
 
@@ -214,7 +208,7 @@ export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 * 解压`JBoss-seam 2.2.0.CR1.zip`
 * 将解压后的文件放在jboss 目录下，如下图所示：
 
-![image-20200629111309879](/Users/panda/Library/Application Support/typora-user-images/image-20200629111309879.png)
+![1.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9005%E3%80%91RCE%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/8.png?raw=true)
 
 * 进入`/jboss-seam`目录，编辑`build.properties`文件，在文件尾行加入以下代码：
 
@@ -225,25 +219,17 @@ jboss.home /home/panda/www/jboss
 
 * 进入`jboss-seam/examples/booking`目录，然后执行安装命令：`ant deploy`，程序会自动安装，如下图所示：
 
-<img src="/Users/panda/Library/Application Support/typora-user-images/image-20200629111620575.png" alt="image-20200629111620575" style="zoom:50%;" />
+![1.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9005%E3%80%91RCE%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/9.png?raw=true)
 
 安装完毕后在进入jboss 安装的根目录下的`bin`文件，执行`./run.sh`命令，如下图所示：
 
-![image-20200629111757555](/Users/panda/Library/Application Support/typora-user-images/image-20200629111757555.png)
+![1.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9005%E3%80%91RCE%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/10.png?raw=true)
 
 安装完毕后，在本机环境即可打开该站点，如下图所示：
 
-![image-20200629112442833](/Users/panda/Library/Application Support/typora-user-images/image-20200629112442833.png)
+![1.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9005%E3%80%91RCE%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/11.png?raw=true)
 
-![image-20200629112512426](/Users/panda/Library/Application Support/typora-user-images/image-20200629112512426.png)
-
-####3、案例漏洞分析
-
-本案例漏洞的原因是因为JBoss EL表达式解析的问题导致了表达式注入。漏洞文件为：`jboss-seam/examples/booking/exploded-archives/jboss-seam-booking.ear/jboss-seam.jar`
-
-反编译后可以得到源码，目录如下：
-
-![image-20200706101132378](/Users/panda/Library/Application Support/typora-user-images/image-20200706101132378.png)
+![1.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9005%E3%80%91RCE%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/13.png?raw=true)
 
 在本目录下的/navigation/Pages.java 文件是漏洞的入口，关键代码如下：
 
@@ -326,7 +312,7 @@ private static boolean isOutcomeViewId(String outcome) {
 
 整个漏洞流程如下图所示：
 
-![14](/Users/panda/Desktop/Java 代码审计学习/java 代码审计入门 - 05/img/14.png)
+![1.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9005%E3%80%91RCE%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/14.png?raw=true)
 
 漏洞的逻辑线上面介绍的比较清楚了，下面的关键是如何构建我们想要的 JBoss EL 表达式。JBoss EL 表达式是在 Java EL 表达式基础上的增强。比如说我们想进行参数绑定，那么可以：
 
@@ -399,7 +385,7 @@ expressions.getClass().forName('java.lang.Runtime').getDeclaredMethod('getRuntim
 
 执行效果如下：
 
-![image-20200707211334356](/Users/panda/Library/Application Support/typora-user-images/image-20200707211334356.png)
+![1.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9005%E3%80%91RCE%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/15.png?raw=true)
 
 网上也有其他形式的 payload，首先使用`getDeclaredMethods()`得到所有方法，然后采用数组的形式调用指定方法。
 
@@ -409,7 +395,7 @@ expressions.getClass().forName('java.lang.Runtime').getDeclaredMethod('getRuntim
 /seam-booking/home.seam?actionOutcome=/test.xhtml?xxx=%23{expressions.getClass().forName('java.lang.Runtime').getDeclaredMethods()[0]}
 ```
 
-![image-20200707213038246](/Users/panda/Library/Application Support/typora-user-images/image-20200707213038246.png)
+![1.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9005%E3%80%91RCE%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/16.png?raw=true)
 
 返回的是：
 
@@ -434,7 +420,7 @@ untime').getDeclaredMethods()[6].invoke(null), 'gnome-calculator')}
 
 执行效果：
 
-![image-20200707212611658](/Users/panda/Library/Application Support/typora-user-images/image-20200707212611658.png)
+![1.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9005%E3%80%91RCE%20%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/17.png?raw=true)
 
 
 
