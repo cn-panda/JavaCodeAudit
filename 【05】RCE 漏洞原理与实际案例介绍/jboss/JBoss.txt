@@ -1,0 +1,15 @@
+
+1、jboss-5.0.1.GA.zip
+链接:https://pan.baidu.com/s/1Ecri9BOoE5t0COiAfGy64A  密码:b1ju
+
+2、jboss-seam-2.2.0.CR1.zip
+链接:https://pan.baidu.com/s/12nt9qwXyoQp_GEEsAiyrMQ  密码:dp5k
+
+3、jdk-6u45-linux-x64.bin
+链接:https://pan.baidu.com/s/16w8g6ywBlUYyU30YnX0zTw  密码:ku26
+
+4、apache-ant-1.6.2.rar
+链接:https://pan.baidu.com/s/14TCLozENOMLLmVhKMvpUqQ  密码:cfft
+
+5、ubuntu-18.04.2-desktop-amd64.iso
+链接:https://pan.baidu.com/s/1z-cQumNuEfqYuN74gmMwkw  密码:khcd
