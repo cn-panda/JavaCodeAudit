@@ -27,7 +27,7 @@
     </distributionManagement>
     <!--指定项目中公有的模块-->
     <properties>
-        <jfinal.version>3.2</jfinal.version>
+        <jfinal.version>4.9.11</jfinal.version>
         <servlet.api.version>3.0.1</servlet.api.version>
         <spring.bom.version>3.2.9.RELEASE</spring.bom.version>
         <spring.version>3.2.9.RELEASE</spring.version>
