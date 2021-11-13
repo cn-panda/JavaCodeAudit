@@ -26,9 +26,9 @@ https://github.com/cn-panda/JavaCodeAudit
 
 导入项目，可以得到以下目录：
 
-![[Pasted image 20211113151342.png]]
+![1.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9006%E3%80%91%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/1.png)
 
-![[Pasted image 20211113151348.png]]
+![2.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9006%E3%80%91%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/2.png)
 
 项目是一个为了体现文件包含而特地写的一些功能，比如从本地引入文件、从远程引入文件等，此外，还有 Springboot+thymeleaf 的文件包含测试项目。
 
@@ -97,17 +97,17 @@ File Include Test Page. <br>
 
 当我们令`file`的参数值为`data.txt`时，可以得到该文件的内容，如下图所示：
 
-![[Pasted image 20211108194803.png]]
+![3.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9006%E3%80%91%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/3.png)
 
 但是这里有个问题，就是这里包含的路径实际上只能是该 web 路径下的文件，并且该文件的类型只能是文本类型，如`jsp`、`txt`等，不支持图片等类型的文件。
 
 当尝试访问一个图片资源的时候，就会报错：
 
-![[Pasted image 20211108211234.png]]
+![4.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9006%E3%80%91%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/4.png)
 
 并且不支持解析.java 文件（原理上面已说过）：
 
-![[Pasted image 20211108211604.png]]
+![5.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9006%E3%80%91%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/5.png)
 
 其次再来看看远程包含：
 
@@ -133,33 +133,33 @@ This is my JSP page. <br>
 
 远程包含不但可以包含远程文件，同时可以包含本地文件，如下：
 
-![[Pasted image 20211108221206.png]]
+![6.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9006%E3%80%91%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/6.png)
 
-![[Pasted image 20211108221136.png]]
+![7.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9006%E3%80%91%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/7.png)
 
 包括图片资源（不解析图片，但是有图片的数据）：
 
-![[Pasted image 20211108221254.png]]
+![8.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9006%E3%80%91%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/8.png)
 
 解析远程文件：
 
-![[Pasted image 20211108221718.png]]
+![9.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9006%E3%80%91%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/9.png)
 
-![[Pasted image 20211108221740.png]]
+![10.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9006%E3%80%91%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/10.png)
 
 深入利用，首先在 XSS 平台生成一个利用的 xss  payload，然后在远程创建一个 html 页面，这个 html 里面镶嵌了这个 xss js，然后利用包含漏洞远程访问：
 
-![[Pasted image 20211108222323.png]]
+![11.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9006%E3%80%91%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/11.png)
 
 成功获取到了 cookie
 
-![[Pasted image 20211108222148.png]]
+![12.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9006%E3%80%91%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/12.png)
 
 除此之外，还可以利用 file、netdoc 协议来实现任意文件读取的目的：
 
-![[Pasted image 20211109142811.png]]
+![13.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9006%E3%80%91%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/13.png)
 
-![[Pasted image 20211109143837.png]]
+![14.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9006%E3%80%91%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/14.png)
 
 那么 java 文件包含漏洞做到的仅仅如此而已吗？
 
@@ -167,9 +167,9 @@ This is my JSP page. <br>
 
 利用方式和`K0rz3n`师傅提到的[利用 jar 上传文件](https://xz.aliyun.com/t/3357)大差不差，同样是利用临时文件，然后报错获取临时文件的路径，由于时间关系，我这里只是做了个简单的测试：
 
-![[Pasted image 20211109150146.png]]
+![15.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9006%E3%80%91%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/15.png)
 
-![[Pasted image 20211109150131.png]]
+![16.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9006%E3%80%91%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/16.png)
 
 可以看到临时文件确实存在于目录下，只不过由于是临时的，所以很快自动删除了，只要使用某种技巧（`K0rz3n`师傅提到），就能够使得文件长时间存在于目标服务器中，但是如何利用上传的文件，也是一个问题，这里我也没深入思考其利用方式，有兴趣的朋友可以思考一番
 
@@ -186,7 +186,7 @@ public String path(@RequestParam String language) {
 
 这是 SpringBoot 项目中某个控制器的部分代码片段，thymeleaf 的目录如下：
 
-![[Pasted image 20211110112827.png]]
+![17.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9006%E3%80%91%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/17.png)
 
 因此从代码逻辑中基本上可以判断，这实际上是一个语言界面选择的功能，如果是中文阅读习惯者，那么会令`language`参数为`cn`，如果是英文阅读习惯者，那么会令`language`参数为`en`，代码逻辑本身实际上是没有什么问题的，但是这里采用的是 thymeleaf 模板，就出现了问题。
 
@@ -194,11 +194,11 @@ public String path(@RequestParam String language) {
 
 - createView()   根据视图名创建对应的View
 
-![[Pasted image 20211110170330.png]]
+![18.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9006%E3%80%91%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/18.png)
 
 - renderFragment()   根据视图名解析模板名称  
 
-![[Pasted image 20211110170416.png]]
+![19.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9006%E3%80%91%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/19.png)
 
 所以可以跟进`renderFragment()`来看看如何解析模板名称的：
 
@@ -244,7 +244,7 @@ public String path(@RequestParam String language) {
 
 所以我们直接令`language`参数的值为一个我们指定的SpEL表达式，就可以实现 RCE：
 
-![[Pasted image 20211110211919.png]]
+![20.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9006%E3%80%91%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/20.png)
 
 那么如果我们假设存在一个可以上传非 jsp 类型文件的漏洞，并且上传的位置可控，控制器的逻辑如下：
 
@@ -275,7 +275,7 @@ public String test(@RequestParam String path) {
 
 访问即可达到PHP 中的文件包含效果：
 
-![[Pasted image 20211110214111.png]]
+![21.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9006%E3%80%91%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/21.png)
 
 这种情况，在实际情况下我遇到过，只不过非 jsp文件 类型的任意位置的文件上传漏洞比较少见，可能遇到这种情况的人比较少，所以也不具有代表性。
 
@@ -289,7 +289,7 @@ public String test(@RequestParam String path) {
 
 所以在这里，如果存在一个模板文件中的参数可控，即：
 
-![[Pasted image 20211110222035.png]]
+![22.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9006%E3%80%91%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/22.png)
 
 并且控制器中的逻辑为：
 
@@ -303,7 +303,7 @@ public String path(@RequestParam String exp, Model model) {
 
 同样可以实现 RCE 效果：
 
-![[Pasted image 20211110222014.png]]
+![23.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9006%E3%80%91%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/23.png)
 
 这里介绍的仅仅是原理是类似于文件包含的 thymeleaf 漏洞，实际上这类的漏洞有专门的名称——SSTI（模板注入漏洞）
 
@@ -319,11 +319,11 @@ public String path(@RequestParam String exp, Model model) {
 
 在上文中我们提到，`createView()`方法的作用是根据视图名创建对应的`View`，实际上  在该方法中，Thymeleaf 对`redirect:`和`forward:`有特殊处理：
 
-![[Pasted image 20211110171737.png]]
+![24.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9006%E3%80%91%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/24.png)
 
 跟进RedirectView这个重定向类，然后可以发现：
 
-![[Pasted image 20211110171640.png]]
+![25.png](https://github.com/cn-panda/JavaCodeAudit/blob/master/%E3%80%9006%E3%80%91%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D/img/25.png)
 
 简单来说这里的逻辑会根据填写的返回值来判断是重定向（`redirect:`）还是请求转发（`forward:`），然后调用原生的Servlet的重定向或者请求转发方法，从而就不会进入执行SpEL表达式的流程，也就不会产生所谓的漏洞了。
 
