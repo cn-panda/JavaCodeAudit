@@ -15,7 +15,7 @@
     <name>jeesns-core</name>
 
     <properties>
-        <spring.version>4.2.6.RELEASE</spring.version>
+        <spring.version>5.2.20.RELEASE</spring.version>
         <mybatis.version>3.4.0</mybatis.version>
     </properties>
     <dependencies>
